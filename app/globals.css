@@ -124,94 +124,64 @@
 @layer base {
   :root {
     /* ============================================ */
-    /* 🌈 OKLCH COLOR SYSTEM - Premium Back-Lit UI */
-    /* ============================================ */
-    /* Modern, perceptually uniform colors with wide-gamut support */
-    /* Resource: https://web.dev/blog/color-spaces-and-functions */
-    
-    /* Base Neutrals - Deep Charcoal Foundation */
-    --oklch-bg: oklch(12% 0.02 258);           /* Deep charcoal with cool undertone */
-    --oklch-panel: oklch(18% 0.02 258);        /* Elevated panels */
-    --oklch-panel-alpha: oklch(18% 0.02 258 / 0.6); /* Semi-transparent panels */
-    --oklch-surface: oklch(22% 0.02 258);      /* Interactive surfaces */
-    
-    /* Text Colors - High Contrast Hierarchy */
-    --oklch-text-primary: oklch(98% 0 0);      /* Pure white */
-    --oklch-text-secondary: oklch(90% 0.01 258); /* Light gray - improved contrast */
-    --oklch-text-tertiary: oklch(80% 0.02 258);  /* Medium gray - improved contrast */
-    --oklch-text-muted: oklch(65% 0.02 258);   /* Darker gray - improved contrast */
-    
-    /* Brand "Back-Light" Ramp - Pure White Glow (Apple-Inspired) */
-    --oklch-brand-1: oklch(85% 0.02 258);      /* Soft white with cool undertone */
-    --oklch-brand-2: oklch(92% 0.01 258);      /* Bright white */
-    --oklch-brand-3: oklch(98% 0 0);           /* Pure white glow (primary accent) */
-    --oklch-brand-4: oklch(75% 0.03 258);      /* Muted white (hover) */
-    
-    /* Semantic Status Colors - Consistent Lightness */
-    --oklch-success: oklch(70% 0.22 145);      /* Success green */
-    --oklch-warning: oklch(75% 0.20 75);       /* Warning amber */
-    --oklch-error: oklch(68% 0.25 25);         /* Error red */
-    --oklch-info: oklch(72% 0.20 220);         /* Info blue */
-    
-    /* Application Status Colors (for badges) */
-    --oklch-status-new: oklch(72% 0.24 260);         /* Blue - New */
-    --oklch-status-review: oklch(75% 0.20 75);       /* Amber - Under Review */
-    --oklch-status-shortlist: oklch(68% 0.22 280);   /* Purple - Shortlisted */
-    --oklch-status-accepted: oklch(70% 0.22 145);    /* Green - Accepted */
-    --oklch-status-rejected: oklch(68% 0.25 25);     /* Red - Rejected */
-    
-    /* Borders & Rings - Subtle Definition */
-    --oklch-border: oklch(22% 0.01 258);       /* Subtle borders */
-    --oklch-border-alpha: oklch(98% 0 0 / 0.08); /* Semi-transparent white border */
-    --oklch-ring: oklch(78% 0.29 270);         /* Focus ring with glow */
-    
-    /* ============================================ */
-    /* 🎨 HSL TOKENS (Legacy - Backward Compatible) */
+    /* 🎨 Digital Builders Brand Colors */
     /* ============================================ */
     
-    /* Ultra-Deep Black Aesthetic - Apple Inspired */
-    --background: 0 0% 0%;
-    --foreground: 0 0% 98%;
+    /* Brand Colors - Neon Palette */
+    --brand-primary: #ff00ff;      /* Magenta (CTA) */
+    --brand-secondary: #00ff55;    /* Green */
+    --brand-tertiary: #00c3ff;     /* Cyan */
+    
+    /* Background Colors */
+    --brand-background: #070707;   /* Dark background */
+    --brand-card: #111111;          /* Card background */
+    --brand-border: #262626;        /* Border color */
+    
+    /* Text Colors */
+    --brand-text-primary: #fafafa;   /* Primary text */
+    --brand-text-secondary: #a3a3a3; /* Secondary text */
+    
+    /* ============================================ */
+    /* 🎨 HSL TOKENS (for shadcn/ui compatibility) */
+    /* ============================================ */
+    
+    /* Digital Builders Dark Theme */
+    --background: 0 0% 3%;          /* #070707 */
+    --foreground: 0 0% 98%;         /* #fafafa */
 
-    --card: 0 0% 3%;
+    --card: 0 0% 7%;                /* #111111 */
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3%;
+    --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
 
-    /* Pure White Primary - Apple Style */
-    --primary: 0 0% 100%;
+    /* Primary - Magenta (CTA) */
+    --primary: 300 100% 50%;        /* #ff00ff */
     --primary-foreground: 0 0% 0%;
 
-    /* Ultra-Dark Secondary - Deeper than before */
-    --secondary: 0 0% 6%;
-    --secondary-foreground: 0 0% 90%;
+    /* Secondary - Green */
+    --secondary: 142 100% 50%;      /* #00ff55 */
+    --secondary-foreground: 0 0% 0%;
 
-    /* Sophisticated Muted Colors - Apple Inspired */
-    --muted: 0 0% 4%;
-    --muted-foreground: 0 0% 55%;
+    /* Muted Colors */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;   /* #a3a3a3 */
 
-    /* Refined Accent Colors - Ultra-Subtle */
-    --accent: 0 0% 8%;
-    --accent-foreground: 0 0% 95%;
+    /* Accent - Cyan */
+    --accent: 195 100% 50%;         /* #00c3ff */
+    --accent-foreground: 0 0% 0%;
 
-    /* Professional Destructive Colors */
+    /* Destructive Colors */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    /* Enhanced Border Colors - Apple Precision */
-    --border: 0 0% 12%;
-    --input: 0 0% 8%;
-    --ring: 0 0% 100%;
+    /* Border Colors */
+    --border: 0 0% 15%;             /* #262626 */
+    --input: 0 0% 15%;
+    --ring: 300 100% 50%;           /* Magenta focus ring */
 
-    /* Apple-Inspired Border Radius */
+    /* Border Radius */
     --radius: 1rem;
-
-    /* Custom Brand Colors - Ultra-Monochromatic */
-    --brand-primary: 0 0% 100%;
-    --brand-secondary: 0 0% 15%;
-    --brand-accent: 0 0% 85%;
-    --brand-muted: 0 0% 35%;
     
     /* Seamless Background Gradients - Black to Dark Gray */
     --bg-gradient-primary: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 8%) 25%, hsl(0 0% 12%) 50%, hsl(0 0% 8%) 75%, hsl(0 0% 0%) 100%);
@@ -232,42 +202,100 @@
   }
 
   .dark {
-    --background: 0 0% 3.9%;
+    /* Digital Builders Dark Theme (same as root) */
+    --background: 0 0% 3%;
     --foreground: 0 0% 98%;
 
-    --card: 0 0% 3.9%;
+    --card: 0 0% 7%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3.9%;
+    --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 300 100% 50%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 142 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 195 100% 50%;
+    --accent-foreground: 0 0% 0%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 300 100% 50%;
   }
 }
 
 @layer base {
+  :root {
+    --font-body: var(--font-inter);
+    --font-heading: var(--font-space-mono);
+  }
+  
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-body), system-ui, sans-serif;
+    background-color: #070707;
+    color: #fafafa;
+  }
+  
+  /* Digital Builders Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), monospace;
+    font-weight: 700;
+  }
+  
+  h1 {
+    font-size: 48px;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+  
+  h2 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+  
+  h3 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  
+  /* Card text */
+  .card-text {
+    font-size: 20px;
+    line-height: 1.4;
+    font-family: var(--font-heading), monospace;
+  }
+  
+  /* Body text */
+  body, p {
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 80ch; /* 60-80 characters per line */
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+  
+  /* Small text */
+  small, .text-sm {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Buttons use Space Mono */
+  button {
+    font-family: var(--font-heading), monospace;
   }
 }
 
@@ -982,19 +1010,109 @@ h1 {
 }
 
 /* ============================================ */
-/* 🎯 OKLCH BROWSER SUPPORT FALLBACKS */
+/* ✨ Digital Builders Neon Effects */
 /* ============================================ */
-/* For browsers that don't support OKLCH yet */
 
-@supports not (color: oklch(0% 0 0)) {
-  :root {
-    /* Fallback to HSL for older browsers */
-    --oklch-bg: hsl(0 0% 12%);
-    --oklch-panel: hsl(0 0% 18%);
-    --oklch-panel-alpha: hsla(0, 0%, 18%, 0.6);
-    --oklch-brand-3: hsl(260, 80%, 75%);
-    --oklch-text-primary: hsl(0 0% 98%);
+/* Neon Glow Effect - Use sparingly (1-2 elements per layout) */
+.neon-glow {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 30px currentColor;
+}
+
+.neon-glow-primary {
+  color: #ff00ff;
+  text-shadow: 
+    0 0 10px #ff00ff,
+    0 0 20px #ff00ff,
+    0 0 30px #ff00ff;
+}
+
+.neon-glow-secondary {
+  color: #00ff55;
+  text-shadow: 
+    0 0 10px #00ff55,
+    0 0 20px #00ff55,
+    0 0 30px #00ff55;
+}
+
+.neon-glow-tertiary {
+  color: #00c3ff;
+  text-shadow: 
+    0 0 10px #00c3ff,
+    0 0 20px #00c3ff,
+    0 0 30px #00c3ff;
+}
+
+/* Neon Box Shadow (for buttons, cards) */
+.neon-shadow-primary {
+  box-shadow: 
+    0 0 10px rgba(255, 0, 255, 0.5),
+    0 0 20px rgba(255, 0, 255, 0.3),
+    0 0 30px rgba(255, 0, 255, 0.2);
+}
+
+.neon-shadow-secondary {
+  box-shadow: 
+    0 0 10px rgba(0, 255, 85, 0.5),
+    0 0 20px rgba(0, 255, 85, 0.3),
+    0 0 30px rgba(0, 255, 85, 0.2);
+}
+
+.neon-shadow-tertiary {
+  box-shadow: 
+    0 0 10px rgba(0, 195, 255, 0.5),
+    0 0 20px rgba(0, 195, 255, 0.3),
+    0 0 30px rgba(0, 195, 255, 0.2);
+}
+
+/* Glitch Text Effect - Use only for hero/special announcements */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
   }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+
+.glitch-text {
+  animation: glitch 0.3s infinite;
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch 0.3s infinite;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ff55, 2px 2px #00c3ff;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch 0.3s infinite reverse;
 }
 
 /* ============================================ */

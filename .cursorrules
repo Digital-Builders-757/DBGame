@@ -1,10 +1,10 @@
-# TOTL Agency - Cursor AI Assistant Rules
+# Digital Builders - Cursor AI Assistant Rules
 
 ## 🎯 MANDATORY CONTEXT REFERENCE
 
 **BEFORE WRITING ANY CODE, YOU MUST:**
 
-1. **READ** `TOTL_PROJECT_CONTEXT_PROMPT.md` completely
+1. **READ** `DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md` completely
 2. **CHECK** `supabase/migrations/` for current database schema
 3. **VERIFY** RLS policies in the context file
 4. **USE** generated types from `types/database.ts` (NO `any` types)
@@ -12,31 +12,31 @@
 
 ## 📋 PROJECT OVERVIEW
 
-**TOTL Agency** - Talent booking platform connecting models/actors with casting directors/brands
+**Digital Builders** - Text-based MMO for the creative tech community
 
 **Tech Stack:**
-- Next.js 15.2.4 + App Router + TypeScript 5
+- Next.js 15.5.4 + App Router + TypeScript 5
 - Supabase (PostgreSQL + Auth + Storage + Real-time)
 - TailwindCSS + shadcn/ui components
-- Resend API for custom emails
+- Resend API for emails (optional)
 
 **Database:** PostgreSQL with RLS policies on all tables
-**Auth:** Supabase Auth with role-based access (talent/client/admin)
-**Key Tables:** profiles, talent_profiles, client_profiles, gigs, applications, bookings, portfolio_items
+**Auth:** Supabase Auth with email/password (v1 MVP is Web2-only)
+**Key Tables:** profiles, game_accounts, characters, cities, districts, jobs, actions, db_cred_balances, interaction_logs
 
 ## 📋 PROJECT CONTEXT SUMMARY
 
-**Tech Stack:** Next.js 15.2.4 + Supabase + TypeScript + shadcn/ui
+**Tech Stack:** Next.js 15.5.4 + Supabase + TypeScript + shadcn/ui
 **Database:** PostgreSQL with RLS policies on all tables
-**Auth:** Supabase Auth with role-based access (talent/client/admin)
-**Key Tables:** profiles, talent_profiles, client_profiles, gigs, applications, bookings, portfolio_items
+**Auth:** Supabase Auth with email/password (no wallet required for v1)
+**Key Tables:** profiles, game_accounts, characters, cities, districts, jobs, actions, db_cred_balances
 **Security:** Row-level security enforced, no service keys in client code
 **Architecture:** Server components for data fetching, presentational components only
 
 ## ✅ COMPLIANCE CHECKLIST
 
 Before generating any code, ensure:
-- [ ] Referenced `TOTL_PROJECT_CONTEXT_PROMPT.md` for complete context
+- [ ] Referenced `DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md` for complete context
 - [ ] **🚨 CRITICAL: database_schema_audit.md is the SINGLE SOURCE OF TRUTH**
 - [ ] Used proper TypeScript types (no `any`)
 - [ ] Followed RLS-compatible query patterns
@@ -86,7 +86,7 @@ Before generating any code, ensure:
 
 ## 📁 CRITICAL FILES TO REFERENCE
 
-- `TOTL_PROJECT_CONTEXT_PROMPT.md` - Complete project context
+- `DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md` - Complete project context
 - **🚨 `database_schema_audit.md` - SINGLE SOURCE OF TRUTH for database schema**
 - **🚨 `docs/AUTH_DATABASE_TRIGGER_CHECKLIST.md` - MANDATORY before auth changes**
 - `types/database.ts` - Generated Supabase types

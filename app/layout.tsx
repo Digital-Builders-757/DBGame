@@ -1,55 +1,65 @@
 ﻿import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Mono } from "next/font/google";
 import type React from "react";
-import ClientLayout from "./client-layout";
 import Providers from "./providers";
 import { Ga4Analytics } from "@/components/analytics/ga4-analytics";
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+// Digital Builders Typography
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({ 
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.thetotlagency.com"),
-  title: "TOTL Agency - Premium Modeling Agency",
-  description: "Representing exceptional modeling talent worldwide. RISE ABOVE THE REST.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  title: "Digital Builders - Text-Based MMO for Creative Tech",
+  description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
   openGraph: {
-    title: "TOTL Agency - Premium Modeling Agency",
-    description: "Representing exceptional modeling talent worldwide. RISE ABOVE THE REST.",
-    url: "https://totlagency.com",
-    siteName: "TOTL Agency",
+    title: "Digital Builders - Text-Based MMO for Creative Tech",
+    description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+    siteName: "Digital Builders",
     images: [
       {
-        url: "/images/solo_logo.png",
+        url: "/images/digital-builders-logo.png",
         width: 1200,
         height: 630,
-        alt: "TOTL Agency",
+        alt: "Digital Builders",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TOTL Agency - Premium Modeling Agency",
-    description: "Representing exceptional modeling talent worldwide. RISE ABOVE THE REST.",
-    images: ["/images/totl-logo-new.png"],
+    title: "Digital Builders - Text-Based MMO for Creative Tech",
+    description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
+    images: ["/images/digital-builders-logo.png"],
   },
-  generator: "v0.dev",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceMono.variable}`}>
+      <body className="font-body" suppressHydrationWarning>
         <Ga4Analytics />
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
         >
           <Providers>
-            <ClientLayout>{children}</ClientLayout>
+            {children}
           </Providers>
         </ThemeProvider>
       </body>

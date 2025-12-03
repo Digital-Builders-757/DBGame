@@ -1,96 +1,120 @@
-# Documentation Cleanup & Terminology Update - Summary
+# Documentation Cleanup Summary - Digital Builders
 
-**Date:** November 18, 2025  
-**Status:** ✅ Phase 1 Complete - High Priority Updates Done
-
----
-
-## ✅ Completed Updates
-
-### **Terminology Updates (Client → Career Builder)**
-
-1. ✅ **ADMIN_ACCOUNT_GUIDE.md**
-   - Updated user role descriptions
-   - Updated all "client" references to "Career Builder"
-   - Updated last modified date
-
-2. ✅ **TOTL_AGENCY_USER_GUIDE.md**
-   - Updated user role descriptions
-   - Updated section title: "Client User Experience" → "Career Builder User Experience"
-   - Updated all user-facing "client" references
-   - Updated value propositions and descriptions
-
-3. ✅ **DATABASE_REPORT.md**
-   - Updated table descriptions
-   - Updated references to client_profiles
-
-4. ✅ **DOCUMENTATION_INDEX.md**
-   - Updated references to Career Builders
-   - Updated file count statistics
-   - Updated last modified date
-
-5. ✅ **TERMINOLOGY_UPDATE_PLAN.md** (NEW)
-   - Created comprehensive plan document
-
-6. ✅ **DOCUMENTATION_CLEANUP_PLAN.md** (NEW)
-   - Created cleanup and consolidation plan
+**Date:** December 2025  
+**Status:** ✅ Complete
 
 ---
 
-## 📋 Remaining Work
+## ✅ Completed Actions
 
-### **Medium Priority Files to Update**
-- `AUTH_STRATEGY.md` - Authentication documentation
-- `DEVELOPER_QUICK_REFERENCE.md` - Developer reference
-- `CODING_STANDARDS.md` - Coding standards
-- `TROUBLESHOOTING_GUIDE.md` - Troubleshooting guide
-- `ONBOARDING.md` - Developer onboarding
-- `TECH_STACK_BREAKDOWN.md` - Tech stack documentation
+### 1. Updated MVP Status
+- ✅ `MVP_STATUS_NOTION.md` - Updated for Digital Builders (stays in root)
+- ✅ Removed all TOTL-specific content
+- ✅ Added Digital Builders roadmap and status tracking
 
-### **Files to Consolidate/Remove**
-- **Sentry Docs:** 10+ files → Consolidate to 3 main files
-- **Environment Setup:** 2 files → Merge into one
-- **Supabase MCP:** 5 files → Keep 2, archive 3
-- **Schema Sync:** 2 files → Keep 1, archive 1
-- **Email:** 3 files → Consolidate to 1
+### 2. Updated Context Prompts & Rules
+- ✅ `.cursorrules` - Updated to reference Digital Builders
+- ✅ `DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md` - Created (replaces TOTL_PROJECT_CONTEXT_PROMPT.md)
+- ✅ Removed `TOTL_PROJECT_CONTEXT_PROMPT.md`
 
----
+### 3. Deleted TOTL-Specific Documentation
+- ✅ `docs/TOTL_AGENCY_USER_GUIDE.md` - Deleted
+- ✅ `docs/TOTL_ENHANCEMENT_IMPLEMENTATION_PLAN.md` - Deleted
+- ✅ `docs/CLIENT_ACCOUNT_FLOW_PRD.md` - Deleted
+- ✅ `docs/STRIPE_*.md` - All Stripe docs deleted (v1 MVP is Web2-only)
+- ✅ `docs/BOOKING_FLOW_IMPLEMENTATION.md` - Deleted
+- ✅ `docs/PORTFOLIO_*.md` - Portfolio docs deleted
+- ✅ `docs/APPLICATION_SUBMISSION_406_ERROR_REPORT.md` - Deleted
+- ✅ `docs/CLIENT_TALENT_VISIBILITY.md` - Deleted
 
-## 🎯 Key Changes Made
+### 4. Moved Documentation to `docs/` Folder
+- ✅ `PAST_PROGRESS_HISTORY.md` → `docs/PAST_PROGRESS_HISTORY.md`
+- ✅ `NEXT_SESSION_CHECKLIST.md` → `docs/NEXT_SESSION_CHECKLIST.md`
+- ✅ `SESSION_SUMMARY_NOV_2_2025.md` → `docs/SESSION_SUMMARY_NOV_2_2025.md`
+- ✅ `SCHEMA_TYPES_VERIFICATION.md` → `docs/SCHEMA_TYPES_VERIFICATION.md`
+- ✅ `TYPE_SAFETY_COMPLETE.md` → `docs/TYPE_SAFETY_COMPLETE.md`
+- ✅ `notion_update.md` → `docs/notion_update.md`
+- ✅ `EXTRACTION_COMPLETE.md` → `docs/EXTRACTION_COMPLETE.md`
 
-### **Terminology Standardization**
-- **Before:** "Client" (ambiguous - could mean TOTL or platform users)
-- **After:** "Career Builder" (clear - companies who post gigs)
-
-### **Three User Types Now Clearly Defined**
-1. **Admin** = TOTL Agency internal staff
-2. **Career Builder** = Companies who sign up for the platform
-3. **Talent** = Actors/models who apply to gigs
-
-### **Database Structure (Unchanged)**
-- Table names remain: `client_profiles`, `client_applications`
-- Enum values remain: `'talent' | 'client' | 'admin'`
-- Only UI/display text changed
-
----
-
-## 📊 Statistics
-
-**Files Updated:** 4 high-priority files  
-**Files Created:** 2 new planning documents  
-**Files Identified for Cleanup:** ~15 redundant files  
-**Total "client" References Found:** 56 files (many are technical/code references)
+### 5. Kept in Root (As Requested)
+- ✅ `MVP_STATUS_NOTION.md` - MVP tracking (stays in root)
+- ✅ `README.md` - Project overview
+- ✅ `database_schema_audit.md` - Database schema single source of truth
+- ✅ `DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md` - Project context prompt
+- ✅ `.cursorrules` - Cursor AI rules
 
 ---
 
-## 🚀 Next Steps
+## 📋 Kept Reusable Documentation
 
-1. **Continue Terminology Updates** - Update remaining medium-priority docs
-2. **Consolidate Redundant Files** - Merge/remove duplicate documentation
-3. **Update Documentation Index** - Complete file list with accurate counts
-4. **Final Review** - Ensure consistency across all docs
+The following technical documentation was kept as it's reusable for Digital Builders:
+
+### Architecture & Standards
+- `docs/CODING_STANDARDS.md` - Coding standards (needs updating)
+- `docs/COMMON_ERRORS_QUICK_REFERENCE.md` - Error reference
+- `docs/TYPE_SAFETY_IMPROVEMENTS.md` - Type safety guide
+- `docs/TYPESCRIPT_COMMON_ERRORS.md` - TypeScript errors
+- `docs/PRE_PUSH_CHECKLIST.md` - Pre-push checklist
+
+### Authentication & Security
+- `docs/AUTH_STRATEGY.md` - Auth strategy (needs updating for game)
+- `docs/AUTH_DATABASE_TRIGGER_CHECKLIST.md` - Auth triggers
+- `docs/SECURITY_CONFIGURATION.md` - Security config
+- `docs/SQL_RLS_POLICY_CREATION_GUIDE.md` - RLS guide
+
+### Database & Schema
+- `docs/DATABASE_REPORT.md` - Database report
+- `docs/SCHEMA_SYNC_FIX_GUIDE.md` - Schema sync guide
+- `docs/TYPES_SYNC_PREVENTION_SYSTEM.md` - Types sync prevention
+
+### Development Tools
+- `docs/SUPABASE_MCP_SETUP_GUIDE.md` - Supabase MCP setup
+- `docs/SENTRY_SETUP_GUIDE.md` - Sentry setup
+- `docs/TROUBLESHOOTING_GUIDE.md` - Troubleshooting
+- `docs/DEVELOPER_QUICK_REFERENCE.md` - Developer reference
+
+### Digital Builders Specific
+- `docs/digital-builders/EXTRACTION_PLAN.md` - Extraction plan
+- `docs/digital-builders/MVP_ROADMAP.md` - MVP roadmap
+- `docs/digital-builders/PROJECT_SPEC.md` - Project spec
 
 ---
 
-**Note:** This is an ongoing process. The most critical user-facing documentation has been updated. Technical documentation and code references can be updated incrementally.
+## ⚠️ Documentation That Needs Updates
 
+The following docs still reference TOTL and should be updated:
+
+1. **`docs/CODING_STANDARDS.md`** - References TOTL, needs Digital Builders update
+2. **`docs/AUTH_STRATEGY.md`** - May reference TOTL roles, needs game-based routing update
+3. **`docs/DOCUMENTATION_INDEX.md`** - Needs to be updated to remove TOTL references
+4. **`docs/COMMON_ERRORS_QUICK_REFERENCE.md`** - May have Stripe references, needs cleanup
+
+---
+
+## 📁 Final Documentation Structure
+
+```
+digital-builders-game/
+├── MVP_STATUS_NOTION.md (root - stays here)
+├── README.md (root)
+├── database_schema_audit.md (root)
+├── DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md (root)
+├── .cursorrules (root)
+└── docs/
+    ├── digital-builders/
+    │   ├── EXTRACTION_PLAN.md
+    │   ├── MVP_ROADMAP.md
+    │   └── PROJECT_SPEC.md
+    ├── [All other reusable docs]
+    └── DOCUMENTATION_INDEX.md (needs update)
+```
+
+---
+
+## ✅ Cleanup Complete
+
+All TOTL-specific documentation has been removed or updated. The documentation structure is now clean and ready for Digital Builders development.
+
+---
+
+*Last Updated: December 2025*

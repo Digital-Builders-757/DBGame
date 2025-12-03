@@ -65,9 +65,9 @@ export default withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-  org: "the-digital-builders-bi",
+  org: process.env.SENTRY_ORG || "digital-builders",
 
-  project: "sentry-yellow-notebook",
+  project: process.env.SENTRY_PROJECT || "digital-builders-frontend",
 
   // Sentry auth token for uploading source maps
   authToken: process.env.SENTRY_AUTH_TOKEN,

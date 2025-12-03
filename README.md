@@ -1,79 +1,29 @@
-<div align="center">
+# Digital Builders
 
-# 🎭 TOTL Agency
+**Text-based MMO for the creative tech community**
 
-<img src="public/images/solo_logo.png" alt="TOTL Agency Logo" width="200" height="200" style="border-radius: 20px; margin: 20px 0;">
-
-**Premium Talent Booking Platform**
-
-*Connecting exceptional talent with premium opportunities worldwide*
-
-[![TOTL Agency](https://img.shields.io/badge/TOTL-Agency-purple?style=for-the-badge&logo=theater-masks)](https://www.thetotlagency.com)
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green?style=for-the-badge&logo=supabase)](https://supabase.com/)
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge)](https://www.thetotlagency.com)
-
-[🚀 **Live Demo**](https://www.thetotlagency.com) • [📖 **Documentation**](#-documentation) • [🛠️ **Development**](#-development) • [🚀 **Deployment**](#-deployment)
-
-</div>
 
 ---
 
-## 🌟 **Overview**
+## 🌟 Overview
 
-TOTL Agency is a comprehensive talent booking platform that revolutionizes how models, actors, and performers connect with casting directors, agencies, and brands. Built with cutting-edge technology and designed for scalability, it provides a seamless experience for talent discovery, gig management, and professional networking.
+Digital Builders is a text-based MMO where players build their careers in the creative tech industry. Start as a freelancer, take on jobs, complete actions, and progress through different career tracks while interacting with other players in a shared virtual city.
 
-### ✨ **Key Features**
+### ✨ Key Features
 
-<table>
-<tr>
-<td width="50%">
-
-🎭 **Talent Management**
-- Comprehensive talent profiles
-- Portfolio management
-- Application tracking
-- Performance analytics
-
-</td>
-<td width="50%">
-
-🏢 **Client Solutions**
-- Gig posting & management
-- Talent discovery
-- Application review
-- Booking management
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-🔐 **Security & Auth**
-- Role-based access control
-- Secure authentication
-- Email verification
-- Password protection
-
-</td>
-<td width="50%">
-
-📧 **Communication**
-- Automated email system
-- Verification workflows
-- Notification system
-- Professional templates
-
-</td>
-</tr>
-</table>
+- 🎮 **Character Creation** - Choose your handle, career track, and starting district
+- 💼 **Job System** - Take on jobs with 5-minute cooldown timers
+- ⚡ **Action System** - Perform freelance actions and PVP-lite interactions
+- 📈 **Progression** - Earn XP, level up, and unlock new career paths
+- 🏙️ **City System** - Explore districts and see online players
+- 💰 **DB Cred Ledger** - Off-chain currency system (v1 MVP)
 
 ---
 
-## 🛠️ **Tech Stack**
-
-<div align="center">
+## 🛠️ Tech Stack
 
 | Category | Technology | Version | Purpose |
 |----------|------------|---------|---------|
@@ -81,104 +31,65 @@ TOTL Agency is a comprehensive talent booking platform that revolutionizes how m
 | **Language** | TypeScript | 5.0 | Type-safe development |
 | **Styling** | TailwindCSS | 3.4.17 | Utility-first CSS |
 | **UI Components** | shadcn/ui | Latest | Accessible component library |
-| **Backend** | Supabase | Latest | PostgreSQL + Auth + Storage |
-| **Email** | Resend | Latest | Transactional email service |
-| **Deployment** | Vercel | Latest | Frontend hosting platform |
-
-</div>
+| **Backend** | Supabase | Latest | PostgreSQL + Auth + Storage + Real-time |
+| **Email** | Resend | Latest | Transactional email service (optional) |
 
 ---
 
-## 🛡️ **TypeScript Type Safety**
+## 🚀 Quick Start
 
-TOTL Agency enforces **strict TypeScript type safety** across the entire codebase:
+### 📋 Prerequisites
 
-- ✅ **0 TypeScript errors** policy - builds fail on any type error
-- ✅ **Full database type inference** with Supabase
-- ✅ **Production builds enforce type checking**
-- ✅ **Comprehensive type coverage** across all components
-
-### 🔑 **Key Patterns:**
-```typescript
-// Client components: Use createSupabaseBrowser() with null checks
-const supabase = createSupabaseBrowser();
-if (!supabase) return;
-
-// Server components: Use createSupabaseServer()
-const supabase = await createSupabaseServer();
-
-// Always run typecheck before committing
-npm run typecheck
-```
-
-📖 **See** [`docs/TYPE_SAFETY_IMPROVEMENTS.md`](./docs/TYPE_SAFETY_IMPROVEMENTS.md) for complete type safety documentation.
-
----
-
-## 🚀 **Quick Start**
-
-### 📋 **Prerequisites**
-
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **npm** or **yarn**
 - **Supabase** account
-- **Resend** API key
 
-### ⚡ **Installation**
+### ⚡ Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/totl-agency.git
-cd totl-agency
+git clone <repository-url>
+cd digital-builders-game
 
 # 2. Install dependencies
 npm install
 
 # 3. Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your credentials
+cp .env.local.example .env.local
+# Edit .env.local with your Supabase credentials
 
 # 4. Start development server
 npm run dev
 ```
 
-### 🔧 **Environment Setup**
+### 🔧 Environment Setup
 
 Create `.env.local` with your credentials:
 
 ```env
-# 🌐 Site URL
-NEXT_PUBLIC_SITE_URL=https://www.thetotlagency.com
-
-# 📧 Resend (Email API)
-RESEND_API_KEY=re_your-resend-api-key-here
-
-# Supabase Access Token
-SUPABASE_ACCESS_TOKEN=sbp_your-access-token-here
-
-# 🔑 Supabase Service Role Key (⚠️ Only use server-side)
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-service-role-key-here
-
-# 🔗 Supabase URL (base URL for all Supabase calls)
-SUPABASE_URL=https://your-project-ref.supabase.co
+# Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
 
-# 🔓 Supabase Anon Public Key (safe to expose to frontend)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-anon-key-here
+# Site URL
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# Optional: Email (Resend)
+# RESEND_API_KEY=re_your-resend-api-key-here
+
+# Optional: Solana Configuration (for v2+)
+# NEXT_PUBLIC_SOLANA_NETWORK=devnet
+# NEXT_PUBLIC_SOLANA_RPC_URL=https://api.devnet.solana.com
 ```
 
-### 🎯 **Quick Commands**
+### 🎯 Quick Commands
 
 ```bash
 # Development
 npm run dev              # Start development server
 npm run build            # Production build
 npm run start            # Start production server
-
-# Environment & Testing
-npm run env:test         # Test environment configuration
-npm run env:check        # Quick environment check
-npm run env:setup        # Interactive environment setup
 
 # Database & Types
 npm run types:regen      # Regenerate TypeScript types
@@ -193,142 +104,107 @@ npm run verify-all       # Run all verification checks
 
 ---
 
-## 🏗️ **Architecture**
+## 🏗️ Architecture
 
-### 📊 **Database Schema**
+### 📊 Database Schema
 
-<div align="center">
+The game uses a PostgreSQL database with the following core tables:
 
-```mermaid
-erDiagram
-    profiles ||--o{ talent_profiles : has
-    profiles ||--o{ client_profiles : has
-    profiles ||--o{ gigs : creates
-    profiles ||--o{ applications : submits
-    profiles ||--o{ bookings : participates
-    profiles ||--o{ portfolio_items : owns
-    
-    gigs ||--o{ applications : receives
-    gigs ||--o{ bookings : generates
-    gigs ||--o{ gig_requirements : has
-    
-    applications ||--o{ bookings : becomes
-```
+- `profiles` - User accounts (from Supabase Auth)
+- `game_accounts` - Digital Builders account data
+- `characters` - Player characters with stats
+- `cities` / `districts` - Location system
+- `jobs` / `character_jobs` - Job system with timers
+- `actions` / `character_actions` - Action system with timers
+- `db_cred_balances` / `db_cred_transactions` - Off-chain currency ledger (v1)
+- `interaction_logs` - PVP-lite interaction history
 
-</div>
+### 🔐 Authentication Flow
 
-### 🔐 **Authentication Flow**
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant F as Frontend
-    participant S as Supabase
-    participant D as Database
-    
-    U->>F: Sign Up
-    F->>S: Create User
-    S->>D: Trigger Profile Creation
-    S->>U: Send Verification Email
-    U->>F: Click Verification Link
-    F->>S: Verify Email
-    S->>D: Update Profile Status
-    F->>U: Redirect to Dashboard
-```
-
-### 🎭 **User Roles & Access**
-
-| Role | Dashboard | Capabilities | Access Level |
-|------|-----------|--------------|--------------|
-| **🎭 Talent** | `/talent/dashboard` | Browse gigs, apply, manage profile | View active gigs, submit applications |
-| **🏢 Client** | `/client/dashboard` | Post gigs, review applications | Create/edit gigs, manage applications |
-| **👑 Admin** | `/admin/dashboard` | User management, platform oversight | Full platform access |
+- Email/password authentication via Supabase
+- Character creation on first login
+- Game-based routing (has character → dashboard, no character → create)
 
 ---
 
-## 📁 **Project Structure**
+## 📁 Project Structure
 
 ```
-totl-agency/
-├── 🎭 app/                    # Next.js App Router pages
-│   ├── (auth)/               # Authentication pages
-│   ├── talent/               # Talent dashboard & features
-│   ├── client/               # Client dashboard & features
-│   ├── admin/                # Admin panel
-│   └── api/                  # API routes
-├── 🧩 components/            # React components
-│   ├── ui/                   # shadcn/ui components
-│   ├── auth/                 # Authentication components
-│   ├── forms/                # Form components
-│   └── admin/                # Admin-specific components
-├── 🔧 lib/                   # Utility functions
-│   ├── supabase/             # Supabase client helpers
-│   ├── services/             # Email and other services
-│   └── utils/                # General utilities
-├── 📊 types/                 # TypeScript definitions
-├── 🗄️ supabase/              # Database migrations & config
-├── 📚 docs/                  # Documentation
-└── 🛠️ scripts/               # Utility scripts
+digital-builders-game/
+├── app/                    # Next.js App Router pages
+│   ├── auth/              # Authentication pages
+│   ├── character/         # Character creation
+│   ├── dashboard/         # Game dashboard
+│   ├── jobs/              # Job system
+│   ├── actions/           # Action system
+│   ├── city/              # City/district views
+│   └── api/               # API routes
+├── components/            # React components
+│   ├── ui/                # shadcn/ui components
+│   ├── auth/              # Authentication components
+│   ├── character/         # Character-related components
+│   ├── jobs/              # Job-related components
+│   └── timers/            # Timer components
+├── lib/                   # Utility functions
+│   ├── supabase/          # Supabase client helpers
+│   ├── game/              # Game logic modules
+│   └── utils/             # General utilities
+├── types/                 # TypeScript definitions
+├── supabase/              # Database migrations & config
+└── docs/                  # Documentation
 ```
 
 ---
 
-## 🔒 **Security Features**
+## 🎮 Game Systems
 
-### 🛡️ **Row-Level Security (RLS)**
+### Character System
+- Handle selection (unique username)
+- Career track selection (Designer, Developer, Marketer, etc.)
+- Starting district selection
+- Character stats and progression
+
+### Job System
+- Browse available jobs in your district
+- Apply for jobs (5-minute cooldown)
+- Complete jobs to earn DB Cred and XP
+- Job timers tracked server-side
+
+### Action System
+- Freelance actions (solo work)
+- PVP-lite interactions (underbid, idea poach, collab challenge)
+- Action timers tracked server-side
+- Risk/reward mechanics
+
+### Progression System
+- XP and leveling
+- Builder levels (tiers)
+- Career path unlocks
+- Skill progression
+
+---
+
+## 🔒 Security Features
+
+### 🛡️ Row-Level Security (RLS)
 
 All database tables implement comprehensive RLS policies:
+- Users can only access their own character data
+- Players can view online players in their district
+- All game logic runs server-side
 
-- **🔐 User Isolation**: Users can only access their own data
-- **🎭 Role-Based Access**: Different permissions for talent, clients, and admins
-- **📊 Data Protection**: Sensitive information protected by policies
-- **🔍 Audit Trail**: All actions logged and traceable
+### 🔑 Authentication Security
 
-### 🔑 **Authentication Security**
-
-- **✅ Email Verification**: Required for account activation
-- **🔒 Password Protection**: Strong password requirements
-- **🔄 Session Management**: Secure session handling
-- **🛡️ CSRF Protection**: Cross-site request forgery prevention
+- Email verification (optional)
+- Password protection
+- Secure session management
+- CSRF protection
 
 ---
 
-## 📊 **Database Overview**
+## 🚀 Deployment
 
-### 🗂️ **Core Tables**
-
-| Table | Purpose | Key Features |
-|-------|---------|--------------|
-| **`profiles`** | Main user accounts | Role-based access, email verification |
-| **`talent_profiles`** | Talent-specific data | Physical attributes, experience, portfolio |
-| **`client_profiles`** | Client company info | Company details, contact information |
-| **`gigs`** | Job postings | Requirements, compensation, deadlines |
-| **`applications`** | Talent applications | Status tracking, messages |
-| **`bookings`** | Confirmed engagements | Compensation, notes, status |
-| **`portfolio_items`** | Talent portfolio | Images, descriptions, categories |
-| **`gig_requirements`** | Specific requirements | Detailed job requirements |
-
-### 🔄 **Custom Types (Enums)**
-
-```sql
--- User roles
-CREATE TYPE user_role AS ENUM ('talent', 'client', 'admin');
-
--- Gig status
-CREATE TYPE gig_status AS ENUM ('draft', 'active', 'closed', 'completed');
-
--- Application status  
-CREATE TYPE application_status AS ENUM ('new', 'under_review', 'shortlisted', 'rejected', 'accepted');
-
--- Booking status
-CREATE TYPE booking_status AS ENUM ('pending', 'confirmed', 'completed', 'cancelled');
-```
-
----
-
-## 🚀 **Deployment**
-
-### 🌐 **Production Deployment**
+### 🌐 Production Deployment
 
 #### **Vercel (Recommended)**
 
@@ -342,89 +218,37 @@ vercel --prod
 # Set environment variables in Vercel dashboard
 ```
 
-#### **Environment Variables for Production**
+---
 
-```env
-# 🌐 Site URL
-NEXT_PUBLIC_SITE_URL=https://www.thetotlagency.com
+## 📚 Documentation
 
-# 📧 Resend (Email API)
-RESEND_API_KEY=re_your-production-resend-key
+### 📖 Essential Files
 
-# Supabase Access Token
-SUPABASE_ACCESS_TOKEN=sbp_your-production-access-token
-
-# 🔑 Supabase Service Role Key (⚠️ Only use server-side)
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-production-service-key
-
-# 🔗 Supabase URL (base URL for all Supabase calls)
-SUPABASE_URL=https://your-project-ref.supabase.co
-NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
-
-# 🔓 Supabase Anon Public Key (safe to expose to frontend)
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.your-production-anon-key
-```
-
-### 📊 **Performance Metrics**
-
-| Metric | Value | Status |
-|--------|-------|--------|
-| **Bundle Size** | 102kB shared JS | ✅ Optimized |
-| **Build Time** | 6.7s | ✅ Fast |
-| **Pages** | 36 routes | ✅ Complete |
-| **Security** | 0 vulnerabilities | ✅ Secure |
-| **TypeScript** | 0 errors | ✅ Clean |
+- **`README.md`** - This guide
+- **`docs/digital-builders/EXTRACTION_PLAN.md`** - Extraction from TOTL template
+- **`docs/digital-builders/ARCHITECTURE.md`** - Architecture documentation
+- **`docs/digital-builders/MVP_ROADMAP.md`** - MVP roadmap
 
 ---
 
-## 🧪 **Testing & Quality**
+## 🎯 MVP Status
 
-### 🔍 **Code Quality**
+**v1 MVP is Web2-only:**
+- ✅ Email/password authentication
+- ✅ Off-chain DB Cred ledger
+- ✅ No wallet connection required
+- ✅ No Solana dependencies in core flows
 
-```bash
-# Type checking
-npm run typecheck
-
-# Linting
-npm run lint
-
-# Environment validation
-npm run env:test
-
-# Full verification
-npm run verify-all
-```
-
-### 🛠️ **Development Tools**
-
-- **🔧 TypeScript**: Full type safety
-- **📏 ESLint**: Code quality enforcement
-- **🎨 Prettier**: Code formatting
-- **🔍 Husky**: Git hooks for quality
-- **📊 Bundle Analysis**: Performance monitoring
+**v2+ Future Integration:**
+- ⏳ Solana wallet connection (optional)
+- ⏳ On-chain tokens (DB Cred → SPL token, Builder Power → governance token)
+- ⏳ NFT achievements
 
 ---
 
-## 📚 **Documentation**
+## 🤝 Contributing
 
-### 📖 **Essential Files**
-
-- **`README.md`** - This comprehensive guide
-- **`database_schema_audit.md`** - Complete database reference
-- **`docs/`** - Additional documentation
-
-### 🔗 **Useful Links**
-
-- **Supabase Dashboard**: https://supabase.com/dashboard
-- **Resend API Keys**: https://resend.com/api-keys
-- **Next.js Documentation**: https://nextjs.org/docs
-- **TailwindCSS Docs**: https://tailwindcss.com/docs
-
----
-
-## 🤝 **Contributing**
-
-### 🚀 **Getting Started**
+### 🚀 Getting Started
 
 1. **Fork** the repository
 2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
@@ -432,84 +256,43 @@ npm run verify-all
 4. **Push** to the branch (`git push origin feature/amazing-feature`)
 5. **Open** a Pull Request
 
-### 📋 **Development Guidelines**
+### 📋 Development Guidelines
 
 - ✅ Follow TypeScript best practices
 - ✅ Use proper error handling
 - ✅ Write meaningful commit messages
 - ✅ Test thoroughly before submitting PRs
 - ✅ Follow established component patterns
+- ✅ Keep game logic server-side only
 
 ---
 
-## 📄 **License**
+## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🆘 **Support**
+## 🆘 Support
 
-### 🆘 **Need Help?**
+### 🆘 Need Help?
 
-- 📖 **Documentation**: Check this README and `docs/` folder
+- 📖 **Documentation**: Check `docs/` folder
 - 🐛 **Issues**: Open an issue on GitHub
 - 💬 **Discussions**: Use GitHub Discussions for questions
-- 📧 **Contact**: Reach out to the development team
-
-### 🔧 **Troubleshooting**
-
-<details>
-<summary><strong>Common Issues & Solutions</strong></summary>
-
-#### **Environment Issues**
-```bash
-# Test environment configuration
-npm run env:test
-
-# Check environment variables
-npm run env:check
-```
-
-#### **Database Issues**
-```bash
-# Verify database connection
-curl http://localhost:3000/api/admin/test-connection
-
-# Check database schema
-npm run schema:verify
-```
-
-#### **Build Issues**
-```bash
-# TypeScript errors
-npm run typecheck
-
-# Linting issues
-npm run lint
-
-# Full build test
-npm run build
-```
-
-</details>
 
 ---
 
 <div align="center">
 
-## 🌟 **Built with ❤️ for the Talent Industry**
+## 🌟 **Built for the Creative Tech Community**
 
-<img src="public/images/solo_logo.png" alt="TOTL Agency Logo" width="100" height="100" style="border-radius: 10px; margin: 10px;">
-
-**TOTL Agency** - Where exceptional talent meets premium opportunities
+**Digital Builders** - Where creativity meets career progression
 
 [🚀 **Get Started**](#-quick-start) • [📖 **Learn More**](#-documentation) • [🤝 **Contribute**](#-contributing)
 
 ---
 
-*Last updated: January 2025 | Version: 2.0 | Status: Production Ready*
+*Last updated: December 2025 | Version: 0.1.0 | Status: In Development*
 
-</div>#   T e s t   c h a n g e 
- 
- 
+</div>

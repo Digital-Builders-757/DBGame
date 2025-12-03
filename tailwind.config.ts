@@ -61,12 +61,18 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Custom brand colors (HSL - legacy)
+        // Digital Builders Brand Colors
         brand: {
-          primary: "hsl(var(--brand-primary))",
-          secondary: "hsl(var(--brand-secondary))",
-          accent: "hsl(var(--brand-accent))",
-          muted: "hsl(var(--brand-muted))",
+          primary: "#ff00ff",      // Magenta (CTA)
+          secondary: "#00ff55",    // Green
+          tertiary: "#00c3ff",     // Cyan
+          background: "#070707",   // Dark background
+          card: "#111111",          // Card background
+          border: "#262626",        // Border color
+          text: {
+            primary: "#fafafa",     // Primary text
+            secondary: "#a3a3a3",   // Secondary text
+          },
         },
         // ✨ OKLCH Modern Colors - Premium Back-Lit UI
         oklch: {
@@ -106,7 +112,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Cal Sans", "Inter", "system-ui", "sans-serif"],
+        heading: ["Space Mono", "monospace"],
+        mono: ["Space Mono", "monospace"],
+        body: ["Inter", "system-ui", "sans-serif"],
       },
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "0.75rem" }],

@@ -33,17 +33,17 @@ if (nodeEnv === "development") {
   });
 
   if (SENTRY_DSN) {
-    if (projectIdMatches) {
-      console.log("[Sentry Server] ✅ Sentry is configured correctly for sentry-yellow-notebook");
+      if (projectIdMatches) {
+        console.log(`[Sentry Server] ✅ Sentry is configured correctly for ${process.env.SENTRY_PROJECT || 'digital-builders-frontend'}`);
     } else {
       console.warn(
         `[Sentry Server] ⚠️ Project ID mismatch! Using ${currentProjectId}, expected ${expectedProjectId}`
       );
       console.warn("[Sentry Server] ⚠️ Update your .env.local DSNs to point to the correct project");
     }
-    console.log(
-      "[Sentry Server] Test errors will appear at: https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/"
-    );
+      console.log(
+        `[Sentry Server] Test errors will appear at: https://sentry.io/organizations/${process.env.SENTRY_ORG || 'digital-builders'}/projects/${process.env.SENTRY_PROJECT || 'digital-builders-frontend'}/`
+      );
     console.log("[Sentry Server] Diagnostic endpoint: http://localhost:3000/api/sentry-diagnostic");
   } else {
     console.warn("[Sentry Server] ⚠️ Sentry DSN is missing - errors will not be tracked!");
