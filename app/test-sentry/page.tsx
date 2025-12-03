@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export default function TestSentryPage() {
   const throwError = () => {
-    throw new Error("🧪 Test error from TOTL Agency - Application Submission Testing");
+    throw new Error("🧪 Test error from Digital Builders - Sentry Integration Testing");
   };
 
   const captureMessage = () => {
@@ -41,9 +41,7 @@ export default function TestSentryPage() {
           <CardHeader>
             <CardTitle>🔍 Sentry Integration Test</CardTitle>
             <CardDescription>
-              Test your Sentry setup and MCP integration. Errors will go to the{" "}
-              <code className="text-xs bg-gray-100 px-1 py-0.5 rounded">sentry-yellow-notebook</code>{" "}
-              project.
+              Test your Sentry setup and error tracking. Errors will go to your configured Sentry project.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -87,12 +85,12 @@ export default function TestSentryPage() {
             <div>
               <p className="text-sm font-medium">Sentry Dashboard:</p>
               <a
-                href="https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/"
+                href={`https://sentry.io/organizations/${process.env.NEXT_PUBLIC_SENTRY_ORG || 'digital-builders'}/projects/${process.env.NEXT_PUBLIC_SENTRY_PROJECT || 'digital-builders-frontend'}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline text-sm"
               >
-                View sentry-yellow-notebook project →
+                View Sentry project →
               </a>
             </div>
           </CardContent>
@@ -107,7 +105,7 @@ export default function TestSentryPage() {
               After generating test errors, ask your AI assistant:
             </p>
             <div className="bg-gray-100 p-3 rounded text-sm font-mono space-y-1">
-              <p>&quot;Show me the latest errors from sentry-yellow-notebook&quot;</p>
+              <p>&quot;Show me the latest errors from Digital Builders&quot;</p>
               <p>&quot;What errors happened in the last hour?&quot;</p>
               <p>&quot;Get details for the most recent error&quot;</p>
             </div>

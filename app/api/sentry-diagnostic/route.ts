@@ -25,6 +25,7 @@ export async function GET() {
   
   const prodProjectId = extractProjectId(productionDSN || nextPublicProdDSN);
   const devProjectId = extractProjectId(devDSN || nextPublicDevDSN);
+  const expectedProjectId = process.env.SENTRY_PROJECT_ID || null;
   
   // Get current DSN being used (from Sentry's internal state)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,9 +83,11 @@ export async function GET() {
       },
     },
     expectedProject: {
-      name: "sentry-yellow-notebook",
-      id: "4510191108292609",
-      url: "https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/",
+      name: process.env.SENTRY_PROJECT || "digital-builders-frontend",
+      id: expectedProjectId || currentProjectId || "Not configured",
+      url: expectedProjectId 
+        ? `https://sentry.io/organizations/${process.env.SENTRY_ORG || 'digital-builders'}/projects/${process.env.SENTRY_PROJECT || 'digital-builders-frontend'}/`
+        : "Not configured",
     },
     testError: {
       captured: !!testErrorId,
@@ -94,11 +97,11 @@ export async function GET() {
         : "Failed to capture test error",
     },
     recommendations: [
-      currentProjectId !== "4510191108292609" 
-        ? `⚠️ Currently using project ID ${currentProjectId}, but expected 4510191108292609. Update your .env.local DSNs.`
+      expectedProjectId && currentProjectId !== expectedProjectId
+        ? `⚠️ Currently using project ID ${currentProjectId}, but expected ${expectedProjectId}. Update your .env.local DSNs.`
         : "✅ Project ID matches expected value",
       !productionDSN && !devDSN
-        ? "⚠️ No SENTRY_DSN_* env vars set - using hardcoded fallback"
+        ? "⚠️ No SENTRY_DSN_* env vars set - Sentry will be disabled"
         : "✅ DSN environment variables are set",
     ],
   });

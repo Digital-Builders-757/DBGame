@@ -137,8 +137,8 @@ secure_password_change = false
 max_frequency = "1m0s"
 # Number of characters used in the email OTP.
 otp_length = 8
-# Number of seconds before the email OTP expires (reduced from 1 hour to 15 minutes for security).
-otp_expiry = 3600
+# Number of seconds before the email OTP expires (15 minutes for security - reduced from 1 hour).
+otp_expiry = 900
 
 # Use a production-ready SMTP server
 # [auth.email.smtp]
@@ -203,7 +203,7 @@ verify_enabled = true
 [auth.mfa.phone]
 enroll_enabled = false
 verify_enabled = false
-otp_length = 8
+otp_length = 6
 template = "Your code is {{ .Code }}"
 max_frequency = "5s"
 

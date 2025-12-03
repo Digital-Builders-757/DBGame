@@ -7,7 +7,6 @@ import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 import { createSupabaseBrowser } from "@/lib/supabase/supabase-browser";
-import type { Database } from "@/types/supabase";
 
 type UserRole = "talent" | "client" | "admin" | null;
 type AccountType = "unassigned" | "talent" | "client";
@@ -23,13 +22,12 @@ type ProfileData = {
   avatar_url: string | null;
   avatar_path: string | null;
   display_name: string | null;
-  subscription_status: Database['public']['Enums']['subscription_status'];
-  subscription_plan: string | null;
-  subscription_current_period_end: string | null;
+  // Digital Builders - No subscription system yet
 } | null;
 
 type AuthContextType = {
-  supabase: SupabaseClient<Database> | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: SupabaseClient<any> | null;
   user: User | null;
   session: Session | null;
   userRole: UserRole;
@@ -128,9 +126,10 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
 
         // Use maybeSingle() to prevent 406 errors when profile doesn't exist
         // Fetch ALL profile fields once to avoid N+1 queries
-        const { data: profileData, error: profileError } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: profileData, error: profileError } = await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name, subscription_status, subscription_plan, subscription_current_period_end")
+          .select("role, account_type, avatar_url, avatar_path, display_name")
           .eq("id", session.user.id)
           .maybeSingle();
 
@@ -167,9 +166,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,
-            subscription_status: profileData.subscription_status ?? "none",
-            subscription_plan: profileData.subscription_plan ?? null,
-            subscription_current_period_end: profileData.subscription_current_period_end ?? null,
           });
         } else {
           setUserRole(null);
@@ -203,9 +199,10 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
         try {
           // Use maybeSingle() to prevent 406 errors when profile doesn't exist
           // Fetch ALL profile fields once to avoid N+1 queries
-        const { data: profileData, error: profileError } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: profileData, error: profileError } = await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name, subscription_status, subscription_plan, subscription_current_period_end")
+          .select("role, account_type, avatar_url, avatar_path, display_name")
           .eq("id", session.user.id)
           .maybeSingle();
 
@@ -242,9 +239,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,
-            subscription_status: profileData.subscription_status ?? 'none',
-            subscription_plan: profileData.subscription_plan ?? null,
-            subscription_current_period_end: profileData.subscription_current_period_end ?? null,
           } : null);
           setIsEmailVerified(session.user.email_confirmed_at !== null);
 
@@ -316,20 +310,18 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
       // Fetch user role with a fresh query - use maybeSingle() to prevent 406 errors
       // Fetch ALL profile fields once to avoid N+1 queries
       try {
-        const { data: profileData } = (await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: profileData } = (await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name, subscription_status, subscription_plan, subscription_current_period_end")
+          .select("role, account_type, avatar_url, avatar_path, display_name")
           .eq("id", data.session.user.id)
           .maybeSingle()) as {
             data: {
               role: string;
-              account_type: Database["public"]["Enums"]["account_type_enum"] | null;
+              account_type: string | null;
               avatar_url: string | null;
               avatar_path: string | null;
               display_name: string | null;
-              subscription_status: Database["public"]["Enums"]["subscription_status"] | null;
-              subscription_plan: string | null;
-              subscription_current_period_end: string | null;
             } | null;
             error: unknown;
           };
@@ -343,9 +335,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,
-            subscription_status: profileData.subscription_status ?? "none",
-            subscription_plan: profileData.subscription_plan ?? null,
-            subscription_current_period_end: profileData.subscription_current_period_end ?? null,
           });
         } else {
           setUserRole(null);

@@ -100,7 +100,8 @@ export default async function AuthCallbackPage({
         const user = data.session.user;
         
         // Check if profile exists - use maybeSingle() to prevent 406 errors
-        const { data: profile, error: profileError } = await supabase
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { data: profile, error: profileError } = await (supabase as any)
           .from("profiles")
           .select("role,email_verified,display_name")
           .eq("id", user.id)
@@ -128,7 +129,8 @@ export default async function AuthCallbackPage({
           }
 
           // Create profile
-          const { error: insertError } = await supabase.from("profiles").insert({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { error: insertError } = await (supabase as any).from("profiles").insert({
             id: user.id,
             role: role as "talent" | "client" | "admin",
             display_name: displayName,
@@ -167,22 +169,11 @@ export default async function AuthCallbackPage({
             );
           }
 
-          // Create role-specific profile if talent
-          if (role === "talent") {
-            const { error: talentError } = await supabase.from("talent_profiles").insert({
-              user_id: user.id,
-              first_name: firstName,
-              last_name: lastName,
-            });
-
-            if (talentError) {
-              console.error("Error creating talent profile:", talentError);
-              // Don't fail - profile was created
-            }
-          }
+          // Digital Builders - No role-specific profiles needed
 
           // Re-fetch profile after creation - use maybeSingle() to prevent 406 errors
-          const { data: newProfile } = await supabase
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const { data: newProfile } = await (supabase as any)
             .from("profiles")
             .select("role")
             .eq("id", user.id)
@@ -216,7 +207,8 @@ export default async function AuthCallbackPage({
             displayName = user.email?.split("@")[0] || "User";
           }
 
-          await supabase
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await (supabase as any)
             .from("profiles")
             .update({ display_name: displayName })
             .eq("id", user.id);
@@ -224,7 +216,8 @@ export default async function AuthCallbackPage({
 
         // Update email verification status if not already verified
         if (profile && !profile.email_verified) {
-          await supabase
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          await (supabase as any)
             .from("profiles")
             .update({ email_verified: true })
             .eq("id", user.id);

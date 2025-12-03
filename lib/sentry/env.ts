@@ -1,5 +1,6 @@
-const FALLBACK_DSN =
-  "https://9f271197ad8ee6ef9c43094ffae46796@o4510191106654208.ingest.us.sentry.io/4510191108292609";
+// Fallback DSN - should be replaced with actual Digital Builders Sentry project DSN
+// Set SENTRY_DSN_DEV or SENTRY_DSN_PROD in .env.local to configure Sentry
+const FALLBACK_DSN = process.env.SENTRY_DSN_DEV || process.env.SENTRY_DSN_PROD || null;
 
 const nodeEnv = process.env.NODE_ENV ?? "development";
 const clientVercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV;
@@ -26,9 +27,10 @@ const currentDSN = isProduction
   ? productionDSN ?? developmentDSN ?? FALLBACK_DSN
   : developmentDSN ?? productionDSN ?? FALLBACK_DSN;
 
-const expectedProjectId = "4510191108292609";
+// Expected project ID from environment variable (set when Sentry project is created)
+const expectedProjectId = process.env.SENTRY_PROJECT_ID || null;
 const currentProjectId = currentDSN ? parseProjectId(currentDSN) : null;
-const projectIdMatches = currentProjectId === expectedProjectId;
+const projectIdMatches = expectedProjectId ? currentProjectId === expectedProjectId : true;
 
 function parseProjectId(dsn: string): string | null {
   const match = dsn.match(/\/(\d+)(?:\?|$)/);

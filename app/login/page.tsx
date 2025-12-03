@@ -114,13 +114,9 @@ export default function Login() {
         // Force a hard refresh to clear any cached state
         // Use userRole from auth provider to redirect correctly
         const redirectPath =
-          userRole === "talent"
-            ? "/talent/dashboard"
-            : userRole === "client"
-              ? "/client/dashboard"
-              : userRole === "admin"
-                ? "/admin/dashboard"
-                : "/choose-role";
+          userRole === "admin"
+            ? "/admin/dashboard"
+            : "/dashboard";
         window.location.href = redirectPath;
       }
     } catch (error) {
@@ -218,7 +214,7 @@ export default function Login() {
                   <Label htmlFor="password" className={`text-white text-sm sm:text-base ${formErrors.password ? "text-red-400" : ""}`}>
                     Password
                   </Label>
-                  <Link href="/reset-password" className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link href="/update-password" className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">
                     Forgot password?
                   </Link>
                 </div>

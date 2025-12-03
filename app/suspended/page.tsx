@@ -11,7 +11,8 @@ export default async function SuspendedPage() {
   let suspensionReason: string | null = null;
 
   if (user) {
-    const { data: profile } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: profile } = await (supabase as any)
       .from("profiles")
       .select("suspension_reason")
       .eq("id", user.id)

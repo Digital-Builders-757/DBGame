@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     switch (testType) {
       case "error": {
         // Throw an unhandled error (will be caught by Sentry's error handler)
-        const testError = new Error("🧪 Server-side test error from TOTL Agency API - This should appear in Sentry!");
+        const testError = new Error("🧪 Server-side test error from Digital Builders API - This should appear in Sentry!");
         // Explicitly capture it to ensure it's sent
         const eventId = Sentry.captureException(testError, {
           tags: {
@@ -30,7 +30,10 @@ export async function GET(request: Request) {
           level: "error",
         });
         console.log("[Sentry Test] Error captured and sent to Sentry. Event ID:", eventId);
-        console.log("[Sentry Test] Check Sentry dashboard: https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/");
+        const org = process.env.SENTRY_ORG || 'digital-builders';
+        const project = process.env.SENTRY_PROJECT || 'digital-builders-frontend';
+        const sentryUrl = `https://sentry.io/organizations/${org}/projects/${project}/`;
+        console.log(`[Sentry Test] Check Sentry dashboard: ${sentryUrl}`);
         
         // Also flush to ensure it's sent immediately
         await Sentry.flush(2000);
@@ -41,7 +44,7 @@ export async function GET(request: Request) {
           eventId: eventId,
           testType: "error",
           note: "Error should appear in Sentry dashboard within 5-10 seconds",
-          sentryUrl: "https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/",
+          sentryUrl: sentryUrl,
         });
       }
 
@@ -65,7 +68,9 @@ export async function GET(request: Request) {
             level: "error",
           });
           console.log("[Sentry Test] Exception captured and sent to Sentry. Event ID:", exceptionId);
-          console.log("[Sentry Test] Check Sentry dashboard: https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/");
+          const org = process.env.SENTRY_ORG || 'digital-builders';
+          const project = process.env.SENTRY_PROJECT || 'digital-builders-frontend';
+          console.log(`[Sentry Test] Check Sentry dashboard: https://sentry.io/organizations/${org}/projects/${project}/`);
           
           // Flush to ensure it's sent immediately
           await Sentry.flush(2000);
@@ -76,7 +81,7 @@ export async function GET(request: Request) {
             eventId: exceptionId,
             testType: "exception",
             note: "Exception should appear in Sentry dashboard within 5-10 seconds",
-            sentryUrl: "https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/",
+            sentryUrl: `https://sentry.io/organizations/${process.env.SENTRY_ORG || 'digital-builders'}/projects/${process.env.SENTRY_PROJECT || 'digital-builders-frontend'}/`,
           });
         }
 
@@ -85,7 +90,9 @@ export async function GET(request: Request) {
         // Send an info message
         const messageId = Sentry.captureMessage("✅ Server-side test message: Sentry API integration working!", "info");
         console.log("[Sentry Test] Message sent to Sentry. Event ID:", messageId);
-        console.log("[Sentry Test] Check Sentry dashboard: https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/");
+        const org = process.env.SENTRY_ORG || 'digital-builders';
+        const project = process.env.SENTRY_PROJECT || 'digital-builders-frontend';
+        console.log(`[Sentry Test] Check Sentry dashboard: https://sentry.io/organizations/${org}/projects/${project}/`);
         
         // Flush to ensure it's sent immediately
         await Sentry.flush(2000);
@@ -96,7 +103,7 @@ export async function GET(request: Request) {
           eventId: messageId,
           testType: "message",
           note: "Message should appear in Sentry dashboard within 5-10 seconds",
-          sentryUrl: "https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/",
+            sentryUrl: `https://sentry.io/organizations/${process.env.SENTRY_ORG || 'digital-builders'}/projects/${process.env.SENTRY_PROJECT || 'digital-builders-frontend'}/`,
         });
       }
     }

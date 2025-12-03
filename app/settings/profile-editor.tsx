@@ -5,17 +5,20 @@ import { useState } from "react";
 import { AvatarUpload } from "./avatar-upload";
 import { AccountSettingsSection } from "./sections/account-settings";
 import { BasicInfoSection } from "./sections/basic-info";
-import { ClientDetailsSection } from "./sections/client-details";
-import { PortfolioSection } from "./sections/portfolio-section";
-import { TalentDetailsSection } from "./sections/talent-details";
+// TOTL-specific sections removed - Digital Builders doesn't use talent/client split
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { Database } from "@/types/supabase";
-
-type Profile = Database["public"]["Tables"]["profiles"]["Row"];
-type Talent = Database["public"]["Tables"]["talent_profiles"]["Row"];
-type Client = Database["public"]["Tables"]["client_profiles"]["Row"];
-type PortfolioItem = Database["public"]["Tables"]["portfolio_items"]["Row"] & { imageUrl?: string };
+// Temporary type until Digital Builders schema is created
+type Profile = {
+  id: string;
+  role: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  avatar_path: string | null;
+  email_verified: boolean | null;
+  created_at: string;
+  updated_at: string;
+};
 
 // Type for the exact columns we select
 type ProfileData = Pick<
@@ -33,15 +36,11 @@ type ProfileData = Pick<
 interface ProfileEditorProps {
   user: User;
   profile: ProfileData;
-  talent: Talent | null;
-  client: Client | null;
   avatarSrc: string | null;
-  portfolioItems?: PortfolioItem[];
 }
 
-export function ProfileEditor({ user, profile, talent, client, avatarSrc, portfolioItems = [] }: ProfileEditorProps) {
+export function ProfileEditor({ user, profile, avatarSrc }: ProfileEditorProps) {
   const [activeTab, setActiveTab] = useState("basic");
-  const isTalent = profile.role === "talent";
 
   return (
     <div className="space-y-6">
@@ -71,27 +70,13 @@ export function ProfileEditor({ user, profile, talent, client, avatarSrc, portfo
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className={`grid w-full ${isTalent ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3'} bg-gray-800 border-gray-700`}>
+            <TabsList className="grid w-full grid-cols-2 bg-gray-800 border-gray-700">
               <TabsTrigger
                 value="basic"
                 className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-400 text-sm md:text-base px-2 md:px-4 py-2"
               >
                 Basic Info
               </TabsTrigger>
-              <TabsTrigger
-                value="details"
-                className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-400 text-sm md:text-base px-2 md:px-4 py-2"
-              >
-                Details
-              </TabsTrigger>
-              {isTalent && (
-                <TabsTrigger
-                  value="portfolio"
-                  className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-400 text-sm md:text-base px-2 md:px-4 py-2"
-                >
-                  Portfolio
-                </TabsTrigger>
-              )}
               <TabsTrigger
                 value="account"
                 className="data-[state=active]:bg-gray-700 data-[state=active]:text-white text-gray-400 text-sm md:text-base px-2 md:px-4 py-2"
@@ -103,24 +88,6 @@ export function ProfileEditor({ user, profile, talent, client, avatarSrc, portfo
             <TabsContent value="basic" className="space-y-4 mt-6">
               <BasicInfoSection user={user} profile={profile} />
             </TabsContent>
-
-            <TabsContent value="details" className="space-y-4 mt-6">
-              {profile.role === "talent" ? (
-                <TalentDetailsSection talent={talent} />
-              ) : profile.role === "client" ? (
-                <ClientDetailsSection client={client} />
-              ) : (
-                <div className="text-center py-8">
-                  <p className="text-gray-400">No role-specific details available.</p>
-                </div>
-              )}
-            </TabsContent>
-
-            {isTalent && (
-              <TabsContent value="portfolio" className="space-y-4 mt-6">
-                <PortfolioSection portfolioItems={portfolioItems} />
-              </TabsContent>
-            )}
 
             <TabsContent value="account" className="space-y-4 mt-6">
               <AccountSettingsSection user={user} />

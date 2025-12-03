@@ -1,11 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import type { Database } from "@/types/supabase";
 
 type AccountType = "unassigned" | "talent" | "client";
 type ProfileRow = {
-  role: Database["public"]["Tables"]["profiles"]["Row"]["role"];
+  role: string;
   account_type: AccountType;
   is_suspended: boolean | null;
 };
@@ -68,7 +67,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  const supabase = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createServerClient<any>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll: () => req.cookies.getAll(),
       setAll: (cookies) => {

@@ -1,6 +1,5 @@
 "use client";
 
-import type { User } from "@supabase/supabase-js";
 import {
   Search,
   MoreVertical,
@@ -28,29 +27,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getRoleDisplayName } from "@/lib/constants/user-roles";
-import { createNameSlug } from "@/lib/utils/slug";
+// createNameSlug removed - TOTL-specific utility
 
 type UserProfile = {
   id: string;
-  role: "talent" | "client" | "admin";
+  role: "admin" | "user" | null;
   display_name: string | null;
   avatar_url: string | null;
   avatar_path: string | null;
   email_verified: boolean | null;
   created_at: string;
   updated_at: string;
-  talent_profiles?: {
-    first_name: string;
-    last_name: string;
-  } | null;
 };
 
 interface AdminUsersClientProps {
   users: UserProfile[];
-  user: User;
 }
 
-export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClientProps) {
+export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("all");
 
@@ -59,13 +53,12 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
     let filtered = initialUsers;
 
     // Filter by role based on active tab
-    if (activeTab === "talent") {
-      filtered = filtered.filter((u) => u.role === "talent");
-    } else if (activeTab === "career-builders") {
-      filtered = filtered.filter((u) => u.role === "client");
-    } else if (activeTab === "admins") {
+    if (activeTab === "admins") {
       filtered = filtered.filter((u) => u.role === "admin");
+    } else if (activeTab === "users") {
+      filtered = filtered.filter((u) => u.role !== "admin");
     }
+    // "all" tab shows everyone
 
     // Filter by search query
     if (searchQuery) {
@@ -82,11 +75,11 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
   }, [initialUsers, searchQuery, activeTab]);
 
   // Group by role for stats
-  const talentUsers = initialUsers.filter((u) => u.role === "talent");
-  const careerBuilderUsers = initialUsers.filter((u) => u.role === "client");
   const adminUsers = initialUsers.filter((u) => u.role === "admin");
+  const regularUsers = initialUsers.filter((u) => u.role !== "admin");
 
-  const getRoleIcon = (role: string) => {
+  const getRoleIcon = (role: string | null) => {
+    if (!role) return null;
     switch (role) {
       case "admin":
         return <Shield className="h-4 w-4 text-purple-400" />;
@@ -99,7 +92,8 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
     }
   };
 
-  const getRoleBadge = (role: string) => {
+  const getRoleBadge = (role: string | null) => {
+    if (!role) return <Badge variant="outline">No Role</Badge>;
     switch (role) {
       case "admin":
         return (
@@ -126,7 +120,7 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
 
   return (
     <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen">
-      <AdminHeader user={user} notificationCount={3} />
+      <AdminHeader />
 
       <div className="container mx-auto px-4 py-8">
         {/* Dashboard Header */}
@@ -138,11 +132,8 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
             <p className="text-gray-400 text-lg">View and manage all users on the platform</p>
           </div>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-lg font-medium">
-              {talentUsers.length} Talent
-            </div>
             <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-medium">
-              {careerBuilderUsers.length} Career Builders
+              {regularUsers.length} Users
             </div>
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium">
               {adminUsers.length} Admins
@@ -194,16 +185,10 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
                   All ({initialUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
-                  value="talent"
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
-                >
-                  Talent ({talentUsers.length})
-                </TabsTrigger>
-                <TabsTrigger
-                  value="career-builders"
+                  value="users"
                   className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
                 >
-                  Career Builders ({careerBuilderUsers.length})
+                  Users ({regularUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
                   value="admins"
@@ -301,232 +286,13 @@ export function AdminUsersClient({ users: initialUsers, user }: AdminUsersClient
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
-                                {userProfile.role === "talent" && (
-                                  <DropdownMenuItem asChild>
-                                    <Link
-                                      href={userProfile.talent_profiles
-                                        ? `/talent/${createNameSlug(userProfile.talent_profiles.first_name, userProfile.talent_profiles.last_name)}`
-                                        : `/talent/${userProfile.id}`}
-                                      className="text-gray-300 hover:bg-gray-700 flex items-center"
-                                    >
-                                      <Eye className="mr-2 h-4 w-4" />
-                                      View Talent Profile
-                                    </Link>
-                                  </DropdownMenuItem>
-                                )}
-                                {userProfile.role === "client" && (
-                                  <DropdownMenuItem asChild>
-                                    <Link
-                                      href={`/client/profile`}
-                                      className="text-gray-300 hover:bg-gray-700 flex items-center"
-                                    >
-                                      <Eye className="mr-2 h-4 w-4" />
-                                      View Career Builder Profile
-                                    </Link>
-                                  </DropdownMenuItem>
-                                )}
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="talent" className="p-0">
-              {filteredUsers.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
-                    <Users className="h-10 w-10 text-green-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white">No Talent Users</h3>
-                  <p className="text-gray-400 text-lg">There are currently no talent users.</p>
-                </div>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-gradient-to-r from-gray-800 to-gray-700">
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          User
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Role
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Email Verified
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Joined
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          User ID
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-700">
-                      {filteredUsers.map((userProfile) => (
-                        <tr key={userProfile.id} className="hover:bg-gray-700/50 transition-colors duration-200">
-                          <td className="py-4 px-6">
-                            <div className="flex items-center gap-3">
-                              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-semibold">
-                                {userProfile.display_name?.charAt(0).toUpperCase() || userProfile.id.charAt(0).toUpperCase()}
-                              </div>
-                              <div>
-                                <div className="font-medium text-white text-sm">
-                                  {userProfile.display_name || "No name"}
-                                </div>
-                                <div className="text-gray-400 text-xs">{userProfile.id.slice(0, 8)}...</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-4 px-6">
-                            {getRoleBadge(userProfile.role)}
-                          </td>
-                          <td className="py-4 px-6">
-                            {userProfile.email_verified ? (
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="h-4 w-4 text-green-400" />
-                                <span className="text-green-400 text-sm">Verified</span>
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-2">
-                                <XCircle className="h-4 w-4 text-yellow-400" />
-                                <span className="text-yellow-400 text-sm">Unverified</span>
-                              </div>
-                            )}
-                          </td>
-                          <td className="py-4 px-6 text-gray-400 text-sm">
-                            {new Date(userProfile.created_at).toLocaleDateString()}
-                          </td>
-                          <td className="py-4 px-6">
-                            <div className="font-mono text-xs text-gray-400">{userProfile.id.slice(0, 8)}...</div>
-                          </td>
-                          <td className="py-4 px-6">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-gray-700">
-                                  <MoreVertical size={16} />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
                                 <DropdownMenuItem asChild>
                                   <Link
-                                    href={
-                                      userProfile.talent_profiles
-                                        ? `/talent/${createNameSlug(userProfile.talent_profiles.first_name, userProfile.talent_profiles.last_name)}`
-                                        : `/talent/${userProfile.id}`
-                                    }
+                                    href={`/users/${userProfile.id}`}
                                     className="text-gray-300 hover:bg-gray-700 flex items-center"
                                   >
                                     <Eye className="mr-2 h-4 w-4" />
-                                    View Talent Profile
-                                  </Link>
-                                </DropdownMenuItem>
-                              </DropdownMenuContent>
-                            </DropdownMenu>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </TabsContent>
-
-            <TabsContent value="career-builders" className="p-0">
-              {filteredUsers.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
-                    <Briefcase className="h-10 w-10 text-blue-400" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white">No Career Builder Users</h3>
-                  <p className="text-gray-400 text-lg">There are currently no Career Builder users.</p>
-                </div>
-              ) : (
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-gradient-to-r from-gray-800 to-gray-700">
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          User
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Role
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Email Verified
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Joined
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          User ID
-                        </th>
-                        <th className="text-left text-xs font-medium text-gray-300 uppercase tracking-wider py-4 px-6">
-                          Actions
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-700">
-                      {filteredUsers.map((userProfile) => (
-                        <tr key={userProfile.id} className="hover:bg-gray-700/50 transition-colors duration-200">
-                          <td className="py-4 px-6">
-                            <div className="flex items-center gap-3">
-                              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-semibold">
-                                {userProfile.display_name?.charAt(0).toUpperCase() || userProfile.id.charAt(0).toUpperCase()}
-                              </div>
-                              <div>
-                                <div className="font-medium text-white text-sm">
-                                  {userProfile.display_name || "No name"}
-                                </div>
-                                <div className="text-gray-400 text-xs">{userProfile.id.slice(0, 8)}...</div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-4 px-6">
-                            {getRoleBadge(userProfile.role)}
-                          </td>
-                          <td className="py-4 px-6">
-                            {userProfile.email_verified ? (
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="h-4 w-4 text-green-400" />
-                                <span className="text-green-400 text-sm">Verified</span>
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-2">
-                                <XCircle className="h-4 w-4 text-yellow-400" />
-                                <span className="text-yellow-400 text-sm">Unverified</span>
-                              </div>
-                            )}
-                          </td>
-                          <td className="py-4 px-6 text-gray-400 text-sm">
-                            {new Date(userProfile.created_at).toLocaleDateString()}
-                          </td>
-                          <td className="py-4 px-6">
-                            <div className="font-mono text-xs text-gray-400">{userProfile.id.slice(0, 8)}...</div>
-                          </td>
-                          <td className="py-4 px-6">
-                            <DropdownMenu>
-                              <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white hover:bg-gray-700">
-                                  <MoreVertical size={16} />
-                                </Button>
-                              </DropdownMenuTrigger>
-                              <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
-                                <DropdownMenuItem asChild>
-                                  <Link
-                                    href={`/client/profile`}
-                                    className="text-gray-300 hover:bg-gray-700 flex items-center"
-                                  >
-                                    <Eye className="mr-2 h-4 w-4" />
-                                    View Career Builder Profile
+                                    View Profile
                                   </Link>
                                 </DropdownMenuItem>
                               </DropdownMenuContent>

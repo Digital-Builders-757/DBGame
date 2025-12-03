@@ -38,7 +38,8 @@ export async function POST(request: Request) {
     }
 
     // Step 2: Create profile record (profiles table only has display_name, not first_name/last_name)
-    const { error: profileError } = await supabase.from("profiles").insert([
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: profileError } = await (supabase as any).from("profiles").insert([
       {
         id: authData.user.id,
         display_name: `${firstName} ${lastName}`,
@@ -53,20 +54,8 @@ export async function POST(request: Request) {
       // Continue anyway since the auth user was created
     }
 
-    // Step 3: Create role-specific profile if needed
-    if (role === "talent") {
-      const { error: talentError } = await supabase.from("talent_profiles").insert([
-        {
-          user_id: authData.user.id,
-          first_name: firstName,
-          last_name: lastName,
-        },
-      ]);
-
-      if (talentError) {
-        console.error("Talent profile creation failed:", talentError);
-      }
-    }
+    // Step 3: Digital Builders - No role-specific profiles needed
+    // All user data is stored in the profiles table
 
     return NextResponse.json({ success: true, user: authData.user }, { status: 200 });
   } catch (error) {

@@ -18,7 +18,8 @@ export async function updateProfile(formData: FormData) {
   const displayName = formData.get("display_name") as string;
 
   // Update the profile using the user's ID from the session
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from("profiles")
     .update({ display_name: displayName })
     .eq("id", user.id);
@@ -34,68 +35,4 @@ export async function updateProfile(formData: FormData) {
   return { success: true };
 }
 
-export async function createTalentProfile(formData: FormData) {
-  const supabase = await createSupabaseServer();
-
-  // Get the current session to verify the user
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: "Not authenticated" };
-  }
-
-  // Extract form data
-  const experience = formData.get("bio") as string; // Using bio as experience description
-  const languages = (formData.get("skills") as string).split(",").map((skill) => skill.trim());
-  const age = Number.parseInt(formData.get("experience_years") as string);
-  const portfolioUrl = formData.get("portfolio_url") as string;
-
-  // Check if a talent profile already exists
-  const { data: existingProfile } = await supabase
-    .from("talent_profiles")
-    .select("id")
-    .eq("user_id", user.id)
-    .maybeSingle();
-
-  let error;
-
-  if (existingProfile) {
-    // Update existing profile
-    const { error: updateError } = await supabase
-      .from("talent_profiles")
-      .update({
-        experience,
-        languages,
-        age,
-        portfolio_url: portfolioUrl,
-      })
-      .eq("user_id", user.id);
-
-    error = updateError;
-  } else {
-    // Create new profile
-    const { error: insertError } = await supabase.from("talent_profiles").insert({
-      user_id: user.id,
-      first_name: "", // Required field
-      last_name: "", // Required field
-      experience,
-      languages,
-      age,
-      portfolio_url: portfolioUrl,
-    });
-
-    error = insertError;
-  }
-
-  if (error) {
-    console.error("Error with talent profile:", error);
-    return { error: error.message };
-  }
-
-  // Revalidate the dashboard path to refresh the data
-  revalidatePath("/dashboard");
-
-  return { success: true };
-}
+// Digital Builders - No talent profiles needed, all data in profiles table

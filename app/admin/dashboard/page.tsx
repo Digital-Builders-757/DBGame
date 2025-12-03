@@ -1,7 +1,11 @@
 ﻿import { redirect } from "next/navigation";
 import { AdminDashboardClient } from "./admin-dashboard-client";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
-import { type ProfileRow } from "@/types/database-helpers";
+
+// Temporary type until Digital Builders schema is created
+type ProfileRow = {
+  role: string;
+};
 
 // Force dynamic rendering to prevent static pre-rendering
 export const dynamic = "force-dynamic";
@@ -20,7 +24,8 @@ export default async function AdminDashboard() {
   }
 
   // Get user role from profiles table
-  const { data: userData, error: userError } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: userData, error: userError } = await (supabase as any)
     .from("profiles")
     .select("role")
     .eq("id", user.id as string)
@@ -30,24 +35,22 @@ export default async function AdminDashboard() {
     redirect("/login?returnUrl=/admin/dashboard");
   }
 
-  // Fetch dashboard data
-  const { data: gigs } = await supabase
-    .from("gigs")
-    .select("id,title,client_id,status,location,compensation,created_at,updated_at")
-    .order("created_at", { ascending: false })
-    .limit(5);
+  // Fetch dashboard data - Digital Builders simplified stats
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { count: totalUsers } = await (supabase as any)
+    .from("profiles")
+    .select("*", { count: "exact", head: true });
 
-  const { data: applications } = await supabase
-    .from("applications")
-    .select("id,gig_id,talent_id,status,message,created_at,updated_at")
-    .order("created_at", { ascending: false })
-    .limit(5);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { count: totalAdmins } = await (supabase as any)
+    .from("profiles")
+    .select("*", { count: "exact", head: true })
+    .eq("role", "admin");
 
   return (
     <AdminDashboardClient
-      user={user}
-      gigs={(gigs || []) as any} // eslint-disable-line @typescript-eslint/no-explicit-any
-      applications={(applications || []) as any} // eslint-disable-line @typescript-eslint/no-explicit-any
+      totalUsers={totalUsers || 0}
+      totalAdmins={totalAdmins || 0}
     />
   );
 }

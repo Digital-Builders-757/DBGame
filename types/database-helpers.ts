@@ -7,7 +7,7 @@
 //
 // Currently empty - will be populated after creating Digital Builders database schema.
 
-import type { Database, Tables, TablesInsert, TablesUpdate } from "./database";
+import type { Database } from "./database";
 
 // Table Row Types
 // Add your Digital Builders table types here after schema is created

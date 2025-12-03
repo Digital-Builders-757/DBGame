@@ -11,9 +11,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import type { Database } from "@/types/supabase";
-
-type Profile = Database["public"]["Tables"]["profiles"]["Row"];
+// Temporary type until Digital Builders schema is created
+type Profile = {
+  id: string;
+  role: string;
+  display_name: string | null;
+  avatar_url: string | null;
+  avatar_path: string | null;
+  email_verified: boolean | null;
+  created_at: string;
+  updated_at: string;
+};
 
 const basicInfoSchema = z.object({
   display_name: z

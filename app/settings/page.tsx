@@ -2,12 +2,7 @@
 import { ProfileEditor } from "./profile-editor";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
-import {
-  type ProfileRow,
-  type TalentProfileRow,
-  type ClientProfileRow,
-} from "@/types/database-helpers";
-import type { Database } from "@/types/supabase";
+
 
 // Force dynamic rendering to prevent build-time issues
 export const dynamic = "force-dynamic";
@@ -40,35 +35,15 @@ export default async function SettingsPage() {
     redirect("/login");
   }
 
-  // Fetch profile data with explicit column selection
-  const [{ data: profile }, { data: talent }, { data: client }, { data: portfolioItems }] = await Promise.all([
-    supabase
-      .from("profiles")
-      .select(
-        "id, role, display_name, avatar_url, avatar_path, email_verified, created_at, updated_at"
-      )
-      .eq("id", user.id)
-      .single(),
-    supabase
-      .from("talent_profiles")
-      .select(
-        "id, user_id, first_name, last_name, phone, age, location, experience, portfolio_url, height, measurements, hair_color, eye_color, shoe_size, languages, experience_years, specialties, weight, created_at, updated_at"
-      )
-      .eq("user_id", user.id)
-      .maybeSingle(),
-    supabase
-      .from("client_profiles")
-      .select(
-        "id, user_id, company_name, industry, website, contact_name, contact_email, contact_phone, company_size, created_at, updated_at"
-      )
-      .eq("user_id", user.id)
-      .maybeSingle(),
-    supabase
-      .from("portfolio_items")
-      .select("id, talent_id, title, description, caption, image_url, created_at, updated_at")
-      .eq("talent_id", user.id)
-      .order("created_at", { ascending: true }),
-  ]);
+  // Fetch profile data - Digital Builders uses simplified profile structure
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: profile } = await (supabase as any)
+    .from("profiles")
+    .select(
+      "id, role, display_name, avatar_url, avatar_path, email_verified, created_at, updated_at"
+    )
+    .eq("id", user.id)
+    .single();
 
   // Generate signed URL with image transformations for avatar if path exists
   let avatarSrc: string | null = null;
@@ -85,11 +60,7 @@ export default async function SettingsPage() {
     avatarSrc = signed?.signedUrl ?? null;
   }
 
-  // Portfolio items already have image_url from the database
-  const portfolioItemsWithUrls = (portfolioItems || []).map((item: Database["public"]["Tables"]["portfolio_items"]["Row"]) => ({
-    ...item,
-    imageUrl: item.image_url || undefined,
-  }));
+  // Digital Builders doesn't use portfolio items - simplified profile structure
 
   return (
     <div className="min-h-screen bg-black">
@@ -98,28 +69,18 @@ export default async function SettingsPage() {
           <div className="mb-8">
             {/* Breadcrumb Navigation */}
             <nav className="flex items-center gap-2 text-sm text-gray-400 mb-4">
-              {profile?.role === "talent" && (
-                <>
-                  <PrefetchLink href="/talent/dashboard" className="hover:text-white transition-colors">
-                    Dashboard
-                  </PrefetchLink>
-                  <span>→</span>
-                  <span className="text-white">Settings</span>
-                </>
-              )}
-              {profile?.role === "client" && (
-                <>
-                  <PrefetchLink href="/client/dashboard" className="hover:text-white transition-colors">
-                    Dashboard
-                  </PrefetchLink>
-                  <span>→</span>
-                  <span className="text-white">Settings</span>
-                </>
-              )}
-              {profile?.role === "admin" && (
+              {profile?.role === "admin" ? (
                 <>
                   <PrefetchLink href="/admin/dashboard" className="hover:text-white transition-colors">
                     Admin Dashboard
+                  </PrefetchLink>
+                  <span>→</span>
+                  <span className="text-white">Settings</span>
+                </>
+              ) : (
+                <>
+                  <PrefetchLink href="/dashboard" className="hover:text-white transition-colors">
+                    Dashboard
                   </PrefetchLink>
                   <span>→</span>
                   <span className="text-white">Settings</span>
@@ -132,29 +93,7 @@ export default async function SettingsPage() {
                 <h1 className="text-3xl font-bold text-white mb-2">Settings</h1>
                 <p className="text-gray-300">Manage your account and profile information</p>
               </div>
-              {profile?.role === "talent" && (
-                <PrefetchLink
-                  href="/talent/dashboard"
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Back to Dashboard
-                </PrefetchLink>
-              )}
-              {profile?.role === "client" && (
-                <PrefetchLink
-                  href="/client/dashboard"
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                  </svg>
-                  Back to Dashboard
-                </PrefetchLink>
-              )}
-              {profile?.role === "admin" && (
+              {profile?.role === "admin" ? (
                 <PrefetchLink
                   href="/admin/dashboard"
                   className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
@@ -164,17 +103,25 @@ export default async function SettingsPage() {
                   </svg>
                   Back to Admin
                 </PrefetchLink>
+              ) : (
+                <PrefetchLink
+                  href="/dashboard"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Dashboard
+                </PrefetchLink>
               )}
             </div>
           </div>
 
           <ProfileEditor
             user={user}
-            profile={profile as ProfileRow}
-            talent={talent as TalentProfileRow | null}
-            client={client as ClientProfileRow | null}
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            profile={profile as any}
             avatarSrc={avatarSrc}
-            portfolioItems={portfolioItemsWithUrls}
           />
         </div>
       </div>

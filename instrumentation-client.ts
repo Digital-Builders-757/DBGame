@@ -34,16 +34,18 @@ if (nodeEnv === "development") {
   });
 
   if (SENTRY_DSN) {
-    if (projectIdMatches) {
-      console.log("[Sentry Client] ✅ Sentry is configured correctly for sentry-yellow-notebook");
-    } else {
+    if (projectIdMatches && expectedProjectId) {
+      console.log(`[Sentry Client] ✅ Sentry is configured correctly for ${process.env.SENTRY_PROJECT || 'Digital Builders'}`);
+    } else if (expectedProjectId) {
       console.warn(
         `[Sentry Client] ⚠️ Project ID mismatch! Using ${currentProjectId}, expected ${expectedProjectId}`
       );
       console.warn("[Sentry Client] ⚠️ Update your .env.local DSNs to point to the correct project");
     }
+    const org = process.env.SENTRY_ORG || 'digital-builders';
+    const project = process.env.SENTRY_PROJECT || 'digital-builders-frontend';
     console.log(
-      "[Sentry Client] Test errors will appear at: https://sentry.io/organizations/the-digital-builders-bi/projects/sentry-yellow-notebook/"
+      `[Sentry Client] Test errors will appear at: https://sentry.io/organizations/${org}/projects/${project}/`
     );
   } else {
     console.warn("[Sentry Client] ⚠️ Sentry DSN is missing - errors will not be tracked!");
@@ -51,7 +53,7 @@ if (nodeEnv === "development") {
 }
 
 Sentry.init({
-  dsn: SENTRY_DSN,
+  dsn: SENTRY_DSN || undefined,
   
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: isProduction ? 0.1 : 1.0,

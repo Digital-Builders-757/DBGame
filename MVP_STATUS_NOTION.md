@@ -6,9 +6,21 @@
 
 ---
 
-# 🎉 CURRENT STATUS: EXTRACTION COMPLETE - READY FOR DEVELOPMENT!
+# 🎉 CURRENT STATUS: BUILD PASSING - READY FOR DEPLOYMENT!
 
-## 🚀 **Latest Achievement: TOTL Extraction Complete**
+## 🚀 **Latest Achievement: Build Fixed & Ready for Vercel**
+
+**CODEBASE CLEANUP & BUILD FIXES** - December 2025  
+- ✅ Removed all TOTL-specific Database type references
+- ✅ Simplified types to work with empty schema (ready for Digital Builders schema)
+- ✅ Fixed all build errors and TypeScript issues
+- ✅ Removed TOTL-specific components (reset-password, talent/client profiles)
+- ✅ Updated navbar and admin components with Digital Builders branding
+- ✅ Fixed Sentry configuration (removed hardcoded TOTL references)
+- ✅ Build passes successfully (`npm run build`)
+- ✅ Types regeneration configured with project ID: `hzcpxidgmvsfmmocnasj`
+- ✅ Created Vercel deployment checklist and documentation
+- ✅ Codebase ready for Vercel deployment
 
 **EXTRACTION FROM TOTL TEMPLATE** - December 2025  
 - ✅ Removed all TOTL-specific code (routes, components, database migrations)
@@ -51,7 +63,10 @@
 | --- | --- | --- |
 | **Extraction** | ✅ Complete | 100% |
 | **Project Setup** | ✅ Complete | 100% |
+| **Build & Types** | ✅ Complete | 100% |
+| **Branding** | ✅ Complete | 100% |
 | **Authentication** | ✅ Ready | 100% |
+| **Vercel Deployment** | 🔄 In Progress | 50% |
 | **Database Schema** | 🔄 Pending | 0% |
 | **Character Creation** | 🔄 Pending | 0% |
 | **Dashboard** | 🔄 Pending | 0% |
@@ -60,15 +75,27 @@
 | **Progression** | 🔄 Pending | 0% |
 | **PVP-lite** | 🔄 Pending | 0% |
 | **Testing** | 🔄 Pending | 0% |
-| **Deployment** | 🔄 Pending | 0% |
 
 ---
 
 ## 🎯 **Immediate Next Steps**
 
+### **Priority 0: Vercel Deployment (CURRENT)**
+1. ✅ Build passes locally
+2. 🔄 Connect GitHub repository to Vercel
+3. 🔄 Add environment variables in Vercel:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `SUPABASE_PROJECT_ID` (hzcpxidgmvsfmmocnasj)
+   - `NEXT_PUBLIC_SITE_URL` (update after first deploy)
+4. 🔄 Deploy to Vercel
+5. 🔄 Update Supabase redirect URLs with Vercel domain
+6. ✅ See `docs/digital-builders/VERCEL_DEPLOYMENT_CHECKLIST.md` for details
+
 ### **Priority 1: Database Schema Setup**
-1. Create new Supabase project for Digital Builders
-2. Create initial game schema migrations:
+1. ✅ Supabase project created (ID: hzcpxidgmvsfmmocnasj)
+2. 🔄 Create initial game schema migrations:
    - `profiles` (from Supabase auth)
    - `game_accounts` (Digital Builders account)
    - `characters` (player characters)
@@ -77,8 +104,8 @@
    - `actions` / `character_actions` (action system)
    - `db_cred_balances` / `db_cred_transactions` (DB Cred ledger)
    - `interaction_logs` (PVP-lite interactions)
-3. Set up RLS policies
-4. Generate TypeScript types
+3. 🔄 Set up RLS policies
+4. 🔄 Generate TypeScript types: `npm run types:regen`
 
 ### **Priority 2: Character Creation**
 1. Create `/character/create` page

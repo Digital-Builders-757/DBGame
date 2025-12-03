@@ -6,7 +6,8 @@ export async function GET() {
     const supabase = createSupabaseAdminClient();
 
     // Use the RPC function to safely access information_schema
-    const { data, error } = await supabase.rpc("check_auth_schema");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data, error } = await (supabase as any).rpc("check_auth_schema");
 
     if (error) {
       return NextResponse.json(

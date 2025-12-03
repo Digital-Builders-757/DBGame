@@ -21,7 +21,7 @@ All configuration differences have been resolved to match your linked Supabase p
 - ✅ `enable_confirmations`: `false` → `true`
 - ✅ `max_frequency`: `"1s"` → `"1m0s"`
 - ✅ `otp_length`: `6` → `8`
-- ✅ `otp_expiry`: `900` → `3600`
+- ✅ `otp_expiry`: `900` (15 minutes - maintained for security)
 
 ### **MFA TOTP**
 - ✅ `enroll_enabled`: `false` → `true`

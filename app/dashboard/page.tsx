@@ -8,7 +8,8 @@ export default async function DashboardPage() {
   const supabase = await createSupabaseServer();
 
   // Get user profile data directly - use maybeSingle() to prevent 406 errors
-  const { data: profile, error } = await supabase.from("profiles").select("*").maybeSingle();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: profile, error } = await (supabase as any).from("profiles").select("*").maybeSingle();
 
   // âœ… Fixed: Proper type guards
   if (error) {

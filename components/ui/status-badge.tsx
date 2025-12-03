@@ -1,12 +1,11 @@
 import React from "react";
 import { Badge, type BadgeProps } from "@/components/ui/badge";
-import type { Database } from "@/types/supabase";
 
-// Type definitions from database
-type GigStatus = Database["public"]["Enums"]["gig_status"];
-type ApplicationStatus = Database["public"]["Enums"]["application_status"];
-type BookingStatus = Database["public"]["Enums"]["booking_status"];
-type UserRole = Database["public"]["Enums"]["user_role"];
+// Temporary types until Digital Builders schema is created
+type GigStatus = string;
+type ApplicationStatus = string;
+type BookingStatus = string;
+type UserRole = string;
 
 // Icon components (using Unicode symbols for zero-dependency)
 const Icons = {

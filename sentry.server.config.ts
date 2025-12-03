@@ -51,7 +51,7 @@ if (nodeEnv === "development") {
 }
 
 Sentry.init({
-  dsn: SENTRY_DSN,
+  dsn: SENTRY_DSN || undefined,
 
   // Adjust sample rate based on environment
   tracesSampleRate: process.env.NODE_ENV === "production" ? 0.1 : 1.0,

@@ -1,5 +1,4 @@
-﻿import type { SupabaseClient } from "@supabase/supabase-js";
-import type { Database } from "@/types/supabase";
+﻿// Digital Builders - Types simplified until schema is created
 
 /**
  * Safe query wrapper for Supabase operations
@@ -71,8 +70,10 @@ export const safeQuery = {
   /**
    * Safely get a profile by user ID
    */
-  getProfileByUserId: async (supabase: SupabaseClient<Database>, userId: string) => {
-    return await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getProfileByUserId: async (supabase: any, userId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return await (supabase as any)
       .from("profiles")
       .select("id, display_name, role, email_verified, created_at")
       .eq("id", userId)

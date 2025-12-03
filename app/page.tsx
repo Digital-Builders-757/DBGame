@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 import { ArrowRight, Star, MapPin, Search, Handshake, Sparkles } from "lucide-react";
 // import Image from "next/image";
 import Link from "next/link";
-import { PostGigFooterLink } from "@/components/post-gig-footer-link";
+// PostGigFooterLink removed - TOTL-specific component
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -36,43 +36,42 @@ export default function HomePage() {
               <div className="space-y-6">
                 <div className="apple-glass rounded-2xl px-6 py-3 w-fit mx-auto lg:mx-0">
                   <span className="text-white font-medium text-sm">
-                    The Future of Talent Booking
+                    Text-Based MMO for Creative Tech
                   </span>
                 </div>
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white leading-tight font-display">
                   Connect with
-                  <span className="apple-text-gradient"> Top Talent</span>
+                  <span className="apple-text-gradient"> Digital Builders</span>
                   <br />
-                  <span className="text-gray-200">Instantly</span>
+                  <span className="text-gray-200">Game</span>
                 </h1>
                 <p className="text-lg sm:text-xl md:text-2xl text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0">
-                  TOTL Agency is the fastest way to discover, book, and work with exceptional
-                  talent. From models to influencers, find the perfect match for your next project.
+                  Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
-                <Link href="/choose-role" className="w-full sm:w-auto">
+                <Link href="/signup" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     className="button-glow w-full px-8 sm:px-10 py-5 text-lg sm:text-xl font-semibold border-0 min-h-[56px]"
                   >
-                    Start Booking <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
+                    Get Started <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6" />
                   </Button>
                 </Link>
-                <Link href="/talent" className="w-full sm:w-auto">
+                <Link href="/login" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="lg"
                     className="w-full border-2 border-white/20 text-white hover:bg-white/5 hover:border-white/30 apple-glass px-8 sm:px-10 py-5 text-lg sm:text-xl font-semibold min-h-[56px]"
                   >
-                    Browse Talent
+                    Sign In
                   </Button>
                 </Link>
               </div>
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-8 md:gap-12 text-xs sm:text-sm text-gray-400">
                 <div className="flex items-center space-x-3">
                   <div className="w-3 h-3 bg-green-500 rounded-full animate-apple-glow"></div>
-                  <span className="font-medium">500+ Verified Talent</span>
+                  <span className="font-medium">Join the Game</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div
@@ -108,14 +107,14 @@ export default function HomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <div className="apple-glass rounded-2xl px-6 py-3 w-fit mx-auto mb-8">
-              <span className="text-white font-medium text-sm">Featured Talent</span>
+              <span className="text-white font-medium text-sm">Coming Soon</span>
             </div>
             <h2 className="text-5xl lg:text-6xl font-bold text-white mb-6 font-display">
               Meet Our
               <span className="apple-text-gradient"> Stars</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Discover exceptional talent ready to bring your vision to life. From fashion to
+              Build your career in the creative tech industry. Take on jobs, complete actions, and progress.
               fitness, our curated selection represents the best in the industry.
             </p>
           </div>
@@ -290,10 +289,10 @@ export default function HomePage() {
               <span className="apple-text-gradient"> Get Started?</span>
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed">
-              Join thousands of brands and creators who trust TOTL Agency for their talent needs.
+              Join the Digital Builders community and start building your creative tech career.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link href="/choose-role">
+              <Link href="/signup">
                 <Button
                   size="lg"
                   className="button-glow w-full sm:w-auto px-10 py-5 text-xl font-semibold border-0"
@@ -322,7 +321,7 @@ export default function HomePage() {
             <div className="space-y-6">
               <SafeImage
                 src="/images/solo_logo.png"
-                alt="TOTL Agency"
+                alt="Digital Builders"
                 width={120}
                 height={40}
                 className="h-8 w-auto brightness-0 invert"
@@ -387,17 +386,17 @@ export default function HomePage() {
               <h3 className="text-white font-semibold">Get Started</h3>
               <div className="space-y-2">
                 <Link
-                  href="/choose-role"
+                  href="/signup"
                   className="block text-gray-400 hover:text-white transition-colors"
                 >
-                  Apply as Talent
+                  Create Account
                 </Link>
-                <PostGigFooterLink />
+                {/* PostGigFooterLink removed - TOTL-specific component */}
               </div>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 TOTL Agency. All rights reserved.</p>
+            <p>&copy; 2025 Digital Builders. All rights reserved.</p>
             <p className="mt-2 text-sm">
               <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
               {" · "}

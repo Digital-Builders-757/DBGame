@@ -11,16 +11,21 @@ const isProduction = process.env.VERCEL_ENV === "production";
 // Production DSN (from environment variable)
 const PRODUCTION_DSN = process.env.SENTRY_DSN_PROD;
 
-// Development DSN (fallback for local development)
-// Using sentry-yellow-notebook DSN for all environments
-const DEVELOPMENT_DSN = 
-  process.env.SENTRY_DSN_DEV ||
-  "https://9f271197ad8ee6ef9c43094ffae46796@o4510191106654208.ingest.us.sentry.io/4510191108292609";
+// Development DSN (from environment variable)
+// Must be set in .env.local for local development
+const DEVELOPMENT_DSN = process.env.SENTRY_DSN_DEV;
 
 // Select the appropriate DSN
+// Prefer production DSN in production, otherwise use development DSN
+// If neither is set, Sentry will be disabled (no errors thrown)
 const SENTRY_DSN = isProduction && PRODUCTION_DSN 
   ? PRODUCTION_DSN 
   : DEVELOPMENT_DSN;
+
+// Warn if Sentry is not configured (only in development)
+if (process.env.NODE_ENV === "development" && !SENTRY_DSN) {
+  console.warn("[Sentry Edge] ⚠️ Sentry DSN not configured. Set SENTRY_DSN_DEV in .env.local for error tracking.");
+}
 
 Sentry.init({
   dsn: SENTRY_DSN,

@@ -23,7 +23,8 @@ export async function updateBasicProfile(formData: FormData) {
   const display_name = String(formData.get("display_name") ?? "").trim();
 
   const patch = { display_name };
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from("profiles")
     .update(patch as any) // eslint-disable-line @typescript-eslint/no-explicit-any
     .eq("id", user.id as string)
@@ -72,107 +73,8 @@ export async function changePassword(password: string) {
   return error ? { error: error.message } : { success: true };
 }
 
-export async function upsertTalentProfile(payload: {
-  first_name: string;
-  last_name: string;
-  phone?: string;
-  age?: number;
-  location?: string;
-  experience?: string;
-  portfolio_url?: string;
-  height?: string;
-  measurements?: string;
-  hair_color?: string;
-  eye_color?: string;
-  shoe_size?: string;
-  languages?: string[];
-  specialties?: string[];
-}) {
-  "use server";
-  const supabase = await createSupabaseServer();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: "Not authenticated" };
-  }
-
-  assertUserId(user);
-  const values = {
-    user_id: user.id,
-    first_name: payload.first_name,
-    last_name: payload.last_name,
-    phone: payload.phone,
-    age: payload.age,
-    location: payload.location,
-    experience: payload.experience,
-    portfolio_url: payload.portfolio_url,
-    height: payload.height,
-    measurements: payload.measurements,
-    hair_color: payload.hair_color,
-    eye_color: payload.eye_color,
-    shoe_size: payload.shoe_size,
-    languages: payload.languages,
-    specialties: payload.specialties,
-  };
-  const { error } = await supabase
-    .from("talent_profiles")
-    .upsert(values as any, { onConflict: "user_id" }) // eslint-disable-line @typescript-eslint/no-explicit-any
-    .select("user_id")
-    .single();
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  revalidatePath("/settings");
-  return { success: true };
-}
-
-export async function upsertClientProfile(payload: {
-  company_name: string;
-  industry?: string;
-  website?: string;
-  contact_name?: string;
-  contact_email: string;
-  contact_phone?: string;
-  company_size?: string;
-}) {
-  "use server";
-  const supabase = await createSupabaseServer();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return { error: "Not authenticated" };
-  }
-
-  assertUserId(user);
-  const values = {
-    user_id: user.id,
-    company_name: payload.company_name,
-    industry: payload.industry,
-    website: payload.website,
-    contact_name: payload.contact_name,
-    contact_email: payload.contact_email,
-    contact_phone: payload.contact_phone,
-    company_size: payload.company_size,
-  };
-  const { error } = await supabase
-    .from("client_profiles")
-    .upsert(values as any, { onConflict: "user_id" }) // eslint-disable-line @typescript-eslint/no-explicit-any
-    .select("user_id")
-    .single();
-
-  if (error) {
-    return { error: error.message };
-  }
-
-  revalidatePath("/settings");
-  return { success: true };
-}
+// TOTL-specific profile functions removed - Digital Builders uses simplified profile structure
+// These functions referenced talent_profiles and client_profiles tables which don't exist in Digital Builders
 
 export async function uploadAvatar(formData: FormData) {
   "use server";
@@ -234,7 +136,8 @@ export async function uploadAvatar(formData: FormData) {
       avatar_path: path,
       updated_at: new Date().toISOString(),
     };
-    const { error: updateError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: updateError } = await (supabase as any)
       .from("profiles")
       .update(patch as any) // eslint-disable-line @typescript-eslint/no-explicit-any
       .eq("id", user.id as string)
