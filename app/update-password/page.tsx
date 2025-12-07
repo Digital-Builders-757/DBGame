@@ -1,5 +1,4 @@
 ﻿import { ArrowLeft } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UpdatePasswordForm } from "./update-password-form";
@@ -30,37 +29,33 @@ export default async function UpdatePasswordPage({
 
       if (error) {
         return (
-          <div className="min-h-screen bg-gray-50 pt-24">
-            <div className="container mx-auto px-4 py-12">
+          <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+            <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
               <Link
                 href="/login"
-                className="inline-flex items-center text-gray-600 hover:text-black mb-8"
+                className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-8 transition-colors"
               >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to login
               </Link>
 
-              <div className="max-w-md mx-auto bg-white rounded-xl shadow-sm overflow-hidden">
-                <div className="p-8">
-                  <div className="text-center mb-8">
-                    <Image
-                      src="/images/totl-logo-transparent.png"
-                      alt="TOTL Agency"
-                      width={120}
-                      height={50}
-                      className="mx-auto mb-6"
-                    />
-                    <h1 className="text-2xl font-bold mb-2">Invalid Reset Link</h1>
-                    <p className="text-gray-600">
-                      This password reset link has expired or is invalid. Please request a new one.
-                    </p>
+              <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+                <div className="text-center space-y-3 mb-6">
+                  <div className="font-mono text-3xl font-bold">
+                    <span className="text-brand-green">{"{"}</span>
+                    <span className="text-brand-cyan">bl</span>
+                    <span className="text-brand-green">{"}"}</span>
+                    <span className="text-brand-magenta">;</span>
                   </div>
-                  <div className="text-center">
-                    <Button asChild variant="outline" className="w-full">
-                      <Link href="/login">Return to Login</Link>
-                    </Button>
-                  </div>
+                  <h1 className="text-2xl font-bold text-brand-text-primary">Invalid Reset Link</h1>
+                  <p className="text-brand-text-secondary">
+                    This reset link is expired or invalid. Please request a new link.
+                  </p>
                 </div>
+                <Button asChild className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 neon-shadow-magenta">
+                  <Link href="/login">Return to Login</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -69,32 +64,30 @@ export default async function UpdatePasswordPage({
 
       // Token is valid - show password reset form
       return (
-        <div className="min-h-screen bg-gray-50 pt-24">
-          <div className="container mx-auto px-4 py-12">
+        <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+          <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
             <Link
               href="/login"
-              className="inline-flex items-center text-gray-600 hover:text-black mb-8"
+              className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-8 transition-colors"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to login
             </Link>
 
-            <div className="max-w-md mx-auto bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="p-8">
-                <div className="text-center mb-8">
-                  <Image
-                    src="/images/totl-logo-transparent.png"
-                    alt="TOTL Agency"
-                    width={120}
-                    height={50}
-                    className="mx-auto mb-6"
-                  />
-                  <h1 className="text-2xl font-bold mb-2">Set New Password</h1>
-                  <p className="text-gray-600">Create a new password for your account.</p>
+            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+              <div className="text-center space-y-3 mb-6">
+                <div className="font-mono text-3xl font-bold">
+                  <span className="text-brand-green">{"{"}</span>
+                  <span className="text-brand-cyan">bl</span>
+                  <span className="text-brand-green">{"}"}</span>
+                  <span className="text-brand-magenta">;</span>
                 </div>
-
-                <UpdatePasswordForm />
+                <h1 className="text-2xl font-bold text-brand-text-primary">Set New Password</h1>
+                <p className="text-brand-text-secondary">Create a new password for your account.</p>
               </div>
+
+              <UpdatePasswordForm />
             </div>
           </div>
         </div>
@@ -119,32 +112,30 @@ export default async function UpdatePasswordPage({
 
       // User is authenticated - show password reset form
       return (
-        <div className="min-h-screen bg-gray-50 pt-24">
-          <div className="container mx-auto px-4 py-12">
+        <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+          <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
             <Link
               href="/login"
-              className="inline-flex items-center text-gray-600 hover:text-black mb-8"
+              className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-8 transition-colors"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to login
             </Link>
 
-            <div className="max-w-md mx-auto bg-white rounded-xl shadow-sm overflow-hidden">
-              <div className="p-8">
-                <div className="text-center mb-8">
-                  <Image
-                    src="/images/totl-logo-transparent.png"
-                    alt="TOTL Agency"
-                    width={120}
-                    height={50}
-                    className="mx-auto mb-6"
-                  />
-                  <h1 className="text-2xl font-bold mb-2">Update Password</h1>
-                  <p className="text-gray-600">Create a new password for your account.</p>
+            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+              <div className="text-center space-y-3 mb-6">
+                <div className="font-mono text-3xl font-bold">
+                  <span className="text-brand-green">{"{"}</span>
+                  <span className="text-brand-cyan">bl</span>
+                  <span className="text-brand-green">{"}"}</span>
+                  <span className="text-brand-magenta">;</span>
                 </div>
-
-                <UpdatePasswordForm />
+                <h1 className="text-2xl font-bold text-brand-text-primary">Update Password</h1>
+                <p className="text-brand-text-secondary">Create a new password for your account.</p>
               </div>
+
+              <UpdatePasswordForm />
             </div>
           </div>
         </div>

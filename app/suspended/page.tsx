@@ -22,45 +22,46 @@ export default async function SuspendedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 text-center">
-      <div className="max-w-xl space-y-6">
+    <div className="relative min-h-screen bg-brand-background flex flex-col items-center justify-center px-4 text-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+      <div className="max-w-xl w-full space-y-6 relative z-10 bg-brand-card/80 border border-brand-border rounded-2xl p-8 shadow-2xl shadow-brand-magenta/20 backdrop-blur">
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-rose-600 uppercase tracking-wide">Account Hold</p>
-          <h1 className="text-4xl font-bold text-gray-900">Your account is temporarily suspended</h1>
-          <p className="text-base text-gray-600">
+          <p className="text-sm font-semibold text-brand-magenta uppercase tracking-wide">Account Hold</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-brand-text-primary">Your account is temporarily suspended</h1>
+          <p className="text-base text-brand-text-secondary">
             For the safety of our community, this account cannot access the platform right now.
-            Please review the details below and contact the TOTL team if you believe this is a mistake.
+            Please review the details below and contact the Digital Builders team if you believe this is a mistake.
           </p>
         </div>
 
         {suspensionReason ? (
-          <div className="rounded-2xl border border-rose-100 bg-white p-5 text-left shadow-sm">
-            <p className="text-sm font-semibold text-gray-700 mb-2">Reason provided by moderator</p>
-            <p className="text-gray-900 whitespace-pre-line">{suspensionReason}</p>
+          <div className="rounded-2xl border border-brand-border bg-brand-background p-5 text-left shadow-inner">
+            <p className="text-sm font-semibold text-brand-text-primary mb-2">Reason provided by moderator</p>
+            <p className="text-brand-text-primary whitespace-pre-line">{suspensionReason}</p>
           </div>
         ) : (
-          <div className="rounded-2xl border border-rose-100 bg-white p-5 text-left shadow-sm">
-            <p className="text-gray-900">
-              A TOTL moderator has suspended this account. Reach out to confirm the next steps.
+          <div className="rounded-2xl border border-brand-border bg-brand-background p-5 text-left shadow-inner">
+            <p className="text-brand-text-primary">
+              A Digital Builders moderator has suspended this account. Reach out to confirm the next steps.
             </p>
           </div>
         )}
 
-        <div className="space-y-3 text-sm text-gray-600">
+        <div className="space-y-3 text-sm text-brand-text-secondary">
           <p>
-            ✅ If you&apos;re a talent, you can still export your portfolio assets by contacting support. <br />
-            ✅ If you&apos;re a client, we&apos;ll ensure any active bookings are handled appropriately.
+            ✅ If you&apos;re a builder, contact support for next steps or appeals.<br />
+            ✅ Active obligations (events/check-ins) will be handled appropriately.
           </p>
-          <p className="text-gray-500">
+          <p className="text-brand-text-secondary">
             Suspensions are reviewed regularly. Replies typically take 1–2 business days.
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Button asChild className="px-6">
-            <Link href="mailto:support@thetotlagency.com">Contact Support</Link>
+          <Button asChild className="px-6 bg-brand-magenta text-black hover:bg-brand-magenta/90 neon-shadow-magenta">
+            <Link href="mailto:support@digitalbuilders.world">Contact Support</Link>
           </Button>
-          <Button asChild variant="outline" className="px-6">
+          <Button asChild variant="outline" className="px-6 border-brand-border text-brand-text-primary hover:bg-brand-card">
             <Link href="/login">Return to Login</Link>
           </Button>
         </div>

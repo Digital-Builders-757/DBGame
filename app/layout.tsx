@@ -23,11 +23,11 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  title: "Digital Builders - Text-Based MMO for Creative Tech",
-  description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
+  title: "Digital Builders World – Event Portal + Builder Card",
+  description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
   openGraph: {
-    title: "Digital Builders - Text-Based MMO for Creative Tech",
-    description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
+    title: "Digital Builders World – Event Portal + Builder Card",
+    description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
     url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
     siteName: "Digital Builders",
     images: [
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Builders - Text-Based MMO for Creative Tech",
-    description: "Build your career in the creative tech industry. Take on jobs, complete actions, and progress through different career tracks.",
+    title: "Digital Builders World – Event Portal + Builder Card",
+    description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
     images: ["/images/digital-builders-logo.png"],
   },
 };

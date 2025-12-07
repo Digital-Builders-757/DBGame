@@ -61,10 +61,9 @@
 ## 4. Authentication & Authorization
 
 - **Profile creation**: Follow `ensureProfileExists` patterns; check `docs/AUTH_STRATEGY.md`.  
-- **Game-based routing**: Middleware + server actions must redirect by character existence:
-  - Has character → `/dashboard`
-  - No character → `/character/create`
-  - Not authenticated → `/login`
+- **Simple routing**: Middleware + server actions redirect:
+  - Logged in → `/events`
+  - Not authenticated → `/login` or `/`
 - **maybeSingle() everywhere** a row might not exist; never check for `PGRST116` when using it.  
 - **Signup/Login flows**: Mirror trigger logic in `docs/AUTH_DATABASE_TRIGGER_CHECKLIST.md` before editing Supabase functions or triggers.  
 - **Admin tasks**: Only on secure server routes using the admin client; verify RLS and logging.
@@ -86,16 +85,16 @@
 
 ---
 
-## 6. Game-Specific Rules
+## 6. MVP-Specific Rules
 
-- **Game Logic Location:** All game logic must be in `lib/game/` modules:
-  - `lib/game/conflict.ts` - PVP-lite/interaction resolution (server-side only)
-  - `lib/game/jobs.ts` - Job timer logic
-  - `lib/game/actions.ts` - Action timer logic
-  - `lib/game/progression.ts` - XP and leveling logic
-- **Timers:** All timers tracked server-side. Never trust client-side timers for game state.
-- **DB Cred:** Off-chain ledger for v1 MVP. Future v2+ will migrate to Solana SPL tokens.
-- **No Wallet Required:** v1 MVP is Web2-only. Do not require Solana wallet connection for core flows.
+- **MVP Scope:** v1 is Event Portal + Builder Card only:
+  - Event Portal: RSVP to events, check-in at door
+  - Builder Card: Display name, XP total, basic badges
+  - No PVP, no crypto, no game systems yet
+- **Core Entities:** profiles, events, tickets, xp_transactions
+- **XP System:** Admin-only XP transactions in v1. Users cannot grant themselves XP.
+- **No Wallet Required:** v1 MVP is Web2-only. Do not require Solana wallet connection.
+- **Future Game Systems:** Reserved for v2+. Keep architecture flexible but don't build game features in v1.
 
 ---
 
@@ -127,7 +126,7 @@
 - **Common Errors:** `docs/COMMON_ERRORS_QUICK_REFERENCE.md`, `docs/TYPESCRIPT_COMMON_ERRORS.md`  
 - **Type Safety:** `docs/TYPE_SAFETY_IMPROVEMENTS.md`, `TYPE_SAFETY_COMPLETE.md`  
 - **Security/Auth:** `docs/SECURITY_CONFIGURATION.md`, `docs/AUTH_STRATEGY.md`, `docs/AUTH_DATABASE_TRIGGER_CHECKLIST.md`  
-- **Game Architecture:** `docs/digital-builders/ARCHITECTURE.md`, `docs/digital-builders/MVP_ROADMAP.md`
+- **MVP Architecture:** `docs/digital-builders/MVP_ROADMAP.md`, `docs/digital-builders/PROJECT_SPEC.md`
 
 ---
 

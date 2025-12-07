@@ -93,34 +93,34 @@ export default function VerificationPendingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24">
-      <div className="container mx-auto px-4 py-12">
-        <Link href="/" className="inline-flex items-center text-gray-600 hover:text-black mb-8">
+    <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+      <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
+        <Link href="/" className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-8 transition-colors">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Link>
 
-        <div className="max-w-md mx-auto">
-          <Card>
-            <CardHeader>
-              <div className="w-16 h-16 bg-amber-100 rounded-full mx-auto flex items-center justify-center mb-4">
-                <Mail className="h-8 w-8 text-amber-600" />
+        <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+          <Card className="bg-transparent border-none shadow-none">
+            <CardHeader className="space-y-3">
+              <div className="w-16 h-16 bg-brand-magenta/15 border border-brand-magenta/30 rounded-full mx-auto flex items-center justify-center">
+                <Mail className="h-8 w-8 text-brand-magenta" />
               </div>
-              <CardTitle className="text-center">Verify your email</CardTitle>
-              <CardDescription className="text-center">
-                We&apos;ve sent a verification email to <strong>{email}</strong>
+              <CardTitle className="text-center text-brand-text-primary">Verify your email</CardTitle>
+              <CardDescription className="text-center text-brand-text-secondary">
+                We&apos;ve sent a verification email to <strong className="text-brand-text-primary">{email}</strong>
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-center text-white">
-                Please check your inbox and click the verification link to complete your
-                registration.
+              <p className="text-center text-brand-text-secondary">
+                Please check your inbox and click the verification link to complete your registration.
               </p>
 
               {emailStatus === "sent" && (
-                <Alert className="bg-green-50 border-green-200">
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                  <AlertDescription className="text-green-700">
+                <Alert className="bg-brand-green/10 border-brand-green/40">
+                  <CheckCircle2 className="h-4 w-4 text-brand-green" />
+                  <AlertDescription className="text-brand-text-primary">
                     {justSent
                       ? "Verification email has been resent successfully!"
                       : "Verification email has been sent!"}
@@ -129,32 +129,31 @@ export default function VerificationPendingPage() {
               )}
 
               {emailStatus === "error" && (
-                <Alert className="bg-amber-50 border-amber-200">
-                  <AlertTriangle className="h-4 w-4 text-amber-600" />
-                  <AlertDescription className="text-amber-700">
-                    There was an issue sending the verification email. Please try again or contact
-                    support.
+                <Alert className="bg-brand-cyan/10 border-brand-cyan/40">
+                  <AlertTriangle className="h-4 w-4 text-brand-cyan" />
+                  <AlertDescription className="text-brand-text-primary">
+                    There was an issue sending the verification email. Please try again or contact support.
                   </AlertDescription>
                 </Alert>
               )}
 
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-medium mb-2 text-black">Didn&apos;t receive the email?</h4>
-                <ul className="text-sm text-gray-600 space-y-2">
+              <div className="bg-brand-background p-4 rounded-lg border border-brand-border">
+                <h4 className="font-medium mb-2 text-brand-text-primary">Didn&apos;t receive the email?</h4>
+                <ul className="text-sm text-brand-text-secondary space-y-2">
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-brand-green mr-2">•</span>
                     Check your spam or junk folder
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-brand-green mr-2">•</span>
                     Make sure you entered the correct email address
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-brand-green mr-2">•</span>
                     Wait a few minutes for the email to arrive
                   </li>
                   <li className="flex items-start">
-                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-brand-green mr-2">•</span>
                     If you still don&apos;t see it, try clicking the resend button below
                   </li>
                 </ul>
@@ -164,16 +163,16 @@ export default function VerificationPendingPage() {
               <Button
                 onClick={handleResendEmail}
                 disabled={isSending || justSent}
-                className="w-full"
+                className="w-full border-brand-border text-brand-text-primary hover:bg-brand-card"
                 variant="outline"
               >
                 {isSending ? "Sending..." : justSent ? "Email sent" : "Resend verification email"}
               </Button>
-              <div className="text-center text-sm text-gray-500">
+              <div className="text-center text-sm text-brand-text-secondary">
                 Already verified?{" "}
                 <Link
                   href="/login"
-                  className="text-white font-semibold hover:text-gray-200 hover:underline border-b border-gray-400 hover:border-gray-200 transition-colors"
+                  className="text-brand-magenta font-semibold hover:text-brand-text-primary hover:underline transition-colors"
                 >
                   Sign in
                 </Link>

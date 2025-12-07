@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { ArrowLeft, Eye, EyeOff, CheckCircle2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type React from "react";
@@ -131,38 +130,37 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-black pt-4 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24 relative overflow-hidden">
+    <div className="min-h-screen bg-brand-background pt-4 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24 relative overflow-hidden">
       {/* Subtle gradient background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900 opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-60" />
       
       <div className="container mx-auto px-4 py-4 sm:py-6 md:py-8 relative z-10">
-        <Link href="/" className="inline-flex items-center text-gray-400 hover:text-white mb-4 sm:mb-6 md:mb-6 transition-colors">
+        <Link href="/" className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-4 sm:mb-6 md:mb-6 transition-colors">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to home
         </Link>
 
-        <div className="max-w-md mx-auto bg-gray-900 border border-gray-800 rounded-xl shadow-2xl shadow-white/5 overflow-hidden backdrop-blur-sm">
-          {/* Top accent bar */}
-          <div className="h-1 bg-gradient-to-r from-gray-600 via-white to-gray-600" />
-          
-          <div className="p-4 sm:p-6 md:p-8">
-            <div className="text-center mb-6 sm:mb-8">
-              <Image
-                src="/images/totl-logo-transparent.png"
-                alt="TOTL Agency"
-                width={140}
-                height={58}
-                className="mx-auto mb-4 sm:mb-6 sm:w-[180px] sm:h-[75px] filter brightness-0 invert"
-              />
-              <h1 className="text-xl sm:text-2xl font-bold mb-2 text-white">Welcome Back</h1>
-              <p className="text-sm sm:text-base text-gray-400">Sign in to access your TOTL Agency account</p>
+        <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-magenta/20 overflow-hidden backdrop-blur-sm">
+          <div className="h-1 bg-gradient-to-r from-brand-magenta via-brand-cyan to-brand-green" />
+          <div className="p-4 sm:p-6 md:p-8 space-y-6">
+            <div className="text-center space-y-3">
+              <div className="font-mono text-3xl font-bold">
+                <span className="text-brand-green">{"{"}</span>
+                <span className="text-brand-cyan">bl</span>
+                <span className="text-brand-green">{"}"}</span>
+                <span className="text-brand-magenta">;</span>
+              </div>
+              <h1 className="text-xl sm:text-2xl font-bold text-brand-text-primary">Welcome Back, Builder</h1>
+              <p className="text-sm sm:text-base text-brand-text-secondary">
+                Sign in to your Digital Builders account. You need a Builder Account to attend events.
+              </p>
             </div>
 
             {verified && (
-              <Alert className="bg-green-900/30 border-green-700 mb-6">
-                <CheckCircle2 className="h-4 w-4 text-green-400" />
-                <AlertTitle className="text-green-300">Email verified successfully!</AlertTitle>
-                <AlertDescription className="text-green-400">
+              <Alert className="bg-brand-green/10 border-brand-green/40 mb-6">
+                <CheckCircle2 className="h-4 w-4 text-brand-green" />
+                <AlertTitle className="text-brand-green">Email verified successfully!</AlertTitle>
+                <AlertDescription className="text-brand-text-primary">
                   You can now log in to your account.
                 </AlertDescription>
               </Alert>
@@ -176,7 +174,7 @@ export default function Login() {
 
             <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-1.5 sm:space-y-2">
-                <Label htmlFor="email" className={`text-white text-sm sm:text-base ${formErrors.email ? "text-red-400" : ""}`}>
+                <Label htmlFor="email" className={`text-brand-text-primary text-sm sm:text-base ${formErrors.email ? "text-red-400" : ""}`}>
                   Email
                 </Label>
                 <Input
@@ -202,7 +200,7 @@ export default function Login() {
                     }
                   }}
                   required
-                  className={`bg-gray-800 text-white border-gray-700 focus:border-gray-500 focus:ring-gray-500 text-base placeholder:text-gray-500 ${formErrors.email ? "border-red-500" : ""}`}
+                  className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary ${formErrors.email ? "border-red-500" : ""}`}
                 />
                 {formErrors.email && (
                   <p className="text-sm text-red-400 mt-1">{formErrors.email}</p>
@@ -211,10 +209,10 @@ export default function Login() {
 
               <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex justify-between items-center">
-                  <Label htmlFor="password" className={`text-white text-sm sm:text-base ${formErrors.password ? "text-red-400" : ""}`}>
+                  <Label htmlFor="password" className={`text-brand-text-primary text-sm sm:text-base ${formErrors.password ? "text-red-400" : ""}`}>
                     Password
                   </Label>
-                  <Link href="/update-password" className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors">
+                  <Link href="/update-password" className="text-xs sm:text-sm text-brand-text-secondary hover:text-brand-text-primary transition-colors">
                     Forgot password?
                   </Link>
                 </div>
@@ -242,11 +240,11 @@ export default function Login() {
                       }
                     }}
                     required
-                    className={`bg-gray-800 text-white border-gray-700 focus:border-gray-500 focus:ring-gray-500 text-base placeholder:text-gray-500 ${formErrors.password ? "border-red-500" : ""}`}
+                    className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary ${formErrors.password ? "border-red-500" : ""}`}
                   />
                   <button
                     type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-text-secondary hover:text-brand-text-primary transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -259,7 +257,7 @@ export default function Login() {
 
               <Button
                 type="submit"
-                className="w-full bg-white text-black hover:bg-gray-200 font-semibold transition-all duration-200 border-0 shadow-lg hover:shadow-xl"
+                className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 font-semibold transition-all duration-200 border-0 shadow-lg hover:shadow-xl neon-shadow-magenta"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -280,18 +278,18 @@ export default function Login() {
                   <div className="w-full border-t border-gray-800"></div>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-gray-900 px-2 text-gray-500">New to TOTL?</span>
+                  <span className="bg-brand-card px-2 text-brand-text-secondary">New to Digital Builders?</span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-3 sm:space-y-4">
               <div className="text-center">
-                <p className="text-sm sm:text-base text-gray-400">
+                <p className="text-sm sm:text-base text-brand-text-secondary">
                   Don&apos;t have an account?{" "}
                   <Link
-                    href={returnUrl ? `/choose-role?returnUrl=${returnUrl}` : "/choose-role"}
-                    className="text-white font-medium hover:text-gray-300 inline-block transition-colors"
+                    href={returnUrl ? `/create-account?returnUrl=${returnUrl}` : "/create-account"}
+                    className="text-brand-magenta font-medium hover:text-brand-text-primary inline-block transition-colors"
                   >
                     Create an account →
                   </Link>

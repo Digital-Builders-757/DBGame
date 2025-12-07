@@ -1,394 +1,291 @@
-# Digital Builders – Text-Based MMO for the Creative Tech City
+# Digital Builders World – v1: Event Portal + Builder Card
 
-**Project Name:** Digital Builders  
-
-**Version:** v1 – Web2 MVP (crypto optional in v2+)  
-
-**Original Template:** Extracted from TOTL Agency architecture (Next.js + Supabase)  
+**Project Name:** Digital Builders World  
+**Version:** v1 – Event Portal + Builder Card  
+**Status:** Ready for Implementation
 
 ---
 
 ## 🎯 High-Level Concept
 
-**Digital Builders** is a browser-based, text-driven MMO for the existing Digital Builders community (Discord, Instagram, real-life events). Players create a character in a shared "City of Builders," pick a track (developer, designer, creator, founder, community organizer, etc.), and progress by running timed "jobs" and "actions" that simulate real work and collaboration in the tech/creative world.
+**Digital Builders World – v1: Event Portal + Builder Card**
 
-The game is:
+v1 lets people:
+- create an account,
+- RSVP to Digital Builders events,
+- get checked in at the door,
+- and see a simple Builder Card with XP/badges.
 
-- **Text-first:** Inspired by games like Mafia Returns: mostly lists, cards, timers, and text events.
+**If it's not in that sentence, it's not in v1.**
 
-- **Learn-by-doing:** The "grind" is built around repeating actions that build skill, connections, and "Builder Cred."
+### **The Law: Social Rule of the House**
 
-- **Community-driven:** Built specifically for the Digital Builders community you already have (Discord, IG).
+> "If you want to attend Digital Builders events, pitch, or get funds… you must make a Builder account."
 
-- **Future crypto-ready:** v1 uses an internal, off-chain currency and XP; Solana + tokens come later.
-
----
-
-## 🌍 Theme & Lore
-
-### Setting
-
-A near-future city where **creative technologists** are rebuilding culture and infrastructure with code, art, and community. The "gangs" are guilds and crews of builders:
-
-- **Coders** – Full-stack devs, automation wizards, AI tinkerers.
-
-- **Creators** – Content makers, editors, storytellers, community builders.
-
-- **Strategists** – Product thinkers, marketers, operators.
-
-- **Mystics** (hidden later) – People who find the secret "inner game" of Digital Builders (rituals, lore, hidden quests).
-
-The city is structured like a **hub world**:
-
-- **Coworking Spaces** (Assembly analog, etc.)  
-
-- **Studios** (video, audio, design labs)  
-
-- **Campus** (university / bootcamp)  
-
-- **Neighborhoods** (residential areas, side-hustle work)  
-
-- **HQs** (guild houses, hidden Societies later on)
+That one rule makes this MVP powerful even before you add any fancy game systems.
 
 ---
 
-## 👤 Core Player Flow
+## 🌍 What This Is
 
-### 1. Access & Account Creation (MVP)
+**We're not building "a cool future game" anymore — we're building the thing you actually need this month to run your world.**
 
-- Auth is **Supabase email/password** (reuse TOTL auth patterns).
-
-- No wallet requirement for v1 (Solana hooks live in the background for v2).
-
-- When a user signs in the first time, the system:
-
-  - Creates a `profile` row
-
-  - Creates a `game_account` (Digital Builders account)
-
-  - Sends them to **Character Creation**
-
-> This reuses the existing TOTL authentication setup as the base and swaps "talent/client/admin" for "builder player."
-
-### 2. Character Creation
-
-**Fields (MVP):**
-
-- Display name / handle  
-
-- Track (Developer, Creator, Strategist, Other)  
-
-- Starting District (e.g., Downtown, Arts District, Campus, Harbor)  
-
-- Optional: short "About" tagline
-
-Hidden fields:
-
-- `skill_code`, `skill_creative`, `skill_ops`, `charisma`, `consistency`, `mystic` (all numeric)  
-
-- `health` (0–100), `energy` (0–100)  
-
-- `builder_level`, `builder_xp`  
-
-Stats are **hidden from the player** in the UI but used server-side for all checks (job outcomes, PVP, unlocks).
-
-### 3. Main Dashboard (MVP)
-
-The dashboard has three main zones:
-
-1. **Top bar:**
-
-   - "Job Income" indicator with:
-
-     - Status: `READY` or countdown timer (e.g., `02:31` left)
-
-   - "Action Timer" indicator (for side-quests / PVP actions)
-
-   - Quick buttons: `Jobs`, `Actions`, `City`, `Messages`
-
-2. **Center content:**
-
-   - Card grid for **City Locations**:
-
-     - Cowork, University, Studio, Neighborhoods, etc.
-
-     - Clicking into a building shows the available jobs/actions/quests for that location.
-
-3. **Bottom bar:**
-
-   - "Players Online in Your City: X"
-
-   - Button to view **Online Players** → list of characters currently active (last_seen within N minutes)
-
-   - From the list, you can:
-
-     - View profile  
-
-     - Send a DM (later)  
-
-     - Attempt a PVP action (debate, collab steal, "pickpocket" analog, etc.)
+This is the entry point to Digital Builders. If you want to touch Digital Builders, you go through this door.
 
 ---
 
-## 💰 Economy – Web2 First
+## 👤 Core User Flow
 
-### Core Currency for v1
+### 1. Account Creation
 
-- Call the internal off-chain currency **DB Cred** (`db_cred_balance` in DB).
+- User signs up with email/password (Supabase Auth)
+- Profile created automatically (or via trigger)
+- User redirected to `/events`
 
-- Players earn **DB Cred** from:
+### 2. Browse Events
 
-  - Jobs (on a job timer)
+- User sees list of upcoming events
+- Each event shows: title, date, venue, "RSVP" button
+- User clicks event to see details
 
-  - Actions (side gigs)
+### 3. RSVP to Event
 
-  - Completing missions or mini-quests
+- User clicks "RSVP" button
+- Ticket created with status 'reserved'
+- User can cancel RSVP before event
 
-- DB Cred is used to:
+### 4. Check-In at Event
 
-  - Buy cosmetic upgrades (profile themes, titles)
+- Admin opens `/admin/check-in` page
+- Admin selects event
+- Admin searches by email/name
+- Admin clicks "Check In" button
+- Ticket status updated to 'checked_in'
+- `checked_in_at` timestamp set
 
-  - Buy "Tools" (bonus items that improve success odds)
+### 5. View Builder Card
 
-  - Unlock certain areas or events (e.g., VIP coworking room)
-
-> Architecturally, DB Cred is the same pattern as BCGC in the old docs, just **off-chain only** in v1; later it can be mirrored to a Solana SPL token using the same ledger pattern you already defined for BCGC.
-
-### Future Crypto Layer (v2+)
-
-- Introduce **Solana** integration later:
-
-  - 1 on-chain token for long-term "Builder Power" / governance (analogous to BCGW).
-
-  - 1 on-chain token for "spendable" in-game currency (analogous to BCGC).
-
-- v1 should:
-
-  - Keep currency and transactions **in Supabase tables**.
-
-  - Keep Solana code behind feature flags / stub functions so integration is smooth later.
+- User visits `/builder-card`
+- Sees: name, XP total, level, badges, last event
+- XP comes from admin grants (event attendance, speaking, etc.)
 
 ---
 
-## 🔁 Core Loops (MVP)
+## 📊 Core Entities
 
-### 1. Job Timer – Learn & Earn
+### **profiles**
 
-- Every **5 minutes** (configurable), the player can run **one job action**.
+Each auth user gets a Builder profile.
 
-- Jobs are tied to the player's **track** and **district**:
+**Fields:**
+- `id` (uuid, PK) - References `auth.users(id)`
+- `username` (text, unique) - Builder handle
+- `display_name` (text) - Display name
+- `role` (text) - 'builder' | 'mentor' | 'admin'
+- `bio` (text) - Optional bio
+- `avatar_url` (text) - Profile picture
+- `region` (text) - "Hampton Roads", "Atlanta", etc.
+- `xp_total` (integer) - Total XP (default 0)
+- `level` (integer) - Builder level (default 1)
+- `created_at`, `updated_at` (timestamptz)
 
-  - Dev example: "Fix a small bug", "Ship a landing page section"
+### **events**
 
-  - Creator example: "Draft a hook for a short", "Edit a 30s clip"
+Events people can attend.
 
-  - Strategist example: "Write a 3-bullet pitch", "Plan a sprint backlog"
+**Fields:**
+- `id` (uuid, PK)
+- `slug` (text, unique) - URL-friendly identifier
+- `title` (text) - Event title
+- `subtitle` (text) - Optional subtitle
+- `description` (text) - Event description
+- `venue_name` (text) - Venue name
+- `venue_address` (text) - Venue address
+- `city` (text) - City name
+- `start_at` (timestamptz) - Event start time
+- `end_at` (timestamptz) - Event end time
+- `capacity` (integer) - Max attendees
+- `is_public` (boolean) - Public visibility
+- `status` (text) - 'draft' | 'published' | 'archived'
+- `price_cents` (integer) - Price in cents (0 = free)
+- `currency` (char(3)) - Currency code (default 'USD')
+- `created_by` (uuid) - References `profiles(id)`
+- `created_at`, `updated_at` (timestamptz)
 
-**Flow:**
+**MVP Behavior:**
+- All events are free (price_cents = 0) for now
+- Can display "$X" on UI and manually collect via Eventbrite/Posh/CashApp
+- Stripe integration comes later
 
-1. Player clicks `Jobs` → sees available jobs.
+### **tickets**
 
-2. Chooses one (with difficulty + reward info).
+RSVP / attendance records.
 
-3. Server:
+**Fields:**
+- `id` (uuid, PK)
+- `event_id` (uuid) - References `events(id)`
+- `user_id` (uuid) - References `auth.users(id)`
+- `status` (text) - 'reserved' | 'confirmed' | 'checked_in' | 'cancelled' | 'refunded'
+- `checked_in_at` (timestamptz) - Check-in timestamp
+- `payment_provider` (text) - 'stripe' | 'cash' | 'free'
+- `payment_reference` (text) - Payment reference
+- `notes` (text) - Admin notes
+- `created_at` (timestamptz)
 
-   - Checks `next_job_available_at`.
+**Unique Constraint:**
+- One ticket per event/user (prevent duplicate RSVPs)
 
-   - Rolls success/failure using hidden stats + randomness.
+**MVP Check-In Flow:**
+- Admin opens `/admin/check-in`
+- Searches by email/name
+- Clicks "Check In"
+- Sets `status = 'checked_in'` and `checked_in_at = now()`
+- QR codes come later (encode `ticket.id`)
 
-   - Rewards DB Cred + XP on success (XP tied to relevant stat).
+### **xp_transactions**
 
-   - Updates `next_job_available_at`.
+XP earning log.
 
-The UX is "simple text outcome" – think Mafia Returns, not flashy visuals.
+**Fields:**
+- `id` (uuid, PK)
+- `user_id` (uuid) - References `auth.users(id)`
+- `source_type` (text) - 'event_attendance' | 'speaking' | 'volunteering' | 'referral' | 'manual'
+- `source_id` (uuid) - Optional: event id, ticket id, etc.
+- `amount` (integer) - XP amount (can be negative)
+- `description` (text) - Transaction description
+- `created_by` (uuid) - References `profiles(id)` (admin)
+- `created_at` (timestamptz)
 
-### 2. Action Timer – Side Actions & Risky Plays
-
-Separate timer: **Action Timer** (also 5 minutes; can be tuned).
-
-Action types (MVP):
-
-- **Freelance Gigs** – Extra DB Cred, more variance.
-
-- **Collab Actions** – E.g., "Cold DM a creator", "Jump on a spontaneous collab".
-
-- **PVP-ish Actions** – Lightweight attacks like:
-
-  - "Underbid a job" (you try to steal a job from another player)
-
-  - "Idea Poach" (chance to swipe a tiny bit of their DB Cred or XP)
-
-These use **hidden stats + randomness**. For example:
-
-```text
-successChance = f(attacker.skill_creative + attacker.charisma, defender.consistency, random)
-```
-
-No blood and death here – "harm" is missed opportunities, lost Cred, or temporary debuffs to timers.
-
-### 3. Progression
-
-Players progress by:
-
-* Accumulating **DB Cred**
-
-* Gaining **XP** in track-specific skills
-
-* Unlocking:
-
-  * New jobs (higher payouts)
-
-  * New neighborhoods / buildings
-
-  * Titles and profile cosmetics
-
-Later phases:
-
-* Real world cross-over: linking in-game mastery to **real workshops, mentorships, bounties**, etc.
-
----
-
-## ⚔️ PvP & Presence (MVP)
-
-We need a **minimal but real** sense of "who's online" and ability to interact.
-
-### Online Presence
-
-* Store `last_seen_at` on each character.
-
-* "Online" = `last_seen_at` within last 5 minutes.
-
-* Bottom bar always shows: "X Builders Online in Your City".
-
-* Clicking opens a panel with:
-
-  * Username/handle
-
-  * Track (Dev, Creator, etc.)
-
-  * Simple action buttons:
-
-    * `View Profile`
-
-    * `Invite to Collab` (stub)
-
-    * `Try Risky Action` (e.g. "Underbid This Builder")
-
-### PVP Resolution Rules
-
-* All PVP logic runs server-side in `lib/game/conflict.ts`, just like the old design. 
-
-* Client only sends:
-
-  * `attacker_character_id`
-
-  * `defender_character_id`
-
-  * `interaction_type` (e.g., `UNDERBID`, `IDEA_POACH`)
-
-* Server:
-
-  * Validates both players exist, are in same district, not on cooldown.
-
-  * Fetches hidden stats.
-
-  * Computes outcome + rewards/penalties.
-
-  * Writes to interaction log.
-
-  * Emits a Supabase Realtime event so both UIs update quickly.
-
-There's **no permanent character death** in v1; that's reserved for more "hardcore" later modes if you want them.
+**MVP Behavior:**
+- Admin-only XP grants in v1
+- Don't auto-update `profiles.xp_total` (sum in query)
+- Later: trigger to keep `xp_total` in sync
 
 ---
 
-## 🧱 Architecture & Stack (MVP)
+## 🎴 Builder Card
 
-We reuse the existing TOTL + Blockchain Gang Life architecture:
+Simple display of Builder info.
 
-* **Frontend:** Next.js 15 App Router, strict TypeScript, Tailwind, shadcn/ui.
+**Shows:**
+- Name/handle
+- XP total (sum of xp_transactions)
+- Level (simple formula: floor(xp_total / 100) + 1)
+- Region
+- Last event attended
+- Basic badges (fake/manual at first)
 
-* **Backend:** Supabase (Postgres + Auth + Realtime).
-
-* **Hosting:** Vercel.
-
-* **AI & Dev:** Cursor IDE with `.cursorrules` enforcing docs + schema as source of truth. 
-
-### Core Tables (Renamed / Simplified)
-
-At a high level (not going into every column here):
-
-* `profiles` – user-level record (from Supabase auth).
-
-* `game_accounts` – "Digital Builders account" (one per player).
-
-* `characters` – individual characters (could support multiple later).
-
-* `cities` / `districts` – starting locations.
-
-* `jobs`, `character_jobs` – job definitions + progression.
-
-* `actions`, `character_actions` – side actions + timers.
-
-* `db_cred_balances`, `db_cred_transactions` – DB Cred ledger (copy pattern from `bcgc_balances` / `bcgc_transactions`).
-
-* `interaction_logs` – PVP & social interactions.
-
-Solana/BCGW/BCGC tables and logic are **kept out of v1** or turned into commented "future-phase" code.
+**Badges (v1: manual/fake):**
+- "First Event" - Attended 1+ events
+- "Regular" - Attended 5+ events
+- "Veteran" - Attended 10+ events
+- More badges added manually by admin
 
 ---
 
-## 🗺️ MVP Scope
+## 🏗️ Architecture & Stack
 
-**Included in v1:**
-
-* Supabase auth (email/password).
-
-* Single character per account.
-
-* Dashboard with:
-
-  * Job timer
-
-  * Action timer
-
-  * City location cards
-
-  * Online users list
-
-* Job system:
-
-  * 3–5 starter jobs per track
-
-  * 5-minute cooldown
-
-  * DB Cred + XP rewards
-
-* Action system:
-
-  * At least 2–3 actions per track (freelance + PVP-lite)
-
-* Hidden stat-based outcomes.
-
-* Simple PVP interactions (no death, just Cred/XP swings).
-
-* Basic profile customization (avatar placeholder, tagline).
-
-**Not in v1 (but architected for later):**
-
-* Full Solana integration & tokens.
-
-* Land, businesses, secret rooms.
-
-* Deep crime/legal/political systems from previous spec.
-
-* City wars.
-
-* Will/inheritance system.
-
-* Detailed factions and elections.
-
-We still use the **phased roadmap** style from the old MVP doc (Phase 0–6), but phases now map to Digital Builders features instead of crypto-crime features.
+- **Frontend:** Next.js 15 App Router, TypeScript, Tailwind, shadcn/ui
+- **Backend:** Supabase (Postgres + Auth + Realtime)
+- **Hosting:** Vercel
+- **AI & Dev:** Cursor IDE with `.cursorrules`
 
 ---
 
+## 📋 MVP Scope
+
+### **Included:**
+- ✅ Email/password auth (Supabase)
+- ✅ Event Portal (browse, RSVP, cancel)
+- ✅ Check-in system (admin at door)
+- ✅ Builder Card (XP, badges)
+- ✅ XP tracking (admin-only grants)
+
+### **Not Included (v2+):**
+- ❌ PVP systems
+- ❌ Crypto/wallet integration
+- ❌ Game systems (jobs, actions, timers)
+- ❌ Character creation
+- ❌ City/district system
+- ❌ DB Cred economy
+- ❌ Solana integration
+
+---
+
+## 🚀 Implementation Plan
+
+### **Phase 1: Database Schema**
+- Create tables: profiles, events, tickets, xp_transactions
+- Create view: builder_cards
+- Set up RLS policies
+
+### **Phase 2: Auth Shell**
+- Update `/` page (auth prompt or redirect)
+- Test Supabase Auth flow
+
+### **Phase 3: Events Portal**
+- `/events` - List events
+- `/events/[id]` - Event details + RSVP
+- RSVP server actions
+
+### **Phase 4: Check-In System**
+- `/admin/check-in` - Admin check-in page
+- Check-in server action
+
+### **Phase 5: Builder Card**
+- `/builder-card` - Builder Card page
+- Display XP, badges, last event
+
+### **Phase 6: Testing & Polish**
+- End-to-end testing
+- UI/UX polish
+- Documentation
+
+---
+
+## 📝 Frontend Map
+
+**Routes:**
+- `/` - Auth prompt or redirect to `/events`
+- `/events` - List upcoming events
+- `/events/[id]` - Event details + RSVP
+- `/admin/check-in` - Admin check-in (guarded)
+- `/builder-card` - Builder Card display
+
+**Server Actions:**
+- `rsvpToEvent(eventId)` - Create ticket
+- `cancelRSVP(ticketId)` - Cancel ticket
+- `checkInUser(ticketId)` - Check in user (admin)
+- `grantXP(userId, amount, description)` - Grant XP (admin)
+
+---
+
+## 🔒 Security
+
+**RLS Policies:**
+- `profiles`: Everyone can read, owner can update
+- `events`: Everyone can read published, admin/creator can write
+- `tickets`: User can see/update own, admin can see all
+- `xp_transactions`: User can see own, admin can create/read all
+
+**Admin Guards:**
+- `/admin/check-in` - Check `role = 'admin'` in middleware or server component
+- XP grants - Admin-only server actions
+
+---
+
+## 🎯 Success Criteria
+
+**v1 MVP is done when:**
+- ✅ User can sign up and log in
+- ✅ User can browse events
+- ✅ User can RSVP to events
+- ✅ Admin can check in users at events
+- ✅ User can view Builder Card with XP and badges
+- ✅ All flows work end-to-end
+
+---
+
+**Ready to build? Start with Phase 1: Database Schema!** 🚀
+
+*Last Updated: December 2025*

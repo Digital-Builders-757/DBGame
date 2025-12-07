@@ -9,7 +9,7 @@ type ProfileRow = {
   is_suspended: boolean | null;
 };
 
-const publicRoutes = ["/", "/about", "/gigs", "/talent", "/suspended", "/client/signup", "/client/apply"];
+const publicRoutes = ["/", "/about", "/gigs", "/talent", "/suspended", "/client/signup", "/client/apply", "/sentry-example-page"];
 const authRoutes = [
   "/login",
   "/reset-password",

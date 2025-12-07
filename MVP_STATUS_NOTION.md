@@ -1,129 +1,130 @@
 # 🎮 Digital Builders - Current MVP Status
 
 > **What is Digital Builders?**
-> 
-> It's a text-based MMO for the creative tech community. Players build their careers by taking on jobs, completing actions, and progressing through different career tracks while interacting with other players in a shared virtual city.
+>
+> **Digital Builders World – v1: Event Portal + Builder Card**
+>
+> v1 lets people:
+> - create an account,
+> - RSVP to Digital Builders events,
+> - get checked in at the door,
+> - and see a simple Builder Card with XP/badges.
+>
+> **If it's not in that sentence, it's not in v1.**
 
 ---
 
-# 🎉 CURRENT STATUS: BUILD PASSING - READY FOR DEPLOYMENT!
+## 🎯 **THE PIVOT: Event Portal + Builder Card**
 
-## 🚀 **Latest Achievement: Build Fixed & Ready for Vercel**
+**We're not building "a cool future game" anymore — we're building the thing you actually need this month to run your world.**
 
-**CODEBASE CLEANUP & BUILD FIXES** - December 2025  
-- ✅ Removed all TOTL-specific Database type references
-- ✅ Simplified types to work with empty schema (ready for Digital Builders schema)
-- ✅ Fixed all build errors and TypeScript issues
-- ✅ Removed TOTL-specific components (reset-password, talent/client profiles)
-- ✅ Updated navbar and admin components with Digital Builders branding
-- ✅ Fixed Sentry configuration (removed hardcoded TOTL references)
-- ✅ Build passes successfully (`npm run build`)
-- ✅ Types regeneration configured with project ID: `hzcpxidgmvsfmmocnasj`
-- ✅ Created Vercel deployment checklist and documentation
-- ✅ Codebase ready for Vercel deployment
+### **The Law: Social Rule of the House**
 
-**EXTRACTION FROM TOTL TEMPLATE** - December 2025  
-- ✅ Removed all TOTL-specific code (routes, components, database migrations)
-- ✅ Kept reusable architecture (auth, Supabase clients, UI components)
-- ✅ Updated project metadata (package.json, README.md)
-- ✅ Clean codebase ready for Digital Builders development
-- ✅ Removed Stripe dependencies (v1 MVP is Web2-only)
-- ✅ Documentation organized and cleaned up
+> "If you want to attend Digital Builders events, pitch, or get funds… you must make a Builder account."
+
+That one rule makes this MVP powerful even before you add any fancy game systems.
+
+---
+
+## 🚀 **CURRENT STATUS: MVP IN PROGRESS**
+
+**MVP DEFINITION** - December 2025
+
+- ✅ MVP scope locked: Event Portal + Builder Card
+- ✅ Schema designed: profiles, events, tickets, xp_transactions
+- ✅ Core entities defined
+- ✅ Implementation plan ready
+- ✅ Database schema migrated (initial_event_portal_schema)
+- ✅ Types regenerated (Supabase CLI)
+- ✅ Auth screens rebranded (login/create-account)
+- 🔄 Events/Check-in/Builder Card UI pending
 
 ---
 
 ## 🎯 **MVP Roadmap**
 
-### **Phase 1: Foundation (Week 1)**
-- [ ] Character creation system (handle, track, district selection)
-- [ ] Basic dashboard with character stats display
-- [ ] City location cards and district system
-- [ ] Online players list (presence system)
-- [ ] Database schema migrations for game tables
+### **Phase 1: Database Schema (Week 1)**
 
-### **Phase 2: Core Game Systems (Weeks 2-3)**
-- [ ] Job system with 5-minute cooldown timers
-- [ ] Action system (freelance + PVP-lite interactions)
-- [ ] DB Cred ledger (off-chain currency system)
-- [ ] PVP-lite interactions (underbid, idea poach, collab challenge)
-- [ ] Progression system (XP, builder levels)
+- [ ] Create `profiles` table (Builder profiles)
+- [ ] Create `events` table (Event listings)
+- [ ] Create `tickets` table (RSVP/attendance)
+- [ ] Create `xp_transactions` table (XP log)
+- [ ] Create `builder_cards` view (Builder Card query)
+- [ ] Set up RLS policies
+- [ ] Generate TypeScript types
 
-### **Phase 3: Polish & Launch (Week 4)**
-- [ ] Career paths and unlocks
-- [ ] UI/UX polish
-- [ ] Testing and bug fixes
-- [ ] Beta testing with real users
-- [ ] 🚀 Launch
+### **Phase 2: Auth Shell (Week 1)**
+
+- [ ] `/` → If not logged in, show "Sign in to enter Digital Builders World"
+- [ ] If logged in, redirect to `/events`
+- [ ] Supabase Auth integration
+
+### **Phase 3: Events Portal (Week 2)**
+
+- [ ] `/events` - List upcoming events
+- [ ] `/events/[id]` - Event details page
+- [ ] RSVP functionality (create ticket)
+- [ ] Cancel RSVP functionality
+- [ ] Event creation (admin only)
+
+### **Phase 4: Check-In System (Week 2)**
+
+- [ ] `/admin/check-in` - Admin check-in page
+- [ ] Search by email/name
+- [ ] List tickets for specific event
+- [ ] Check-in button (update status + timestamp)
+- [ ] Guard by `role = 'admin'`
+
+### **Phase 5: Builder Card (Week 2)**
+
+- [ ] `/builder-card` - Builder Card page
+- [ ] Query `builder_cards` view
+- [ ] Display:
+  - Name/handle
+  - Region
+  - XP total
+  - Level (fake formula for now)
+  - Last event attended
+  - Basic badges (fake/manual at first)
 
 ---
 
 ## 📊 **Current MVP Completion Status**
 
-| Category | Status | Completion |
-| --- | --- | --- |
-| **Extraction** | ✅ Complete | 100% |
-| **Project Setup** | ✅ Complete | 100% |
-| **Build & Types** | ✅ Complete | 100% |
-| **Branding** | ✅ Complete | 100% |
-| **Authentication** | ✅ Ready | 100% |
-| **Vercel Deployment** | 🔄 In Progress | 50% |
-| **Database Schema** | 🔄 Pending | 0% |
-| **Character Creation** | 🔄 Pending | 0% |
-| **Dashboard** | 🔄 Pending | 0% |
-| **Job System** | 🔄 Pending | 0% |
-| **Action System** | 🔄 Pending | 0% |
-| **Progression** | 🔄 Pending | 0% |
-| **PVP-lite** | 🔄 Pending | 0% |
-| **Testing** | 🔄 Pending | 0% |
+| Category               | Status        | Completion |
+| ---------------------- | ------------- | ---------- |
+| **MVP Definition**     | ✅ Complete   | 100%       |
+| **Schema Design**      | ✅ Complete   | 100%       |
+| **Database Schema**    | ✅ Done       | 100%       |
+| **Authentication**     | ✅ Branded    | 100%       |
+| **Events Portal**      | 🔄 Pending    | 0%         |
+| **Check-In System**    | 🔄 Pending    | 0%         |
+| **Builder Card**       | 🔄 Pending    | 0%         |
+| **Testing**            | 🔄 Pending    | 0%         |
 
 ---
 
 ## 🎯 **Immediate Next Steps**
 
-### **Priority 0: Vercel Deployment (CURRENT)**
-1. ✅ Build passes locally
-2. 🔄 Connect GitHub repository to Vercel
-3. 🔄 Add environment variables in Vercel:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `SUPABASE_PROJECT_ID` (hzcpxidgmvsfmmocnasj)
-   - `NEXT_PUBLIC_SITE_URL` (update after first deploy)
-4. 🔄 Deploy to Vercel
-5. 🔄 Update Supabase redirect URLs with Vercel domain
-6. ✅ See `docs/digital-builders/VERCEL_DEPLOYMENT_CHECKLIST.md` for details
+### **Priority 1: Events Portal**
+1. Build `/events` list (server component) pulling `events` (RLS-safe).
+2. Build `/events/[id]` detail; include RSVP/Cancel actions (tickets insert/delete).
+3. Redirect after login → `/events`.
 
-### **Priority 1: Database Schema Setup**
-1. ✅ Supabase project created (ID: hzcpxidgmvsfmmocnasj)
-2. 🔄 Create initial game schema migrations:
-   - `profiles` (from Supabase auth)
-   - `game_accounts` (Digital Builders account)
-   - `characters` (player characters)
-   - `cities` / `districts` (locations)
-   - `jobs` / `character_jobs` (job system)
-   - `actions` / `character_actions` (action system)
-   - `db_cred_balances` / `db_cred_transactions` (DB Cred ledger)
-   - `interaction_logs` (PVP-lite interactions)
-3. 🔄 Set up RLS policies
-4. 🔄 Generate TypeScript types: `npm run types:regen`
+### **Priority 2: Check-In System**
+1. `/admin/check-in`: search by email/name for a specific `event_id`.
+2. Action: set `tickets.status = 'checked_in'` + `checked_in_at = now()`.
+3. Guard by `role = 'admin'`.
 
-### **Priority 2: Character Creation**
-1. Create `/character/create` page
-2. Handle selection component
-3. Track selection component
-4. District selection component
-5. Server actions for character creation
-6. Update middleware for game-based routing
+### **Priority 3: Builder Card**
+1. `/builder-card`: query `builder_cards` view (or profiles + xp sum fallback).
+2. Show name/handle, region, XP total, level (fake), last event attended, badges (manual).
 
-### **Priority 3: Dashboard**
-1. Repurpose existing dashboard for game
-2. Character stats display
-3. DB Cred balance display
-4. Builder level display
-5. Job timer component
-6. Action timer component
-7. City location cards
-8. Online players list
+### **Priority 4: Cleanups / Hardening**
+1. Remove temporary `eslint.ignoreDuringBuilds` and `typescript.ignoreBuildErrors` once code is clean.
+2. Keep Next.js 15.5.7 / React 19.2.1 (patched CVE-2025-66478).
+3. Verify Resend domain/DNS; use `lib/email/resend.ts` with `EMAIL_FROM=admin@digitalbuilders757.com`.
+4. Ensure Supabase pages/actions run on Node runtime (avoid Edge warnings with supabase-js).
 
 ---
 
@@ -137,81 +138,93 @@
 
 ---
 
-## 📋 **Key Features**
+## 📋 **Core Entities**
 
-### **Character System**
-- Unique handle selection
-- Career track selection (Designer, Developer, Marketer, etc.)
-- Starting district selection
-- Character stats and progression
+### **profiles**
+- Builder profiles (one per auth user)
+- Fields: username, display_name, role, bio, avatar_url, region, xp_total, level
 
-### **Job System**
-- Browse available jobs in your district
-- Apply for jobs (5-minute cooldown)
-- Complete jobs to earn DB Cred and XP
-- Server-side timer tracking
+### **events**
+- Events people can attend
+- Fields: slug, title, subtitle, description, venue, city, start_at, end_at, capacity, status, price_cents
 
-### **Action System**
-- Freelance actions (solo work)
-- PVP-lite interactions (underbid, idea poach, collab challenge)
-- Server-side timer tracking
-- Risk/reward mechanics
+### **tickets**
+- RSVP/attendance records
+- Fields: event_id, user_id, status, checked_in_at, payment_provider, payment_reference
 
-### **Progression System**
-- XP and leveling
-- Builder levels (tiers)
-- Career path unlocks
-- Skill progression
-
-### **City System**
-- Multiple districts
-- Online players presence
-- Location-based interactions
-- District-specific jobs/actions
+### **xp_transactions**
+- XP earning log
+- Fields: user_id, source_type, source_id, amount, description, created_by
 
 ---
 
 ## 🚨 **Important Notes**
 
 **v1 MVP Requirements:**
+
 - ✅ Email/password auth (Supabase)
-- ✅ Off-chain DB Cred ledger
+- ✅ Event Portal (RSVP, check-in)
+- ✅ Builder Card (XP, badges)
 - ✅ No wallet connection required
 - ✅ No Solana dependencies in core flows
+- ✅ No PVP, no crypto yet
 
 **v2+ Future Integration:**
+
 - ⏳ Solana wallet connection (optional)
 - ⏳ On-chain tokens (DB Cred → SPL token, Builder Power → governance token)
 - ⏳ NFT achievements
+- ⏳ Game systems (jobs, actions, PVP-lite)
 
 ---
 
 ## 📚 **Documentation**
 
 - **`README.md`** - Project overview and quick start
-- **`docs/digital-builders/EXTRACTION_PLAN.md`** - Extraction from TOTL template
-- **`docs/digital-builders/ARCHITECTURE.md`** - Architecture documentation (to be created)
+- **`database_schema_audit.md`** - Database schema single source of truth
+- **`DIGITAL_BUILDERS_PROJECT_CONTEXT_PROMPT.md`** - Project context and rules
 - **`docs/digital-builders/MVP_ROADMAP.md`** - Detailed MVP roadmap
-- **`EXTRACTION_COMPLETE.md`** - Extraction completion summary
+- **`docs/digital-builders/PROJECT_SPEC.md`** - Complete project specification
 
 ---
 
 ## 🎯 **Next Session Priorities**
 
 ### **Immediate Actions (This Week):**
-1. **Set up new Supabase project** for Digital Builders
-2. **Create database schema migrations** for game tables
-3. **Generate TypeScript types** from new schema
-4. **Build character creation system**
+
+1. ✅ **MVP scope locked** - Event Portal + Builder Card
+2. ✅ **Schema designed** - profiles, events, tickets, xp_transactions
+3. 🔄 **Create database schema migrations** for Event Portal tables
+4. 🔄 **Generate TypeScript types** from new schema: `npm run types:regen`
+5. 🔄 **Build auth shell** (redirect logic)
+6. 🔄 **Build events portal** (list, detail, RSVP)
 
 ### **Short-term (Weeks 2-3):**
-1. **Implement job system** with timers
-2. **Implement action system** with timers
-3. **Create DB Cred ledger** (off-chain)
-4. **Add PVP-lite interactions**
+
+1. **Implement check-in system** (admin page)
+2. **Create Builder Card page** (display XP, badges)
+3. **Add basic badge system** (fake/manual at first)
+4. **Test end-to-end flow** (signup → RSVP → check-in → Builder Card)
 
 ---
 
-*Last Updated: December 2025*  
-*Current Status: Extraction Complete - Ready for Development*  
-*Next Review: After database schema setup*
+## 🎉 **Recent Accomplishments (December 2025)**
+
+### **MVP Pivot**
+
+- ✅ Pivoted from complex game to Event Portal + Builder Card
+- ✅ Defined clear MVP scope
+- ✅ Designed schema for Event Portal
+- ✅ Created implementation plan
+
+### **Documentation**
+
+- ✅ Updated all documentation with new MVP plan
+- ✅ Schema audit file ready
+- ✅ MVP roadmap updated
+
+---
+
+_Last Updated: December 2025_  
+_Current Status: ✅ MVP DEFINED - Ready for Implementation_  
+_Next Review: After database schema creation_

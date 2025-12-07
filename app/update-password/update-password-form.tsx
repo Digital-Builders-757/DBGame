@@ -88,10 +88,10 @@ export function UpdatePasswordForm() {
   if (isSuccess) {
     return (
       <div className="text-center">
-        <p className="text-gray-600 mb-4">
+        <p className="text-brand-text-secondary mb-4">
           Your password has been updated successfully. Redirecting to login...
         </p>
-        <Button asChild variant="outline" className="w-full">
+        <Button asChild variant="outline" className="w-full border-brand-border text-brand-text-primary hover:bg-brand-card">
           <a href="/login">Go to Login</a>
         </Button>
       </div>
@@ -101,7 +101,7 @@ export function UpdatePasswordForm() {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="space-y-2">
-        <Label htmlFor="password">New Password</Label>
+        <Label htmlFor="password" className="text-brand-text-primary">New Password</Label>
         <div className="relative">
           <Input
             id="password"
@@ -111,20 +111,21 @@ export function UpdatePasswordForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
+            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta placeholder:text-brand-text-secondary pr-10"
           />
           <button
             type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-text-secondary hover:text-brand-text-primary transition-colors"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
-        <p className="text-xs text-gray-500">Password must be at least 8 characters long</p>
+        <p className="text-xs text-brand-text-secondary">Password must be at least 8 characters long</p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="confirmPassword">Confirm New Password</Label>
+        <Label htmlFor="confirmPassword" className="text-brand-text-primary">Confirm New Password</Label>
         <div className="relative">
           <Input
             id="confirmPassword"
@@ -133,10 +134,11 @@ export function UpdatePasswordForm() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta placeholder:text-brand-text-secondary pr-10"
           />
           <button
             type="button"
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-text-secondary hover:text-brand-text-primary transition-colors"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -146,7 +148,7 @@ export function UpdatePasswordForm() {
 
       <Button
         type="submit"
-        className="w-full bg-black text-white hover:bg-black/90"
+        className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 neon-shadow-magenta"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Updating..." : "Update Password"}

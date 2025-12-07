@@ -63,15 +63,20 @@ const config: Config = {
         },
         // Digital Builders Brand Colors
         brand: {
-          primary: "#ff00ff",      // Magenta (CTA)
-          secondary: "#00ff55",    // Green
-          tertiary: "#00c3ff",     // Cyan
-          background: "#070707",   // Dark background
+          magenta: "#ff00ff",       // Primary - Magenta (CTA)
+          green: "#00ff55",         // Secondary - Neon Green
+          cyan: "#00c3ff",          // Tertiary - Cyan Blue
+          primary: "#ff00ff",       // Alias for magenta
+          secondary: "#00ff55",     // Alias for green
+          tertiary: "#00c3ff",      // Alias for cyan
+          background: "#070707",    // Dark background
+          "background-dark": "#070707",
           card: "#111111",          // Card background
           border: "#262626",        // Border color
           text: {
             primary: "#fafafa",     // Primary text
             secondary: "#a3a3a3",   // Secondary text
+            muted: "#a3a3a3",       // Muted text
           },
         },
         // ✨ OKLCH Modern Colors - Premium Back-Lit UI

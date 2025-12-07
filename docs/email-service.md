@@ -45,6 +45,10 @@ RESEND_API_KEY=your_resend_api_key
 
 # Optional - Custom domain
 RESEND_DOMAIN=your-domain.com
+
+# Sender defaults (we set these in .env.local)
+EMAIL_FROM=admin@digitalbuilders757.com
+EMAIL_REPLY_TO=admin@digitalbuilders757.com
 ```
 
 ### **Resend Configuration**
@@ -57,6 +61,22 @@ RESEND_DOMAIN=your-domain.com
 ```bash
 # Install Resend SDK
 npm install resend
+```
+
+### **Helper (in repo)**
+
+- File: `lib/email/resend.ts`
+- Expects env: `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_REPLY_TO`
+- Defaults to `admin@digitalbuilders757.com` sender/reply-to.
+- Usage:
+```ts
+import { sendEmail } from "@/lib/email/resend";
+
+await sendEmail({
+  to: "user@example.com",
+  subject: "Welcome to Digital Builders",
+  html: "<p>Welcome!</p>",
+});
 ```
 
 ## 📝 Email Templates

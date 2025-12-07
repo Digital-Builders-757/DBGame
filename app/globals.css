@@ -246,8 +246,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body), system-ui, sans-serif;
-    background-color: #070707;
-    color: #fafafa;
+    background-color: #070707; /* Digital Builders brand background */
+    color: #fafafa; /* Digital Builders primary text */
   }
   
   /* Digital Builders Typography */
@@ -280,7 +280,13 @@
   }
   
   /* Body text */
-  body, p {
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: var(--font-body), system-ui, sans-serif;
+  }
+
+  p {
     font-size: 16px;
     line-height: 1.5;
     max-width: 80ch; /* 60-80 characters per line */
@@ -1016,55 +1022,110 @@ h1 {
 /* Neon Glow Effect - Use sparingly (1-2 elements per layout) */
 .neon-glow {
   text-shadow: 
+    0 0 5px currentColor,
     0 0 10px currentColor,
-    0 0 20px currentColor,
-    0 0 30px currentColor;
+    0 0 15px currentColor;
 }
 
-.neon-glow-primary {
+.neon-glow-primary,
+.neon-glow-magenta {
   color: #ff00ff;
   text-shadow: 
-    0 0 10px #ff00ff,
-    0 0 20px #ff00ff,
-    0 0 30px #ff00ff;
+    0 0 5px rgba(255, 0, 255, 0.8),
+    0 0 10px rgba(255, 0, 255, 0.5),
+    0 0 15px rgba(255, 0, 255, 0.3);
 }
 
-.neon-glow-secondary {
+.neon-glow-secondary,
+.neon-glow-green {
   color: #00ff55;
   text-shadow: 
-    0 0 10px #00ff55,
-    0 0 20px #00ff55,
-    0 0 30px #00ff55;
+    0 0 5px rgba(0, 255, 85, 0.8),
+    0 0 10px rgba(0, 255, 85, 0.5),
+    0 0 15px rgba(0, 255, 85, 0.3);
 }
 
-.neon-glow-tertiary {
+.neon-glow-tertiary,
+.neon-glow-cyan {
   color: #00c3ff;
   text-shadow: 
-    0 0 10px #00c3ff,
-    0 0 20px #00c3ff,
-    0 0 30px #00c3ff;
+    0 0 5px rgba(0, 195, 255, 0.8),
+    0 0 10px rgba(0, 195, 255, 0.5),
+    0 0 15px rgba(0, 195, 255, 0.3);
 }
 
 /* Neon Box Shadow (for buttons, cards) */
-.neon-shadow-primary {
+.neon-shadow-primary,
+.neon-shadow-magenta {
   box-shadow: 
     0 0 10px rgba(255, 0, 255, 0.5),
     0 0 20px rgba(255, 0, 255, 0.3),
     0 0 30px rgba(255, 0, 255, 0.2);
 }
 
-.neon-shadow-secondary {
+.neon-shadow-secondary,
+.neon-shadow-green {
   box-shadow: 
     0 0 10px rgba(0, 255, 85, 0.5),
     0 0 20px rgba(0, 255, 85, 0.3),
     0 0 30px rgba(0, 255, 85, 0.2);
 }
 
-.neon-shadow-tertiary {
+.neon-shadow-tertiary,
+.neon-shadow-cyan {
   box-shadow: 
     0 0 10px rgba(0, 195, 255, 0.5),
     0 0 20px rgba(0, 195, 255, 0.3),
     0 0 30px rgba(0, 195, 255, 0.2);
+}
+
+/* Brand Button Styles */
+.btn-brand-primary {
+  background-color: #ff00ff;
+  color: #000;
+  font-family: var(--font-heading), monospace;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-primary:hover {
+  background-color: #ff33ff;
+  box-shadow: 
+    0 0 10px rgba(255, 0, 255, 0.5),
+    0 0 20px rgba(255, 0, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-brand-secondary {
+  background-color: #00ff55;
+  color: #000;
+  font-family: var(--font-heading), monospace;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-secondary:hover {
+  background-color: #33ff77;
+  box-shadow: 
+    0 0 10px rgba(0, 255, 85, 0.5),
+    0 0 20px rgba(0, 255, 85, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-brand-tertiary {
+  background-color: #00c3ff;
+  color: #000;
+  font-family: var(--font-heading), monospace;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-brand-tertiary:hover {
+  background-color: #33d0ff;
+  box-shadow: 
+    0 0 10px rgba(0, 195, 255, 0.5),
+    0 0 20px rgba(0, 195, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 /* Glitch Text Effect - Use only for hero/special announcements */

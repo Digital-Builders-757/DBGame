@@ -1,6 +1,6 @@
-# Digital Builders
+# Digital Builders World
 
-**Text-based MMO for the creative tech community**
+**v1: Event Portal + Builder Card**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -10,16 +10,23 @@
 
 ## 🌟 Overview
 
-Digital Builders is a text-based MMO where players build their careers in the creative tech industry. Start as a freelancer, take on jobs, complete actions, and progress through different career tracks while interacting with other players in a shared virtual city.
+**Digital Builders World – v1: Event Portal + Builder Card**
+
+v1 lets people:
+- create an account,
+- RSVP to Digital Builders events,
+- get checked in at the door,
+- and see a simple Builder Card with XP/badges.
+
+**If it's not in that sentence, it's not in v1.**
 
 ### ✨ Key Features
 
-- 🎮 **Character Creation** - Choose your handle, career track, and starting district
-- 💼 **Job System** - Take on jobs with 5-minute cooldown timers
-- ⚡ **Action System** - Perform freelance actions and PVP-lite interactions
-- 📈 **Progression** - Earn XP, level up, and unlock new career paths
-- 🏙️ **City System** - Explore districts and see online players
-- 💰 **DB Cred Ledger** - Off-chain currency system (v1 MVP)
+- 🔐 **Account Creation** - Supabase Auth for Builder accounts
+- 📅 **Event Portal** - Browse and RSVP to Digital Builders events
+- ✅ **Check-In System** - Admin check-in at events
+- 🎴 **Builder Card** - Display name, XP total, basic badges
+- 📊 **XP Tracking** - Log XP from event attendance and activities
 
 ---
 
@@ -108,22 +115,19 @@ npm run verify-all       # Run all verification checks
 
 ### 📊 Database Schema
 
-The game uses a PostgreSQL database with the following core tables:
+The Event Portal uses a PostgreSQL database with the following core tables:
 
-- `profiles` - User accounts (from Supabase Auth)
-- `game_accounts` - Digital Builders account data
-- `characters` - Player characters with stats
-- `cities` / `districts` - Location system
-- `jobs` / `character_jobs` - Job system with timers
-- `actions` / `character_actions` - Action system with timers
-- `db_cred_balances` / `db_cred_transactions` - Off-chain currency ledger (v1)
-- `interaction_logs` - PVP-lite interaction history
+- `profiles` - Builder profiles (one per auth user)
+- `events` - Events people can attend
+- `tickets` - RSVP/attendance records
+- `xp_transactions` - XP earning log
+- `builder_cards` - View for Builder Card display
 
 ### 🔐 Authentication Flow
 
 - Email/password authentication via Supabase
-- Character creation on first login
-- Game-based routing (has character → dashboard, no character → create)
+- Profile creation on first login
+- Simple routing (logged in → `/events`, not logged in → `/`)
 
 ---
 
@@ -133,21 +137,20 @@ The game uses a PostgreSQL database with the following core tables:
 digital-builders-game/
 ├── app/                    # Next.js App Router pages
 │   ├── auth/              # Authentication pages
-│   ├── character/         # Character creation
-│   ├── dashboard/         # Game dashboard
-│   ├── jobs/              # Job system
-│   ├── actions/           # Action system
-│   ├── city/              # City/district views
+│   ├── events/            # Events portal
+│   │   ├── [id]/         # Event detail page
+│   │   └── page.tsx      # Events list
+│   ├── admin/             # Admin pages
+│   │   └── check-in/     # Check-in system
+│   ├── builder-card/      # Builder Card page
 │   └── api/               # API routes
 ├── components/            # React components
 │   ├── ui/                # shadcn/ui components
 │   ├── auth/              # Authentication components
-│   ├── character/         # Character-related components
-│   ├── jobs/              # Job-related components
-│   └── timers/            # Timer components
+│   ├── events/            # Event-related components
+│   └── builder-card/      # Builder Card components
 ├── lib/                   # Utility functions
 │   ├── supabase/          # Supabase client helpers
-│   ├── game/              # Game logic modules
 │   └── utils/             # General utilities
 ├── types/                 # TypeScript definitions
 ├── supabase/              # Database migrations & config
@@ -156,31 +159,27 @@ digital-builders-game/
 
 ---
 
-## 🎮 Game Systems
+## 🎮 MVP Features
 
-### Character System
-- Handle selection (unique username)
-- Career track selection (Designer, Developer, Marketer, etc.)
-- Starting district selection
-- Character stats and progression
+### Event Portal
+- Browse upcoming Digital Builders events
+- RSVP to events (free or paid-later manually)
+- Cancel RSVP
+- View event details
 
-### Job System
-- Browse available jobs in your district
-- Apply for jobs (5-minute cooldown)
-- Complete jobs to earn DB Cred and XP
-- Job timers tracked server-side
+### Check-In System
+- Admin check-in page
+- Search by email/name
+- Check-in at door (update ticket status)
+- View attendance list
 
-### Action System
-- Freelance actions (solo work)
-- PVP-lite interactions (underbid, idea poach, collab challenge)
-- Action timers tracked server-side
-- Risk/reward mechanics
-
-### Progression System
-- XP and leveling
-- Builder levels (tiers)
-- Career path unlocks
-- Skill progression
+### Builder Card
+- Display name/handle
+- XP total (from xp_transactions)
+- Builder level (simple formula)
+- Region
+- Last event attended
+- Basic badges (fake/manual at first)
 
 ---
 
@@ -233,15 +232,18 @@ vercel --prod
 
 ## 🎯 MVP Status
 
-**v1 MVP is Web2-only:**
-- ✅ Email/password authentication
-- ✅ Off-chain DB Cred ledger
+**v1 MVP: Event Portal + Builder Card**
+- ✅ Email/password authentication (Supabase)
+- ✅ Event Portal (RSVP, check-in)
+- ✅ Builder Card (XP, badges)
 - ✅ No wallet connection required
-- ✅ No Solana dependencies in core flows
+- ✅ No Solana dependencies
+- ✅ No PVP, no crypto yet
 
 **v2+ Future Integration:**
+- ⏳ Game systems (jobs, actions, PVP-lite)
 - ⏳ Solana wallet connection (optional)
-- ⏳ On-chain tokens (DB Cred → SPL token, Builder Power → governance token)
+- ⏳ On-chain tokens (DB Cred → SPL token)
 - ⏳ NFT achievements
 
 ---
