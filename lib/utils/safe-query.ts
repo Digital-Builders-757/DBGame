@@ -1,5 +1,5 @@
 ﻿// Digital Builders - Types simplified until schema is created
-// TOTL-specific types removed
+// Legacy TOTL-specific types removed - now using Digital Builders schema
 
 /**
  * Safe query wrapper for Supabase operations

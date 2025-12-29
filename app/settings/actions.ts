@@ -73,8 +73,8 @@ export async function changePassword(password: string) {
   return error ? { error: error.message } : { success: true };
 }
 
-// TOTL-specific profile functions removed - Digital Builders uses simplified profile structure
-// These functions referenced talent_profiles and client_profiles tables which don't exist in Digital Builders
+// Digital Builders uses simplified profile structure
+// Legacy TOTL functions removed - Digital Builders only uses profiles table (no talent_profiles/client_profiles)
 
 export async function uploadAvatar(formData: FormData) {
   "use server";

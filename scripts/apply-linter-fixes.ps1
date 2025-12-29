@@ -8,14 +8,14 @@
 # =====================================================
 
 Write-Host "=================================================" -ForegroundColor Cyan
-Write-Host "  TOTL Agency - Database Linter Fixes" -ForegroundColor Cyan
+Write-Host "  Digital Builders - Database Linter Fixes" -ForegroundColor Cyan
 Write-Host "=================================================" -ForegroundColor Cyan
 Write-Host ""
 
 # Check if we're in the project root
 if (-not (Test-Path "supabase")) {
     Write-Host "Error: Please run this script from the project root directory" -ForegroundColor Red
-    Write-Host "   Expected path: C:\Users\young\OneDrive\Desktop\Project Files\totl" -ForegroundColor Yellow
+    Write-Host "   Expected path: C:\Users\young\OneDrive\Desktop\Project Files\digital-builders-game" -ForegroundColor Yellow
     exit 1
 }
 
@@ -72,7 +72,7 @@ Write-Host ""
 Write-Host "Due to migration ordering issues, please apply the fix manually:" -ForegroundColor White
 Write-Host ""
 Write-Host "1. Go to: https://supabase.com/dashboard" -ForegroundColor Cyan
-Write-Host "2. Select your TOTL project (total model agency mvp)" -ForegroundColor Cyan
+Write-Host "2. Select your Digital Builders project" -ForegroundColor Cyan
 Write-Host "3. Click SQL Editor in the left sidebar" -ForegroundColor Cyan
 Write-Host "4. Click New query" -ForegroundColor Cyan
 Write-Host "5. Copy the contents of:" -ForegroundColor Cyan

@@ -72,43 +72,43 @@ function Test-Pattern {
     return $found
 }
 
-# Check 1: Custom Application interface
-Write-Host "`n🔍 Check 1: Custom 'Application' Interfaces" -ForegroundColor Cyan
-$hasAppInterface = Test-Pattern `
-    -Pattern "^\s*interface\s+Application\s*\{" `
-    -Description "Custom 'Application' interface (should use generated types)" `
+# Check 1: Custom Event interface
+Write-Host "`n🔍 Check 1: Custom 'Event' Interfaces" -ForegroundColor Cyan
+$hasEventInterface = Test-Pattern `
+    -Pattern "^\s*interface\s+Event\s*\{" `
+    -Description "Custom 'Event' interface (should use generated types)" `
     -Severity "CRITICAL" `
     -Paths @("components", "app", "lib")
 
-# Check 2: Custom Gig interface
-Write-Host "`n🔍 Check 2: Custom 'Gig' Interfaces" -ForegroundColor Cyan
-$hasGigInterface = Test-Pattern `
-    -Pattern "^\s*interface\s+Gig\s*\{" `
-    -Description "Custom 'Gig' interface (should use generated types)" `
+# Check 2: Custom Ticket interface
+Write-Host "`n🔍 Check 2: Custom 'Ticket' Interfaces" -ForegroundColor Cyan
+$hasTicketInterface = Test-Pattern `
+    -Pattern "^\s*interface\s+Ticket\s*\{" `
+    -Description "Custom 'Ticket' interface (should use generated types)" `
     -Severity "CRITICAL" `
     -Paths @("components", "app", "lib")
 
 # Check 3: Custom Profile interface
 Write-Host "`n🔍 Check 3: Custom 'Profile' Interfaces" -ForegroundColor Cyan
 $hasProfileInterface = Test-Pattern `
-    -Pattern "^\s*interface\s+(Profile|TalentProfile|ClientProfile)\s*\{" `
+    -Pattern "^\s*interface\s+Profile\s*\{" `
     -Description "Custom 'Profile' interface (should use generated types)" `
     -Severity "CRITICAL" `
     -Paths @("components", "app", "lib")
 
-# Check 4: Custom Booking interface
-Write-Host "`n🔍 Check 4: Custom 'Booking' Interfaces" -ForegroundColor Cyan
-$hasBookingInterface = Test-Pattern `
-    -Pattern "^\s*interface\s+Booking\s*\{" `
-    -Description "Custom 'Booking' interface (should use generated types)" `
+# Check 4: Custom XpTransaction interface
+Write-Host "`n🔍 Check 4: Custom 'XpTransaction' Interfaces" -ForegroundColor Cyan
+$hasXpTransactionInterface = Test-Pattern `
+    -Pattern "^\s*interface\s+XpTransaction\s*\{" `
+    -Description "Custom 'XpTransaction' interface (should use generated types)" `
     -Severity "CRITICAL" `
     -Paths @("components", "app", "lib")
 
-# Check 5: Incorrect application status "pending"
-Write-Host "`n🔍 Check 5: Incorrect Application Status 'pending'" -ForegroundColor Cyan
-$hasPendingStatus = Test-Pattern `
-    -Pattern "status.*===.*['\"]pending['\"]" `
-    -Description "Incorrect 'pending' status (should be 'new' or 'under_review')" `
+# Check 5: Incorrect ticket status values
+Write-Host "`n🔍 Check 5: Incorrect Ticket Status Values" -ForegroundColor Cyan
+$hasInvalidTicketStatus = Test-Pattern `
+    -Pattern "status.*===.*['\"](pending|new|under_review)['\"]" `
+    -Description "Incorrect ticket status (should be 'reserved' | 'confirmed' | 'checked_in' | 'cancelled' | 'refunded')" `
     -Severity "CRITICAL" `
     -Paths @("components", "app", "lib")
 
@@ -126,7 +126,7 @@ $componentFiles = Get-ChildItem -Path components,app -Recurse -Include *.ts,*.ts
     Where-Object { 
         $content = Get-Content $_.FullName -Raw
         # Has database entity references but no Database import
-        ($content -match "Application|Gig|Profile|Booking") -and
+        ($content -match "Event|Ticket|Profile|XpTransaction") -and
         ($content -notmatch "import.*Database.*from.*@/types/supabase") -and
         ($content -notmatch "import.*from.*@/types/database-helpers")
     }

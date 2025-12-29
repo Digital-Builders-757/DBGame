@@ -2,7 +2,7 @@
 
 <#
 .SYNOPSIS
-    Run UI/UX Playwright tests for TOTL Agency
+    Run UI/UX Playwright tests for Digital Builders
     
 .DESCRIPTION
     Runs the comprehensive UI/UX test suite that validates all features
@@ -41,7 +41,7 @@ param(
     [switch]$Report
 )
 
-Write-Host "🎭 TOTL Agency - UI/UX Test Suite" -ForegroundColor Cyan
+Write-Host "🎭 Digital Builders - UI/UX Test Suite" -ForegroundColor Cyan
 Write-Host "=================================" -ForegroundColor Cyan
 Write-Host ""
 

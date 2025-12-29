@@ -1,45 +1,40 @@
--- Clean up test data from TOTL Agency database
--- This script removes test users, gigs, and related data
+-- Clean up test data from Digital Builders database
+-- This script removes test users, events, tickets, and related data
 
--- Delete applications first (due to foreign key constraints)
-DELETE FROM applications WHERE id IN (
-  SELECT a.id FROM applications a
-  JOIN gigs g ON a.gig_id = g.id
-  WHERE g.title LIKE '%test%' OR g.title LIKE '%Test%'
+-- Delete tickets first (due to foreign key constraints)
+DELETE FROM tickets WHERE id IN (
+  SELECT t.id FROM tickets t
+  JOIN events e ON t.event_id = e.id
+  WHERE e.title LIKE '%test%' OR e.title LIKE '%Test%'
 );
 
--- Delete gigs (test gigs)
-DELETE FROM gigs WHERE title LIKE '%test%' OR title LIKE '%Test%';
-
--- Delete talent profiles for test users
-DELETE FROM talent_profiles WHERE user_id IN (
-  SELECT id FROM profiles 
-  WHERE email LIKE '%test%' OR email LIKE '%@example.com' OR display_name LIKE '%test%'
+-- Delete xp_transactions for test users
+DELETE FROM xp_transactions WHERE user_id IN (
+  SELECT id FROM auth.users 
+  WHERE email LIKE '%test%' OR email LIKE '%@example.com'
 );
 
--- Delete client profiles for test users  
-DELETE FROM client_profiles WHERE user_id IN (
-  SELECT id FROM profiles 
-  WHERE email LIKE '%test%' OR email LIKE '%@example.com' OR display_name LIKE '%test%'
+-- Delete tickets for test users
+DELETE FROM tickets WHERE user_id IN (
+  SELECT id FROM auth.users 
+  WHERE email LIKE '%test%' OR email LIKE '%@example.com'
 );
+
+-- Delete events (test events)
+DELETE FROM events WHERE title LIKE '%test%' OR title LIKE '%Test%';
 
 -- Delete profiles for test users
 DELETE FROM profiles 
-WHERE email LIKE '%test%' OR email LIKE '%@example.com' OR display_name LIKE '%test%';
-
--- Delete portfolio items for test users (if any remain)
-DELETE FROM portfolio_items WHERE user_id IN (
-  SELECT id FROM profiles 
-  WHERE email LIKE '%test%' OR email LIKE '%@example.com' OR display_name LIKE '%test%'
+WHERE id IN (
+  SELECT id FROM auth.users 
+  WHERE email LIKE '%test%' OR email LIKE '%@example.com'
 );
 
 -- Show remaining data counts
 SELECT 'profiles' as table_name, COUNT(*) as count FROM profiles
 UNION ALL
-SELECT 'gigs', COUNT(*) FROM gigs
+SELECT 'events', COUNT(*) FROM events
 UNION ALL  
-SELECT 'applications', COUNT(*) FROM applications
+SELECT 'tickets', COUNT(*) FROM tickets
 UNION ALL
-SELECT 'talent_profiles', COUNT(*) FROM talent_profiles
-UNION ALL
-SELECT 'client_profiles', COUNT(*) FROM client_profiles;
+SELECT 'xp_transactions', COUNT(*) FROM xp_transactions;

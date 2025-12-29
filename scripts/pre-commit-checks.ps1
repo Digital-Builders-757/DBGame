@@ -1,4 +1,4 @@
-# Pre-commit checks for TOTL Agency
+# Pre-commit checks for Digital Builders
 # This script runs critical checks before any commit to prevent common errors
 
 Write-Host "🔍 Running pre-commit checks..." -ForegroundColor Cyan

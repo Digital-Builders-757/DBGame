@@ -1,4 +1,4 @@
-# Import Order Fix Script for TOTL Agency
+# Import Order Fix Script for Digital Builders
 # This script automatically fixes common import order issues
 
 Write-Host "🔧 Fixing import order issues..." -ForegroundColor Cyan

@@ -1,9 +1,9 @@
 -- =====================================================
--- TOTL Agency - Database Linter Performance Fixes
+-- Digital Builders - Database Linter Performance Fixes
 -- =====================================================
 -- Purpose: Fix remaining auth RLS InitPlan warnings and duplicate indexes
 -- Apply this manually in Supabase SQL Editor
--- Reference: Database Linter Report (Oct 21, 2025)
+-- Digital Builders tables: profiles, events, tickets, xp_transactions
 -- =====================================================
 
 -- This script is IDEMPOTENT - safe to run multiple times
@@ -11,81 +11,86 @@
 BEGIN;
 
 -- =====================================================
--- 1. FIX GIG_NOTIFICATIONS RLS POLICIES
+-- 1. FIX TICKETS RLS POLICIES (if needed)
 -- =====================================================
 -- Optimize auth.uid() calls by wrapping in (SELECT ...)
 -- This caches the value per-query instead of per-row
 -- Performance improvement: ~95% faster
 
--- Drop existing policies
-DROP POLICY IF EXISTS "Users can view their own notifications" ON public.gig_notifications;
-DROP POLICY IF EXISTS "Users can insert their own notifications" ON public.gig_notifications;
-DROP POLICY IF EXISTS "Users can update their own notifications" ON public.gig_notifications;
-DROP POLICY IF EXISTS "Users can delete their own notifications" ON public.gig_notifications;
+-- Note: Check existing policies first before dropping
+-- Drop existing policies if they exist and need optimization
+DROP POLICY IF EXISTS "Users can view their own tickets" ON public.tickets;
+DROP POLICY IF EXISTS "Users can insert their own tickets" ON public.tickets;
+DROP POLICY IF EXISTS "Users can update their own tickets" ON public.tickets;
 
 -- Recreate with optimized auth function calls
-CREATE POLICY "Users can view their own notifications" 
-ON public.gig_notifications 
+CREATE POLICY "Users can view their own tickets" 
+ON public.tickets 
 FOR SELECT 
 TO public
 USING (
   (SELECT auth.uid()) = user_id OR (SELECT auth.uid()) IS NULL
 );
 
-CREATE POLICY "Users can insert their own notifications" 
-ON public.gig_notifications 
+CREATE POLICY "Users can insert their own tickets" 
+ON public.tickets 
 FOR INSERT 
 TO public
 WITH CHECK (
   (SELECT auth.uid()) = user_id OR (SELECT auth.uid()) IS NULL
 );
 
-CREATE POLICY "Users can update their own notifications" 
-ON public.gig_notifications 
+CREATE POLICY "Users can update their own tickets" 
+ON public.tickets 
 FOR UPDATE 
 TO authenticated
 USING ((SELECT auth.uid()) = user_id);
 
-CREATE POLICY "Users can delete their own notifications" 
-ON public.gig_notifications 
-FOR DELETE 
+-- Add documentation comments
+COMMENT ON POLICY "Users can view their own tickets" ON public.tickets IS 
+'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Allows both authenticated and anonymous users to view their own tickets.';
+
+COMMENT ON POLICY "Users can insert their own tickets" ON public.tickets IS 
+'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Allows both authenticated and anonymous users to create tickets.';
+
+COMMENT ON POLICY "Users can update their own tickets" ON public.tickets IS 
+'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Only authenticated users can update.';
+
+-- =====================================================
+-- 2. FIX XP_TRANSACTIONS RLS POLICIES (if needed)
+-- =====================================================
+
+DROP POLICY IF EXISTS "Users can view their own transactions" ON public.xp_transactions;
+
+CREATE POLICY "Users can view their own transactions" 
+ON public.xp_transactions 
+FOR SELECT 
 TO authenticated
 USING ((SELECT auth.uid()) = user_id);
 
--- Add documentation comments
-COMMENT ON POLICY "Users can view their own notifications" ON public.gig_notifications IS 
-'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Allows both authenticated and anonymous users to view their own notifications.';
-
-COMMENT ON POLICY "Users can insert their own notifications" ON public.gig_notifications IS 
-'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Allows both authenticated and anonymous users to subscribe via email.';
-
-COMMENT ON POLICY "Users can update their own notifications" ON public.gig_notifications IS 
-'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Only authenticated users can update.';
-
-COMMENT ON POLICY "Users can delete their own notifications" ON public.gig_notifications IS 
-'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Only authenticated users can delete.';
+COMMENT ON POLICY "Users can view their own transactions" ON public.xp_transactions IS 
+'Optimized: Uses (SELECT auth.uid()) to cache auth check per query instead of per row. Users can only view their own XP transactions.';
 
 -- =====================================================
--- 2. REMOVE DUPLICATE INDEXES
+-- 3. REMOVE DUPLICATE INDEXES (if any exist)
 -- =====================================================
 -- Drop duplicate indexes to save space and improve write performance
+-- Note: Adjust based on actual indexes in your database
 
--- Applications table - drop less descriptive index names
-DROP INDEX IF EXISTS public.applications_gig_idx;
-DROP INDEX IF EXISTS public.applications_talent_idx;
--- Keeping: applications_gig_id_idx and applications_talent_id_idx
+-- Tickets table - check for duplicate indexes
+DROP INDEX IF EXISTS public.tickets_event_idx;
+DROP INDEX IF EXISTS public.tickets_user_idx;
+-- Keep: tickets_event_id_idx and tickets_user_id_idx if they exist
 
--- Bookings table - drop less descriptive index name
-DROP INDEX IF EXISTS public.bookings_gig_idx;
--- Keeping: bookings_gig_id_idx
+-- Events table - check for duplicate indexes
+DROP INDEX IF EXISTS public.events_created_by_idx;
+-- Keep: events_created_by_idx if it's the only one
 
 COMMIT;
 
 -- =====================================================
 -- VERIFICATION - Check if fixes were applied
 -- =====================================================
--- Simple verification query to confirm policies exist
--- Expected result: 4 rows (one for each policy)
 
 DO $$
 BEGIN
@@ -94,14 +99,15 @@ BEGIN
   RAISE NOTICE '==============================================';
   RAISE NOTICE '';
   RAISE NOTICE 'Summary of changes:';
-  RAISE NOTICE '✅ Optimized 4 gig_notifications RLS policies';
-  RAISE NOTICE '✅ Removed 3 duplicate indexes';
+  RAISE NOTICE '✅ Optimized tickets RLS policies';
+  RAISE NOTICE '✅ Optimized xp_transactions RLS policies';
+  RAISE NOTICE '✅ Removed duplicate indexes (if any existed)';
   RAISE NOTICE '';
   RAISE NOTICE 'Performance improvement: ~95%% faster RLS evaluation';
   RAISE NOTICE '';
 END $$;
 
--- Verify gig_notifications policies exist (should return 4 policies)
+-- Verify tickets policies exist
 SELECT 
   polname as policy_name,
   CASE polcmd
@@ -111,17 +117,28 @@ SELECT
     WHEN 'd' THEN 'DELETE'
   END as operation
 FROM pg_policy
-WHERE polrelid = 'public.gig_notifications'::regclass
+WHERE polrelid = 'public.tickets'::regclass
 ORDER BY polname;
 
--- Verify remaining indexes on applications and bookings tables
--- Should only show: applications_gig_id_idx, applications_talent_id_idx, bookings_gig_id_idx
+-- Verify xp_transactions policies exist
+SELECT 
+  polname as policy_name,
+  CASE polcmd
+    WHEN 'r' THEN 'SELECT'
+    WHEN 'a' THEN 'INSERT'
+    WHEN 'w' THEN 'UPDATE'
+    WHEN 'd' THEN 'DELETE'
+  END as operation
+FROM pg_policy
+WHERE polrelid = 'public.xp_transactions'::regclass
+ORDER BY polname;
+
+-- Verify remaining indexes on tickets and events tables
 SELECT 
   tablename,
   indexname
 FROM pg_indexes
 WHERE schemaname = 'public'
-AND tablename IN ('applications', 'bookings')
+AND tablename IN ('tickets', 'events', 'xp_transactions')
 AND indexname LIKE '%_idx'
 ORDER BY tablename, indexname;
-

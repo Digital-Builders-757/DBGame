@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Environment Test Script for TOTL Agency
+// Environment Test Script for Digital Builders
 // This script tests if all required environment variables are properly configured
 
 const requiredVars = [
@@ -15,7 +15,7 @@ const optionalVars = [
   'NODE_ENV'
 ];
 
-console.log('🔍 TOTL Agency - Environment Test');
+console.log('🔍 Digital Builders - Environment Test');
 console.log('==================================\n');
 
 // Load environment variables

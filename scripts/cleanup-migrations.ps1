@@ -1,5 +1,5 @@
 # =====================================================
-# TOTL Agency - Migration Cleanup Script
+# Digital Builders - Migration Cleanup Script
 # =====================================================
 # Purpose: Remove old broken migrations and organize new structure
 # Date: 2025-01-01
@@ -21,11 +21,12 @@ $migrationsToRemove = @(
 )
 
 # List of migrations to KEEP (valid and working)
+# NOTE: These migrations reference TOTL Agency tables. Review and update for Digital Builders.
 $migrationsToKeep = @(
-    "20240320000002_update_talent_profiles.sql",    # Simple column addition
-    "20250722020000_create_test_client_account.sql", # Test data
-    "20250725211607_fix_security_warnings.sql",     # Security fixes
-    "20250725215957_fix_function_search_paths_only.sql" # Security fixes
+    # "20240320000002_update_talent_profiles.sql",    # TOTL Agency specific - may not apply
+    # "20250722020000_create_test_client_account.sql", # TOTL Agency specific - may not apply
+    "20250725211607_fix_security_warnings.sql",     # Security fixes (may still apply)
+    "20250725215957_fix_function_search_paths_only.sql" # Security fixes (may still apply)
 )
 
 # List of NEW migrations to add

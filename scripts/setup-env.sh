@@ -1,8 +1,8 @@
 #!/bin/bash
-# Environment Setup Script for TOTL Agency
+# Environment Setup Script for Digital Builders
 # This script helps set up the development environment
 
-echo "🚀 TOTL Agency - Environment Setup"
+echo "🚀 Digital Builders - Environment Setup"
 echo "=================================="
 
 # Check if .env.local already exists

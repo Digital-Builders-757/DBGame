@@ -11,7 +11,7 @@
 git add .
 
 # Commit
-git commit -m "feat: Extract Digital Builders from TOTL - brand guide, types cleanup, docs"
+git commit -m "feat: Digital Builders project setup - brand guide, types cleanup, docs"
 
 # Push to current repo
 git push origin main
@@ -103,7 +103,7 @@ npm run dev
 ### 4.1 Connect Repository
 1. Go to [vercel.com/dashboard](https://vercel.com/dashboard)
 2. Click **"Add New"** → **"Project"**
-3. Import `digital-builders-game` (or `totl` if using existing)
+3. Import `digital-builders-game` project
 4. Click **"Import"**
 
 ### 4.2 Configure Project

@@ -210,6 +210,25 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 
 ## 🎉 **Recent Accomplishments (December 2025)**
 
+### **Project Migration & Cleanup**
+
+- ✅ Migrated all scripts from TOTL Agency to Digital Builders
+- ✅ Updated all SQL scripts to match Digital Builders schema (profiles, events, tickets, xp_transactions)
+- ✅ Updated test scripts for Digital Builders roles (builder/mentor/admin)
+- ✅ Removed legacy TOTL-specific files and references
+- ✅ Updated all project references from "TOTL Agency" to "Digital Builders"
+- ✅ Fixed database type checks in verification scripts
+- ✅ Updated code comments and documentation references
+
+### **Scripts Updated**
+
+- ✅ `cleanup-test-data.sql` - Now uses Digital Builders tables
+- ✅ `update-missing-profile-names.sql` - New script for Digital Builders profile structure
+- ✅ `apply_linter_fixes.sql` - Updated for Digital Builders RLS policies
+- ✅ `test-signup-flow.ts` - Rewritten for builder/mentor/admin roles
+- ✅ All PowerShell scripts updated with Digital Builders branding
+- ✅ Pre-commit checks updated for Digital Builders schema
+
 ### **MVP Pivot**
 
 - ✅ Pivoted from complex game to Event Portal + Builder Card
@@ -222,9 +241,10 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Updated all documentation with new MVP plan
 - ✅ Schema audit file ready
 - ✅ MVP roadmap updated
+- ✅ All scripts documented and aligned with Digital Builders
 
 ---
 
 _Last Updated: December 2025_  
-_Current Status: ✅ MVP DEFINED - Ready for Implementation_  
+_Current Status: ✅ MVP DEFINED - Scripts Migrated & Ready for Implementation_  
 _Next Review: After database schema creation_

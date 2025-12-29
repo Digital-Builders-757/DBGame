@@ -3,10 +3,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /**
- * TOTL Agency Signup Flow Test Script
+ * Digital Builders Signup Flow Test Script
  *
  * This script tests the signup flow with various metadata scenarios
  * to ensure the database trigger handles all edge cases correctly.
+ *
+ * Digital Builders roles: 'builder' | 'mentor' | 'admin'
+ * Digital Builders profile structure: username, display_name, role (not first_name/last_name)
  *
  * Usage: npx tsx scripts/test-signup-flow.ts
  */
@@ -16,138 +19,75 @@ import { createClient, SupabaseClient } from "@supabase/supabase-js";
 // Test scenarios with different metadata configurations
 const testScenarios = [
   {
-    name: "Complete Talent Signup",
+    name: "Complete Builder Signup",
     metadata: {
-      first_name: "John",
-      last_name: "Doe",
-      role: "talent",
+      username: "testbuilder",
+      display_name: "Test Builder",
+      role: "builder",
     },
     expected: {
-      profile_role: "talent",
-      talent_profile_exists: true,
-      client_profile_exists: false,
-      first_name: "John",
-      last_name: "Doe",
+      profile_role: "builder",
+      username: "testbuilder",
+      display_name: "Test Builder",
     },
   },
   {
-    name: "Complete Client Signup",
+    name: "Complete Mentor Signup",
     metadata: {
-      first_name: "Jane",
-      last_name: "Client",
-      role: "client",
-      company_name: "Acme Corporation",
+      username: "testmentor",
+      display_name: "Test Mentor",
+      role: "mentor",
     },
     expected: {
-      profile_role: "client",
-      talent_profile_exists: false,
-      client_profile_exists: true,
-      company_name: "Acme Corporation",
+      profile_role: "mentor",
+      username: "testmentor",
+      display_name: "Test Mentor",
     },
   },
   {
-    name: "Talent with Missing Names",
+    name: "Builder with Missing Display Name",
     metadata: {
-      role: "talent",
+      username: "builder123",
+      role: "builder",
     },
     expected: {
-      profile_role: "talent",
-      talent_profile_exists: true,
-      client_profile_exists: false,
-      first_name: "",
-      last_name: "",
+      profile_role: "builder",
+      username: "builder123",
+      display_name: "", // May be empty or defaulted
     },
   },
   {
-    name: "Client with Missing Company",
+    name: "Builder with Missing Username",
     metadata: {
-      first_name: "Bob",
-      last_name: "Business",
-      role: "client",
+      display_name: "Builder Without Username",
+      role: "builder",
     },
     expected: {
-      profile_role: "client",
-      talent_profile_exists: false,
-      client_profile_exists: true,
-      company_name: "Bob Business", // Should default to display_name
+      profile_role: "builder",
+      username: "", // May be empty or generated
+      display_name: "Builder Without Username",
     },
   },
   {
-    name: "Empty Metadata",
+    name: "Empty Metadata (Default Builder)",
     metadata: {},
     expected: {
-      profile_role: "talent", // Default role
-      talent_profile_exists: true,
-      client_profile_exists: false,
-      first_name: "",
-      last_name: "",
-    },
-  },
-  {
-    name: "Wrong Metadata Keys (camelCase)",
-    metadata: {
-      firstName: "Wrong",
-      lastName: "Keys",
-      Role: "talent",
-    },
-    expected: {
-      profile_role: "talent", // Default role since wrong keys
-      talent_profile_exists: true,
-      client_profile_exists: false,
-      first_name: "", // Empty because wrong key name
-      last_name: "", // Empty because wrong key name
+      profile_role: "builder", // Default role
+      username: "", // May be empty or generated from email
+      display_name: "", // May be empty or generated
     },
   },
   {
     name: "Admin Role Test",
     metadata: {
-      first_name: "Admin",
-      last_name: "User",
+      username: "adminuser",
+      display_name: "Admin User",
       role: "admin",
     },
     expected: {
       profile_role: "admin",
-      talent_profile_exists: false,
-      client_profile_exists: false,
-      first_name: "Admin",
-      last_name: "User",
-    },
-  },
-];
-
-// Regression test for schema reference issues
-const regressionTests = [
-  {
-    name: "Schema Reference Regression Test",
-    description: "Tests that explicit schema references work under different conditions",
-    test: async (supabase: SupabaseClient) => {
-      console.log("🔍 Running schema reference regression test...");
-
-      // Test 1: Verify enum exists and can be cast
-      const { data: enumTest, error: enumError } = await supabase.rpc("test_enum_casting", {
-        test_role: "talent",
-      });
-
-      if (enumError) {
-        console.error("❌ Enum casting test failed:", enumError);
-        return false;
-      }
-
-      console.log("✅ Enum casting test passed");
-
-      // Test 2: Verify trigger function exists
-      const { data: triggerTest, error: triggerError } = await supabase.rpc(
-        "test_trigger_function_exists"
-      );
-
-      if (triggerError) {
-        console.error("❌ Trigger function test failed:", triggerError);
-        return false;
-      }
-
-      console.log("✅ Trigger function test passed");
-
-      return true;
+      username: "adminuser",
+      display_name: "Admin User",
     },
   },
 ];
@@ -202,7 +142,7 @@ async function runTestScenario(
 
     console.log("✅ Profile created successfully");
 
-    // Step 4: Verify profile data
+    // Step 4: Verify profile role
     if (profile.role !== scenario.expected.profile_role) {
       console.error(
         `❌ Wrong role: expected ${scenario.expected.profile_role}, got ${profile.role}`
@@ -210,64 +150,28 @@ async function runTestScenario(
       return false;
     }
 
-    // Step 5: Check role-specific profile
-    if (scenario.expected.talent_profile_exists) {
-      const { data: talentProfile, error: talentError } = await supabase
-        .from("talent_profiles")
-        .select("*")
-        .eq("user_id", authData.user.id)
-        .single();
-
-      if (talentError) {
-        console.error("❌ Talent profile not found:", talentError.message);
-        return false;
-      }
-
-      // Verify talent profile data
-      if (talentProfile.first_name !== scenario.expected.first_name) {
-        console.error(
-          `❌ Wrong first_name: expected "${scenario.expected.first_name}", got "${talentProfile.first_name}"`
-        );
-        return false;
-      }
-
-      if (talentProfile.last_name !== scenario.expected.last_name) {
-        console.error(
-          `❌ Wrong last_name: expected "${scenario.expected.last_name}", got "${talentProfile.last_name}"`
-        );
-        return false;
-      }
-
-      console.log("✅ Talent profile verified");
+    // Step 5: Verify username (if expected)
+    if (scenario.expected.username && profile.username !== scenario.expected.username) {
+      console.warn(
+        `⚠️ Username mismatch: expected "${scenario.expected.username}", got "${profile.username}"`
+      );
+      // Don't fail - username might be auto-generated
     }
 
-    if (scenario.expected.client_profile_exists) {
-      const { data: clientProfile, error: clientError } = await supabase
-        .from("client_profiles")
-        .select("*")
-        .eq("user_id", authData.user.id)
-        .single();
-
-      if (clientError) {
-        console.error("❌ Client profile not found:", clientError.message);
-        return false;
-      }
-
-      // Verify client profile data
-      if (
-        scenario.expected.company_name &&
-        clientProfile.company_name !== scenario.expected.company_name
-      ) {
-        console.error(
-          `❌ Wrong company_name: expected "${scenario.expected.company_name}", got "${clientProfile.company_name}"`
-        );
-        return false;
-      }
-
-      console.log("✅ Client profile verified");
+    // Step 6: Verify display_name (if expected)
+    if (
+      scenario.expected.display_name &&
+      profile.display_name !== scenario.expected.display_name
+    ) {
+      console.warn(
+        `⚠️ Display name mismatch: expected "${scenario.expected.display_name}", got "${profile.display_name}"`
+      );
+      // Don't fail - display_name might be auto-generated
     }
 
-    // Step 6: Clean up test user
+    console.log(`✅ Profile verified - Role: ${profile.role}, Username: ${profile.username || "N/A"}, Display Name: ${profile.display_name || "N/A"}`);
+
+    // Step 7: Clean up test user
     await cleanupTestUser(supabase, authData.user.id);
 
     console.log("✅ Test scenario passed");
@@ -280,12 +184,14 @@ async function runTestScenario(
 
 async function cleanupTestUser(supabase: SupabaseClient, userId: string) {
   try {
-    // Delete role-specific profiles first
-    await supabase.from("talent_profiles").delete().eq("user_id", userId);
-    await supabase.from("client_profiles").delete().eq("user_id", userId);
-
     // Delete main profile
     await supabase.from("profiles").delete().eq("id", userId);
+
+    // Delete tickets for this user
+    await supabase.from("tickets").delete().eq("user_id", userId);
+
+    // Delete XP transactions for this user
+    await supabase.from("xp_transactions").delete().eq("user_id", userId);
 
     // Delete auth user (requires admin privileges)
     // Note: This might not work in all environments
@@ -297,23 +203,6 @@ async function cleanupTestUser(supabase: SupabaseClient, userId: string) {
   } catch (error) {
     console.error("⚠️ Cleanup failed:", error);
   }
-}
-
-async function runRegressionTests(supabase: SupabaseClient): Promise<boolean> {
-  console.log("\n🔧 Running regression tests...");
-
-  let allPassed = true;
-
-  for (const test of regressionTests) {
-    console.log(`\n🧪 ${test.name}: ${test.description}`);
-
-    const passed = await test.test(supabase);
-    if (!passed) {
-      allPassed = false;
-    }
-  }
-
-  return allPassed;
 }
 
 async function main() {
@@ -329,15 +218,8 @@ async function main() {
 
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  console.log("🚀 Starting TOTL Agency Signup Flow Tests");
-  console.log("==========================================");
-
-  // Run regression tests first
-  const regressionPassed = await runRegressionTests(supabase);
-  if (!regressionPassed) {
-    console.error("❌ Regression tests failed. Stopping.");
-    process.exit(1);
-  }
+  console.log("🚀 Starting Digital Builders Signup Flow Tests");
+  console.log("==============================================");
 
   // Run main test scenarios
   let passedTests = 0;

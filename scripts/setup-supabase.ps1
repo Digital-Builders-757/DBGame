@@ -1,7 +1,7 @@
-# TOTL Agency - Supabase Setup Script
+# Digital Builders - Supabase Setup Script
 # Run this script to configure Supabase CLI for non-interactive operation
 
-Write-Host "🚀 Setting up Supabase CLI for TOTL Agency..." -ForegroundColor Green
+Write-Host "🚀 Setting up Supabase CLI for Digital Builders..." -ForegroundColor Green
 
 # Set environment variables for non-interactive operation
 $env:SUPABASE_PROJECT_ID = "utvircuwknqzpnmvxidp"

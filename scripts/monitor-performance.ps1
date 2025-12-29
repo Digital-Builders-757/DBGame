@@ -1,4 +1,4 @@
-# Performance Monitoring Script for TOTL Agency
+# Performance Monitoring Script for Digital Builders
 # Date: 2025-01-01
 # Purpose: Monitor database performance after optimization
 
@@ -8,7 +8,7 @@ param(
     [switch]$Verbose
 )
 
-Write-Host "🔍 TOTL Agency Performance Monitor" -ForegroundColor Cyan
+Write-Host "🔍 Digital Builders Performance Monitor" -ForegroundColor Cyan
 Write-Host "=====================================" -ForegroundColor Cyan
 
 # Check if Supabase credentials are provided

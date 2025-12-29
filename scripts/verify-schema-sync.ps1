@@ -73,7 +73,7 @@ foreach ($root in $roots) {
 Write-Host "Scanning $($files.Count) TypeScript files..." -ForegroundColor Cyan
 
 # Known database table types to check for duplicates
-$dbTypes = @('Profile', 'TalentProfile', 'ClientProfile', 'Gig', 'Application', 'Booking', 'PortfolioItem', 'GigRequirement')
+$dbTypes = @('Profile', 'Event', 'Ticket', 'XpTransaction')
 
 foreach ($file in $files) {
     $relativePath = $file.FullName.Replace((Get-Location).Path, '').TrimStart('\', '/')

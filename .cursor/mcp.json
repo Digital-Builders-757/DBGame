@@ -23,6 +23,9 @@
       "env": {
         "SUPABASE_ACCESS_TOKEN": "sbp_04a259512af23fc5e17d8cadb5583b4dc7aa55a9"
       }
+    },
+    "Sentry": {
+      "url": "https://mcp.sentry.dev/mcp/the-digital-builders-bi/digital-builders-game"
     }
   }
 }
