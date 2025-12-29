@@ -243,8 +243,14 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ MVP roadmap updated
 - ✅ All scripts documented and aligned with Digital Builders
 
+### **Deployment Fixes**
+
+- ✅ Fixed Vercel deployment error: Removed unused `vaul` package incompatible with React 19
+- ✅ Verified build passes without vaul dependency
+- ✅ Updated error reference documentation for peer dependency conflicts
+
 ---
 
 _Last Updated: December 2025_  
-_Current Status: ✅ MVP DEFINED - Scripts Migrated & Ready for Implementation_  
+_Current Status: ✅ MVP DEFINED - Scripts Migrated & Deployment Fixed_  
 _Next Review: After database schema creation_
