@@ -48,6 +48,10 @@ npm run build
   - **Fix:** Bubble up failures from `handleSubscriptionUpdate()` and return HTTP 500 so Stripe retries when the database update does not succeed.
 - **Build Failures:** Any build that doesn't pass locally
   - **Fix:** Never push code that doesn't build locally
+- **Peer Dependency Conflicts (Vercel Deployment):** `npm error peer react@"^16.8 || ^17.0 || ^18.0" from vaul@0.9.9`
+  - **Root Cause:** Package `vaul` requires React 16-18, but project uses React 19.2.1
+  - **Fix:** Remove unused packages that don't support React 19. Check if package is actually used: `grep -r "vaul" . --exclude-dir=node_modules`. If unused, remove with `npm uninstall <package-name>`
+  - **Prevention:** Before adding packages, verify React 19 compatibility. For Vercel deployments, ensure all dependencies are compatible or use `--legacy-peer-deps` only if necessary
 - **Schema Truth Failure (merging to `main`):** `types/database.ts is out of sync with remote schema (Environment: production)`
   - **Root Cause:** `types/database.ts` was regenerated from the dev project while `main` CI compares against the production Supabase project.
   - **Fix:** Before merging to `main`, set `SUPABASE_PROJECT_ID=<prod_project_ref>`, apply pending migrations to production (`npx supabase@2.34.3 db push --db-url ...`), then run `npm run types:regen:prod`. Commit the regenerated file only after prod schema matches.
