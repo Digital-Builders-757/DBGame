@@ -11,7 +11,7 @@ import { execSync } from 'child_process';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-const PINNED_CLI_VERSION = '2.34.3';
+const PINNED_CLI_VERSION = '2.67.1';
 const DEV_PROJECT_ID = 'utvircuwknqzpnmvxidp';
 
 console.log('🔧 Generating types with proper encoding...');

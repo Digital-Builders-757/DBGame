@@ -26,11 +26,19 @@ $env:SUPABASE_PROJECT_ID = $projectId
 $env:SUPABASE_INTERNAL_NO_DOTENV = "1"
 Write-Host "Loaded SUPABASE_PROJECT_ID from .env.local: $projectId" -ForegroundColor Green
 
-# Run the types generation command directly
-npx -y supabase@2.34.3 gen types typescript --project-id $projectId --schema public > types\database.ts
+# Run the types generation command directly with UTF-8 encoding
+# Note: Remove -NoNewline to preserve trailing newline for consistency
+$typesOutput = npx -y supabase@2.67.1 gen types typescript --project-id $projectId --schema public 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Error: Failed to generate types" -ForegroundColor Red
+    Write-Host $typesOutput
+    exit 1
+}
+# Write with UTF-8 encoding, ensuring proper newline handling
+[System.IO.File]::WriteAllText("$PWD\types\supabase.ts", $typesOutput, [System.Text.Encoding]::UTF8)
 if ($LASTEXITCODE -eq 0) {
-    node scripts\prepend-autogen-banner.mjs
-    Write-Host "Types regenerated successfully" -ForegroundColor Green
+    node scripts\prepend-autogen-banner.mjs types\supabase.ts
+    Write-Host "Types regenerated successfully to types\supabase.ts" -ForegroundColor Green
 } else {
     Write-Host "Error: Failed to generate types" -ForegroundColor Red
     exit 1

@@ -16,7 +16,7 @@ import { execSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-const PINNED_CLI_VERSION = '2.34.3';
+const PINNED_CLI_VERSION = '2.67.1';
 const DEV_PROJECT_ID = 'utvircuwknqzpnmvxidp';
 const PROD_PROJECT_ID = process.env.SUPABASE_PROJECT_ID || '<PROD_ID>';
 const TARGET_PROJECT_ID = process.env.SUPABASE_PROJECT_ID || DEV_PROJECT_ID;
@@ -27,7 +27,7 @@ console.log('==========================================');
 // Step 1: Verify CLI version
 console.log('\n1. Checking Supabase CLI version...');
 try {
-  const cliVersion = execSync('npx -y supabase@2.34.3 --version', { encoding: 'utf8' }).trim();
+  const cliVersion = execSync('npx -y supabase@2.67.1 --version', { encoding: 'utf8' }).trim();
   console.log(`✅ CLI version: ${cliVersion}`);
 } catch (error) {
   console.error('❌ Failed to verify CLI version:', error.message);
@@ -37,7 +37,7 @@ try {
 // Step 2: Check current project link
 console.log('\n2. Checking current project link...');
 try {
-  const linkInfo = execSync('npx -y supabase@2.34.3 projects list', { encoding: 'utf8' });
+  const linkInfo = execSync('npx -y supabase@2.67.1 projects list', { encoding: 'utf8' });
   const linkedProject = linkInfo.match(/●.*?│\s*(\w+)\s*│/);
   if (linkedProject) {
     console.log(`✅ Currently linked to project: ${linkedProject[1]}`);
@@ -51,7 +51,7 @@ try {
 
 // Step 3: Verify types file exists and is valid
 console.log('\n3. Checking types file...');
-const typesPath = join(process.cwd(), 'types', 'database.ts');
+const typesPath = join(process.cwd(), 'types', 'supabase.ts');
 try {
   const typesContent = readFileSync(typesPath, 'utf8');
   
@@ -161,7 +161,7 @@ console.log('\n5. Checking .gitattributes...');
 const gitattributesPath = join(process.cwd(), '.gitattributes');
 try {
   const gitattributes = readFileSync(gitattributesPath, 'utf8');
-  if (gitattributes.includes('types/database.ts text eol=lf')) {
+  if (gitattributes.includes('types/supabase.ts text eol=lf')) {
     console.log('✅ .gitattributes properly configured for types file');
   } else {
     console.log('⚠️  .gitattributes missing types file configuration');

@@ -1,13 +1,13 @@
 // AUTO-GENERATED FILE - Database Type Helpers
 // This file provides convenient type aliases for database table rows
-// Generated from: types/database.ts
+// Generated from: types/supabase.ts
 //
 // This file will be regenerated when you run:
 // npm run types:regen
 //
 // Currently empty - will be populated after creating Digital Builders database schema.
 
-import type { Database } from "./database";
+import type { Database } from "./supabase";
 
 // Table Row Types
 // Add your Digital Builders table types here after schema is created
@@ -28,4 +28,4 @@ import type { Database } from "./database";
 // export type JobStatus = Database["public"]["Enums"]["job_status"];
 
 // Re-export the main Database type
-export type { Database } from "./database";
+export type { Database } from "./supabase";

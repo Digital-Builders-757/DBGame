@@ -20,8 +20,13 @@ npm run build
 - `@/types/supabase` (CORRECT)
 
 ## **3. COMMON ERRORS TO AVOID**
-- **Schema Sync Errors:** `types/database.ts is out of sync with remote schema`
-  - **Fix:** Run `npm run types:regen` for correct environment
+- **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
+  - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
+  - **Note:** Types are now generated to `types/supabase.ts` (canonical file). `types/database.ts` is a backwards-compatibility re-export.
+- **Types Check Always Shows Stale:** `types/supabase.ts is stale` even after regeneration
+  - **Root Cause:** Formatting differences between PowerShell `Out-File` (minified) and Node.js `execSync` (formatted) output
+  - **Fix:** Normalization logic handles this automatically. If issue persists, ensure `scripts/load-env-and-regen-types.ps1` uses `[System.IO.File]::WriteAllText` with UTF-8 encoding
+  - **Prevention:** Always use UTF-8 safe generation methods. Never use `cmd >` redirection for type generation.
 - **Import Path Errors:** `Module not found: Can't resolve '@/lib/supabase/supabase-admin-client'`
   - **Fix:** Use correct path `@/lib/supabase-admin-client`
 - **Missing Import Errors:** `ReferenceError: createNameSlug is not defined`
