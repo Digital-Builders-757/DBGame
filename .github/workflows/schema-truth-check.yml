@@ -109,8 +109,11 @@ jobs:
           set -euo pipefail
           
           # Function to clean files by removing volatile __InternalSupabase block
+          # and normalizing whitespace (trailing spaces, blank-only lines)
           clean() {
-            sed -E '/__InternalSupabase: \{/,/^\s*\}/d' "$1" | sed 's/\r$//'
+            sed -E '/__InternalSupabase: \{/,/^\s*\}/d' "$1" \
+            | sed -E 's/[[:space:]]+$//' \
+            | sed -E '/^[[:space:]]*$/d'
           }
           
           # Create cleaned versions for comparison
