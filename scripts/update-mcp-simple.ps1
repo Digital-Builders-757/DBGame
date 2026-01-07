@@ -15,7 +15,7 @@ if (-not (Test-Path $mcpConfigPath)) {
 $config = Get-Content $mcpConfigPath -Raw | ConvertFrom-Json
 
 # Project reference (from your current config)
-$projectRef = "utvircuwknqzpnmvxidp"
+$projectRef = "hzcpxidgmvsfmmocnasj"
 
 Write-Host "📋 Current Configuration:" -ForegroundColor Yellow
 Write-Host "   Project Reference: $projectRef" -ForegroundColor Gray

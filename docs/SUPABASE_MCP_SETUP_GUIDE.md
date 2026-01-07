@@ -14,7 +14,7 @@ This guide explains how to set up the Supabase MCP server using the command-base
 ## 📋 Prerequisites
 
 1. **Supabase Project Reference**
-   - Your project reference: `utvircuwknqzpnmvxidp`
+   - Your project reference: `hzcpxidgmvsfmmocnasj`
    - Found in: Supabase Dashboard → Project Settings → General
 
 2. **Supabase Personal Access Token**
@@ -39,7 +39,7 @@ The script will:
 - ✅ Prompt for your Supabase Access Token
 - ✅ Update the Supabase MCP configuration
 - ✅ Create a backup of your original config
-- ✅ Use project reference: `utvircuwknqzpnmvxidp`
+- ✅ Use project reference: `hzcpxidgmvsfmmocnasj`
 
 ### **Option 2: Manual Configuration**
 
@@ -58,7 +58,7 @@ The script will:
         "-y",
         "@supabase/mcp-server-supabase@latest",
         "--read-only",
-        "--project-ref=utvircuwknqzpnmvxidp"
+        "--project-ref=hzcpxidgmvsfmmocnasj"
       ],
       "env": {
         "SUPABASE_ACCESS_TOKEN": "sbp_YOUR_ACCESS_TOKEN_HERE"
@@ -69,7 +69,7 @@ The script will:
 ```
 
 **Replace:**
-- `utvircuwknqzpnmvxidp` with your actual project reference (already correct)
+- `hzcpxidgmvsfmmocnasj` with your actual project reference (already correct)
 - `sbp_YOUR_ACCESS_TOKEN_HERE` with your personal access token
 
 ---
@@ -126,7 +126,7 @@ Try these commands in Cursor chat:
 ## 🔍 Configuration Details
 
 ### **Current Setup:**
-- **Project Reference:** `utvircuwknqzpnmvxidp`
+- **Project Reference:** `hzcpxidgmvsfmmocnasj`
 - **Mode:** Read-only (safe for queries)
 - **Package:** `@supabase/mcp-server-supabase@latest`
 - **Command:** Uses `npx` to run the latest version
@@ -160,7 +160,7 @@ The `--read-only` flag ensures:
    - Regenerate if needed
 
 2. **Check Project Reference:**
-   - Verify `utvircuwknqzpnmvxidp` matches your project
+   - Verify `hzcpxidgmvsfmmocnasj` matches your project
    - Find in: Supabase Dashboard → Settings → General
 
 3. **Restart Cursor:**
@@ -193,7 +193,7 @@ The `--read-only` flag ensures:
 1. Check `mcp.json` syntax (valid JSON)
 2. Try running manually:
    ```powershell
-   npx -y @supabase/mcp-server-supabase@latest --project-ref=utvircuwknqzpnmvxidp
+   npx -y @supabase/mcp-server-supabase@latest --project-ref=hzcpxidgmvsfmmocnasj
    ```
 3. Check Cursor logs for errors
 
@@ -213,7 +213,7 @@ The `--read-only` flag ensures:
 ```json
 {
   "supabase": {
-    "url": "https://mcp.supabase.com/mcp?project_ref=utvircuwknqzpnmvxidp"
+    "url": "https://mcp.supabase.com/mcp?project_ref=hzcpxidgmvsfmmocnasj"
   }
 }
 ```
@@ -229,7 +229,7 @@ The `--read-only` flag ensures:
       "-y",
       "@supabase/mcp-server-supabase@latest",
       "--read-only",
-      "--project-ref=utvircuwknqzpnmvxidp"
+      "--project-ref=hzcpxidgmvsfmmocnasj"
     ],
     "env": {
       "SUPABASE_ACCESS_TOKEN": "sbp_your-token-here"

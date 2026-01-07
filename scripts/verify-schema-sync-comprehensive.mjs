@@ -17,7 +17,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 const PINNED_CLI_VERSION = '2.67.1';
-const DEV_PROJECT_ID = 'utvircuwknqzpnmvxidp';
+const DEV_PROJECT_ID = 'hzcpxidgmvsfmmocnasj';
 const PROD_PROJECT_ID = process.env.SUPABASE_PROJECT_ID || '<PROD_ID>';
 const TARGET_PROJECT_ID = process.env.SUPABASE_PROJECT_ID || DEV_PROJECT_ID;
 

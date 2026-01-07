@@ -1,4 +1,4 @@
-﻿# Schema Sync & CI Fix Guide
+# Schema Sync & CI Fix Guide
 
 **Date:** October 21, 2025  
 **Issue:** "Binary files differ" error in CI schema verification  
@@ -16,7 +16,7 @@ The main branch was failing CI checks with schema verification errors:
 
 1. **CLI Version Mismatch** - Different Supabase CLI versions generate slightly different output
 2. **Line Ending Issues** - CRLF vs LF causing binary file detection
-3. **Generation Method Mismatch** - (resolved) both local + CI now call `--project-id utvircuwknqzpnmvxidp` (historically dev machines used `--linked`)
+3. **Generation Method Mismatch** - (resolved) both local + CI now call `--project-id hzcpxidgmvsfmmocnasj` (historically dev machines used `--linked`)
 4. **Schema Drift** - Database schema evolved without types being regenerated
 
 ## âœ… Solution Implemented
@@ -76,7 +76,7 @@ types/database.ts text eol=lf
 ### 4. **Project Linking** âœ…
 
 **Verified:**
-- Local linked to: `utvircuwknqzpnmvxidp` (total model agency mvp) âœ…
+- Local linked to: `hzcpxidgmvsfmmocnasj` (total model agency mvp) âœ…
 - CI uses same project via `SUPABASE_PROJECT_ID` secret âœ…
 
 ## ðŸ“‹ Verification Checklist
@@ -150,7 +150,7 @@ npm run types:regen
 
 **Manual (if needed):**
 ```powershell
-npx supabase@v2.34.3 gen types typescript --project-id utvircuwknqzpnmvxidp --schema public > types/database.ts
+npx supabase@v2.34.3 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public > types/database.ts
 ```
 
 **CI (automatic):**
@@ -191,7 +191,7 @@ run: npx -y supabase@v2.34.3 ...  # Match devDependencies version
 npx supabase@2.34.3 link --unlink
 
 # Relink to correct project
-npx supabase@2.34.3 link --project-ref utvircuwknqzpnmvxidp
+npx supabase@2.34.3 link --project-ref hzcpxidgmvsfmmocnasj
 ```
 
 ### Issue: Schema drift (DB changed without migration)
@@ -235,7 +235,7 @@ npm run types:regen
 | Local Types Regenerated | âœ… Complete |
 | CI Configuration | âœ… Correct |
 | Line Endings | âœ… Configured |
-| Project Linked | âœ… utvircuwknqzpnmvxidp |
+| Project Linked | âœ… hzcpxidgmvsfmmocnasj |
 | Committed to Develop | âœ… Pushed |
 
 ## ðŸš€ Next Actions

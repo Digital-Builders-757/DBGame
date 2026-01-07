@@ -3,7 +3,7 @@
 import { execSync } from "node:child_process";
 import { writeFileSync, readFileSync } from "node:fs";
 
-const DEFAULT_PROJECT_ID = "utvircuwknqzpnmvxidp";
+const DEFAULT_PROJECT_ID = "hzcpxidgmvsfmmocnasj";
 const projectId = process.env.SUPABASE_PROJECT_ID || DEFAULT_PROJECT_ID;
 
 console.log(`🔐 Generating remote types for comparison (project ${projectId})...`);

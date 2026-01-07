@@ -37,6 +37,8 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Database schema migrated (initial_event_portal_schema)
 - ✅ Types regenerated (Supabase CLI)
 - ✅ Type generation scripts stabilized (simplified, removed formatting hacks)
+- ✅ Project references updated (migrated from old project to new Digital Builders project)
+- ✅ CI workflows updated to use secrets (no hardcoded credentials)
 - ✅ Auth screens rebranded (login/create-account)
 - 🔄 Events/Check-in/Builder Card UI pending
 

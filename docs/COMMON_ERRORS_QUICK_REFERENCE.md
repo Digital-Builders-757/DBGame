@@ -23,6 +23,10 @@ npm run build
 - **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
   - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
   - **Note:** Types are now generated to `types/supabase.ts` (canonical file). `types/database.ts` is a backwards-compatibility re-export.
+- **Wrong Project Reference:** CI/workflows pointing to old project or "out of sync" errors persist
+  - **Fix:** Ensure all scripts and workflows use `SUPABASE_PROJECT_ID` from environment/secrets, not hardcoded values
+  - **Security:** Never commit database passwords or access tokens. Use `.env.local` for local dev and GitHub Secrets for CI
+  - **Prevention:** All workflows now use `${{ secrets.SUPABASE_PROJECT_ID }}` instead of hardcoded project refs
 - **Types Check Always Shows Stale / Broken Type Generation:** `types/supabase.ts is stale` or parse errors like `';' expected. (6:107)`
   - **Root Cause:** Previous scripts used `Out-File -NoNewline` which corrupted output, plus unnecessary Prettier/regex "fixes" that made things worse
   - **Fix:** Use simplified `scripts/generate-types.mjs` which writes Supabase CLI output as-is. Run `npm run types:regen:dev`

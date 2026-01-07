@@ -14,14 +14,14 @@
 {
   "mcpServers": {
     "supabase": {
-      "url": "https://mcp.supabase.com/mcp?project_ref=utvircuwknqzpnmvxidp"
+      "url": "https://mcp.supabase.com/mcp?project_ref=hzcpxidgmvsfmmocnasj"
     }
   }
 }
 ```
 
 ### **Project Details**
-- **Project Reference:** `utvircuwknqzpnmvxidp`
+- **Project Reference:** `hzcpxidgmvsfmmocnasj`
 - **MCP Server Type:** HTTP (URL-based)
 - **Endpoint:** `https://mcp.supabase.com/mcp`
 
@@ -31,7 +31,7 @@
 
 ### **1. MCP Server Status**
 - ✅ Supabase MCP server is configured in `mcp.json`
-- ✅ Project reference is set: `utvircuwknqzpnmvxidp`
+- ✅ Project reference is set: `hzcpxidgmvsfmmocnasj`
 - ✅ Using HTTP-based MCP server (no local installation required)
 
 ### **2. Project Configuration**
@@ -61,13 +61,13 @@ Try these commands in Cursor chat to test Supabase MCP:
 ```
 
 ### **Method 3: Verify Project Reference**
-The project reference `utvircuwknqzpnmvxidp` should match your Supabase project.
+The project reference `hzcpxidgmvsfmmocnasj` should match your Supabase project.
 
 **To verify:**
 1. Go to https://supabase.com/dashboard
 2. Select your project
 3. Check the project reference in the URL or settings
-4. It should match: `utvircuwknqzpnmvxidp`
+4. It should match: `hzcpxidgmvsfmmocnasj`
 
 ---
 
@@ -86,7 +86,7 @@ The project reference `utvircuwknqzpnmvxidp` should match your Supabase project.
    - Reopen Cursor
 
 2. **Verify Project Reference**
-   - Check that `utvircuwknqzpnmvxidp` is correct
+   - Check that `hzcpxidgmvsfmmocnasj` is correct
    - Update in `mcp.json` if needed
 
 3. **Check Network Connection**
@@ -142,7 +142,7 @@ When working correctly, Supabase MCP should provide:
 ## 🚀 Testing Checklist
 
 - [ ] MCP server configured in `mcp.json`
-- [ ] Project reference verified: `utvircuwknqzpnmvxidp`
+- [ ] Project reference verified: `hzcpxidgmvsfmmocnasj`
 - [ ] Cursor restarted after configuration
 - [ ] Supabase tools appear in Cursor chat
 - [ ] Can query database via MCP

@@ -46,7 +46,7 @@ This installs the package in your project's `node_modules`, ensuring a complete,
     "-y",
     "@supabase/mcp-server-supabase@latest",
     "--read-only",
-    "--project-ref=utvircuwknqzpnmvxidp"
+    "--project-ref=hzcpxidgmvsfmmocnasj"
   ]
 }
 ```
@@ -59,7 +59,7 @@ This installs the package in your project's `node_modules`, ensuring a complete,
     "--no-install",
     "@supabase/mcp-server-supabase",
     "--read-only",
-    "--project-ref=utvircuwknqzpnmvxidp"
+    "--project-ref=hzcpxidgmvsfmmocnasj"
   ]
 }
 ```

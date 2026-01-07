@@ -11,7 +11,7 @@ console.log("🔐 Testing remote schema access...");
 const tmp = join(tmpdir(), `supabase_types_${Date.now()}.ts`);
 
 try {
-const DEFAULT_PROJECT_ID = "utvircuwknqzpnmvxidp";
+const DEFAULT_PROJECT_ID = "hzcpxidgmvsfmmocnasj";
 const projectId = process.env.SUPABASE_PROJECT_ID || DEFAULT_PROJECT_ID;
 const cmd = `npx -y supabase@2.67.1 gen types typescript --project-id ${projectId} --schema public`;
 
