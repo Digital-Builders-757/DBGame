@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ArrowLeft, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -115,7 +115,7 @@ export default function Login() {
         const redirectPath =
           userRole === "admin"
             ? "/admin/dashboard"
-            : "/dashboard";
+            : "/events";
         window.location.href = redirectPath;
       }
     } catch (error) {

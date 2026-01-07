@@ -272,9 +272,32 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Improved types verification to handle formatting differences
 - ✅ Added `.env.local` auto-loading to `verify-types-fresh.mjs`
 
+### **Homepage Messaging Refactor (January 2025)**
+
+- ✅ Complete homepage copy rewrite with regional/cultural positioning (757/Hampton Roads focus)
+- ✅ Changed hero from rule-focused ("You Must Have A Builder Account") to benefit-focused ("The Best Tech & Creative Events in the 757")
+- ✅ Removed fake/inflated stats section
+- ✅ Added mission section reframing 757 narrative
+- ✅ Updated feature cards: "Account = Access" → "Your Builder Card" (perk-focused)
+- ✅ De-gamified language: removed XP/badges emphasis from homepage
+- ✅ Events-first CTAs: "See Upcoming Events" (primary), "Join the Builders" (secondary)
+- ✅ Brand name consistency: "Digital Builders World" → "Digital Builders"
+- ✅ Fixed spacing: added proper padding between hero and mission sections
+
+### **Authentication System Fix (January 2025)**
+
+- ✅ Fixed broken auth flow: removed all TOTL Agency references (`talent`/`client` roles, `/talent/*`, `/client/*` routes)
+- ✅ Created functional signup form (`/signup`) with email, password, optional display_name
+- ✅ Fixed profile creation: `ensureProfileExists()` now uses `maybeSingle()`, defaults `role='builder'`
+- ✅ Fixed auth callback: redirects to `/events` after email verification (removed TOTL routes)
+- ✅ Fixed login redirect: `handleLoginRedirect()` redirects to `/events` for builders/mentors
+- ✅ Fixed middleware: removed `account_type`, `/choose-role`, `/onboarding` checks; simplified redirect logic
+- ✅ Fixed auth provider: removed `AccountType`, `account_type` queries; updated `UserRole` to `"builder" | "mentor" | "admin"`
+- ✅ Homepage remains public (no forced redirect) for marketing purposes
+- ✅ All auth success redirects now consistently go to `/events` (single source of truth)
+
 ---
 
-_Last Updated: 1-6-2025 
-_Current Status: ✅ Events Portal List Page Complete - Ready for Detail Page & RSVP_  
-I've also updated types
+_Last Updated: January 2025  
+_Current Status: ✅ Authentication Flow Fixed - Signup/Login Working, Redirects to /events_  
 _Next Review: After `/events/[slug]` detail page implementation_

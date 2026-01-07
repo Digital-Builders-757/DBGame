@@ -2,22 +2,22 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-type AccountType = "unassigned" | "talent" | "client";
 type ProfileRow = {
-  role: string;
-  account_type: AccountType;
-  is_suspended: boolean | null;
+  role: "builder" | "mentor" | "admin" | null;
+  is_suspended?: boolean | null;
 };
 
-const publicRoutes = ["/", "/about", "/gigs", "/talent", "/suspended", "/client/signup", "/client/apply", "/sentry-example-page"];
-const authRoutes = [
+const publicRoutes = [
+  "/", // marketing homepage
+  "/events", // MVP: public events listing
   "/login",
-  "/reset-password",
-  "/update-password",
-  "/verification-pending",
-  "/choose-role",
+  "/signup",
+  "/auth/callback",
+  "/suspended",
+  "/sentry-example-page",
 ];
-const onboardingPath = "/onboarding/select-account-type";
+
+const authRoutes = ["/login", "/signup", "/reset-password", "/update-password", "/verification-pending"];
 
 const isAssetOrApi = (path: string) =>
   path.startsWith("/_next") ||
@@ -33,35 +33,26 @@ const safeReturnUrl = (value: string | null): string | null => {
   return value;
 };
 
-const determineDestination = (profile: ProfileRow | null) => {
-  if (!profile) return "/choose-role";
-  if (profile.role === "admin") return "/admin/dashboard";
-  if (profile.account_type === "client") return "/client/dashboard";
-  if (profile.account_type === "talent") return "/talent/dashboard";
-  return onboardingPath;
-};
-
-const needsClientAccess = (path: string) => path.startsWith("/client/") && path !== "/client/apply";
-const needsTalentAccess = (path: string) => path.startsWith("/talent/") && path !== "/talent";
+// Only protect what you truly need protected in MVP.
+// You can add more later (e.g., /builder-card, /account, etc.)
 const needsAdminAccess = (path: string) => path.startsWith("/admin/");
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const res = NextResponse.next();
 
-  if (isAssetOrApi(path)) {
-    return res;
-  }
+  if (isAssetOrApi(path)) return res;
 
   const returnUrl = safeReturnUrl(req.nextUrl.searchParams.get("returnUrl"));
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
+  // If env isn't set, don't hard-block public/auth routes
   if (!supabaseUrl || !supabaseAnonKey) {
-    if (authRoutes.includes(path) || publicRoutes.includes(path) || path === onboardingPath) {
-      return res;
-    }
+    if (publicRoutes.includes(path) || authRoutes.includes(path)) return res;
+
+    // If route is protected but env missing, send to login
     const redirectUrl = new URL("/login", req.url);
     redirectUrl.searchParams.set("returnUrl", encodeURIComponent(path));
     return NextResponse.redirect(redirectUrl);
@@ -72,9 +63,7 @@ export async function middleware(req: NextRequest) {
     cookies: {
       getAll: () => req.cookies.getAll(),
       setAll: (cookies) => {
-        cookies.forEach(({ name, value, options }) => {
-          res.cookies.set(name, value, options);
-        });
+        cookies.forEach(({ name, value, options }) => res.cookies.set(name, value, options));
       },
     },
   });
@@ -83,21 +72,21 @@ export async function middleware(req: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Not logged in
   if (!user) {
-    if (authRoutes.includes(path) || publicRoutes.includes(path) || path === onboardingPath) {
-      return res;
-    }
-    if (!publicRoutes.includes(path)) {
-      const redirectUrl = new URL("/login", req.url);
-      redirectUrl.searchParams.set("returnUrl", encodeURIComponent(path));
-      return NextResponse.redirect(redirectUrl);
-    }
-    return res;
+    // Allow public + auth routes
+    if (publicRoutes.includes(path) || authRoutes.includes(path)) return res;
+
+    // Only redirect to login for protected routes
+    const redirectUrl = new URL("/login", req.url);
+    redirectUrl.searchParams.set("returnUrl", encodeURIComponent(path));
+    return NextResponse.redirect(redirectUrl);
   }
 
+  // Logged in — only check profile for suspended/admin gating
   const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("role, account_type, is_suspended")
+    .select("role, is_suspended")
     .eq("id", user.id)
     .maybeSingle<ProfileRow>();
 
@@ -105,67 +94,28 @@ export async function middleware(req: NextRequest) {
     console.error("Middleware profile query error:", profileError);
   }
 
-  const isAdmin = profile?.role === "admin";
-  const accountType: AccountType = (profile?.account_type ?? "unassigned") as AccountType;
-
   if (profile?.is_suspended && path !== "/suspended") {
     return NextResponse.redirect(new URL("/suspended", req.url));
   }
 
-  const needsOnboarding = !isAdmin && accountType === "unassigned";
-  const onAuthRoute = authRoutes.includes(path);
+  const isAdmin = profile?.role === "admin";
 
-  if (needsOnboarding && path !== onboardingPath && path !== "/choose-role") {
-    return NextResponse.redirect(new URL(onboardingPath, req.url));
+  // Admin routes require admin
+  if (needsAdminAccess(path) && !isAdmin) {
+    return NextResponse.redirect(new URL("/events", req.url));
   }
 
-  if (!needsOnboarding && path === onboardingPath && !isAdmin) {
-    const destination = determineDestination(profile);
-    return NextResponse.redirect(new URL(destination, req.url));
+  // If user hits /login or /signup while already authed, send them to /events
+  if (authRoutes.includes(path)) {
+    // Respect returnUrl if present and safe
+    if (returnUrl) return NextResponse.redirect(new URL(returnUrl, req.url));
+    return NextResponse.redirect(new URL("/events", req.url));
   }
 
-  if (onAuthRoute && user) {
-    if (returnUrl && !needsOnboarding && !isAdmin) {
-      const returnPath = new URL(returnUrl, req.url);
-      const target = returnPath.pathname;
-      if (
-        (!needsClientAccess(target) || accountType === "client") &&
-        (!needsTalentAccess(target) || accountType === "talent") &&
-        (!target.startsWith("/admin/") || isAdmin)
-      ) {
-        return NextResponse.redirect(returnPath);
-      }
-    }
-    const destination = determineDestination(profile);
-    return NextResponse.redirect(new URL(destination, req.url));
-  }
-
-  if (path === "/" && !needsOnboarding) {
-    const destination = determineDestination(profile);
-    return NextResponse.redirect(new URL(destination, req.url));
-  }
-
-  if (!isAdmin) {
-    if (needsAdminAccess(path)) {
-      const destination = determineDestination(profile);
-      return NextResponse.redirect(new URL(destination, req.url));
-    }
-    if (needsClientAccess(path) && accountType !== "client") {
-      const destination = determineDestination(profile);
-      return NextResponse.redirect(new URL(destination, req.url));
-    }
-    if (needsTalentAccess(path) && accountType !== "talent") {
-      const destination = determineDestination(profile);
-      return NextResponse.redirect(new URL(destination, req.url));
-    }
-  }
-
+  // Otherwise allow (including / - homepage remains public for marketing)
   return res;
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"],
 };
-

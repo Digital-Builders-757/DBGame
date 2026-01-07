@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import type { User, Session, AuthError, AuthChangeEvent, SupabaseClient } from "@supabase/supabase-js";
 import { useRouter, usePathname } from "next/navigation";
@@ -8,8 +8,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { createSupabaseBrowser } from "@/lib/supabase/supabase-browser";
 
-type UserRole = "talent" | "client" | "admin" | null;
-type AccountType = "unassigned" | "talent" | "client";
+type UserRole = "builder" | "mentor" | "admin" | null;
 
 type SignUpOptions = {
   data?: Record<string, unknown>;
@@ -18,11 +17,9 @@ type SignUpOptions = {
 
 type ProfileData = {
   role: UserRole;
-  account_type: AccountType;
   avatar_url: string | null;
   avatar_path: string | null;
   display_name: string | null;
-  // Digital Builders - No subscription system yet
 } | null;
 
 type AuthContextType = {
@@ -129,7 +126,7 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: profileData, error: profileError } = await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name")
+          .select("role, avatar_url, avatar_path, display_name")
           .eq("id", session.user.id)
           .maybeSingle();
 
@@ -162,7 +159,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
           setUserRole(role);
           setProfile({
             role,
-            account_type: (profileData.account_type ?? "unassigned") as AccountType,
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,
@@ -202,7 +198,7 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: profileData, error: profileError } = await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name")
+          .select("role, avatar_url, avatar_path, display_name")
           .eq("id", session.user.id)
           .maybeSingle();
 
@@ -235,7 +231,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
           // Store full profile data to avoid duplicate queries
           setProfile(profileData ? {
             role: role,
-            account_type: (profileData.account_type ?? "unassigned") as AccountType,
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,
@@ -247,21 +242,17 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
           // Also check if we're not on the login page (where server action handles redirect)
           if (hasHandledInitialSession && !pathname.startsWith("/login")) {
             // Also check if user is not already on an allowed page
-            const allowedPages = ["/settings", "/profile", "/onboarding", "/choose-role", "/verification-pending"];
+            const allowedPages = ["/settings", "/profile", "/verification-pending", "/events"];
             const isOnAllowedPage = allowedPages.some((page) => pathname.startsWith(page));
 
             if (!isOnAllowedPage) {
-              // Redirect based on role - only for actual sign-ins
+              // Redirect to /events for Digital Builders - only for actual sign-ins
               // Use router.refresh() to clear cache before redirect
               router.refresh();
-              if (role === "talent") {
-                router.push("/talent/dashboard");
-              } else if (role === "client") {
-                router.push("/client/dashboard");
-              } else if (role === "admin") {
+              if (role === "admin") {
                 router.push("/admin/dashboard");
               } else {
-                router.push("/choose-role");
+                router.push("/events");
               }
             }
           }
@@ -313,12 +304,11 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const { data: profileData } = (await (supabase as any)
           .from("profiles")
-          .select("role, account_type, avatar_url, avatar_path, display_name")
+          .select("role, avatar_url, avatar_path, display_name")
           .eq("id", data.session.user.id)
           .maybeSingle()) as {
             data: {
               role: string;
-              account_type: string | null;
               avatar_url: string | null;
               avatar_path: string | null;
               display_name: string | null;
@@ -331,7 +321,6 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
           setUserRole(role);
           setProfile({
             role,
-            account_type: (profileData.account_type ?? "unassigned") as AccountType,
             avatar_url: profileData.avatar_url,
             avatar_path: profileData.avatar_path,
             display_name: profileData.display_name,

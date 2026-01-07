@@ -45,6 +45,14 @@ npm run build
   - **Fix:** Run `npm run lint -- --fix` or manually reorder imports
 - **Type Errors:** `Property 'role' does not exist on type 'never'`
   - **Fix:** Ensure Database type is imported from `@/types/supabase`
+- **Auth Redirect Errors:** Users redirected to `/talent/dashboard`, `/client/dashboard`, `/choose-role`, or `/dashboard` (404s)
+  - **Root Cause:** Leftover TOTL Agency code still references old routes/roles
+  - **Fix:** All auth redirects should go to `/events` for Digital Builders. Check `middleware.ts`, `app/auth/callback/page.tsx`, `lib/actions/auth-actions.ts`, and `components/auth/auth-provider.tsx`
+  - **Prevention:** Digital Builders uses roles `builder` | `mentor` | `admin` (not `talent` | `client`). Never query `account_type` column (doesn't exist in Digital Builders schema)
+- **Profile Query Errors:** `column "account_type" does not exist` or `Cannot find name 'AccountType'`
+  - **Root Cause:** Auth provider still queries TOTL-specific `account_type` column
+  - **Fix:** Remove `account_type` from all `.select()` queries in `auth-provider.tsx`. Remove `AccountType` type definition. Update `ProfileData` type to remove `account_type` field
+  - **Prevention:** Digital Builders schema only has `role` column (no `account_type`). Always use `"builder" | "mentor" | "admin"` role types
 - **Stripe API Version Errors:** `Invalid Stripe API version format with unsupported '.clover' suffix`
   - **Fix:** Stripe API versions must be plain `YYYY-MM-DD` strings. Use the latest stable release without suffix (currently `apiVersion: '2024-06-20'`).
 - **Stripe Property Access Errors:** `Property 'current_period_end' does not exist on type 'Subscription'`
