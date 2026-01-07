@@ -8,10 +8,10 @@
 ## ✅ What Was Cleaned
 
 ### **1. Database Types Files**
-- ✅ `types/database.ts` - Reset to empty schema (will be regenerated)
-- ✅ `types/database-helpers.ts` - Reset to empty (will be regenerated)
-- ✅ `types/supabase.ts` - Kept (generic re-export)
-- ✅ `types/supabase-helpers.ts` - Kept (generic helpers)
+- ✅ `types/supabase.ts` - Auto-generated from Supabase schema (source of truth)
+- ✅ `types/database.ts` - Backwards compatibility re-export (kept for legacy imports)
+- ✅ `types/database-helpers.ts` - **DELETED** (not used, not auto-generated)
+- ✅ `types/supabase-helpers.ts` - **DELETED** (not used)
 
 ### **2. Database Schema Documentation**
 - ✅ `database_schema_audit.md` - Reset for Digital Builders
@@ -42,10 +42,8 @@
 ## 📋 Current State
 
 ### **Types Files**
-- `types/database.ts` - Empty, ready for regeneration
-- `types/database-helpers.ts` - Empty, ready for game types
-- `types/supabase.ts` - Generic re-export (kept)
-- `types/supabase-helpers.ts` - Generic helpers (kept)
+- `types/supabase.ts` - Auto-generated from Supabase schema (source of truth)
+- `types/database.ts` - Backwards compatibility re-export (for legacy `@/types/database` imports)
 
 ### **Database Files**
 - `database_schema_audit.md` - Reset for Digital Builders
@@ -84,15 +82,15 @@
 5. **Update Helper Files:**
    - Add game-specific selects to `lib/selects.ts`
    - Add game-specific queries to `lib/safe-query.ts`
-   - Add game-specific helpers to `types/database-helpers.ts`
+   - Create custom type helpers in `lib/` or component files as needed
 
 ---
 
 ## ⚠️ Important Notes
 
 1. **Types Will Be Regenerated:**
-   - Don't manually edit `types/database.ts`
-   - It will be auto-generated from your Supabase schema
+   - Don't manually edit `types/supabase.ts` (auto-generated)
+   - `types/database.ts` is a backwards compatibility re-export (can be kept or removed after migrating all imports)
 
 2. **No TOTL References Left:**
    - All TOTL-specific types removed

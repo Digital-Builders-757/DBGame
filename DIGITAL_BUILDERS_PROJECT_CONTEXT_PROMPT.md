@@ -25,7 +25,7 @@
 6. **Before touching `main` / production:**  
    - Set `SUPABASE_PROJECT_ID` to your Digital Builders project ID
    - Set `SUPABASE_INTERNAL_NO_DOTENV=1` so Supabase CLI doesn't try to parse `.env.local`.  
-   - Apply pending migrations to production (`npx supabase@2.34.3 db push`)  
+   - Apply pending migrations to production (`npx supabase@2.67.1 db push`)  
    - Run `npm run types:regen:prod` so `types/database.ts` matches the live schema before merging.
 
 ---
@@ -51,7 +51,7 @@
 
 - `database_schema_audit.md` must mirror reality **before** migrations run. Never alter DB without updating this doc.  
 - All schema changes go through new timestamped files in `supabase/migrations/`. No edits to applied migrations.  
-- After migrations: run the pinned Supabase CLI (`npx supabase@2.34.3 gen types typescript --project-id <PROJECT_ID> --schema public`) and re-run `scripts/prepend-autogen-banner.mjs` if needed.  
+- After migrations: run the pinned Supabase CLI (`npx supabase@2.67.1 gen types typescript --project-id <PROJECT_ID> --schema public`) and re-run `scripts/prepend-autogen-banner.mjs` if needed.  
 - Ensure `types/database.ts`, `types/supabase.ts`, and the schema audit are in sync (use `npm run schema:verify:comprehensive`).  
 - Production sync: each time you regenerate types or link via CLI for production, set `SUPABASE_PROJECT_ID` (and `SUPABASE_INTERNAL_NO_DOTENV=1`) so Supabase CLI targets the correct project without parsing `.env.local`; otherwise schema drift will block merges to `main`.  
 - Treat enums and views as code: update audit + docs whenever they change.

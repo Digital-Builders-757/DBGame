@@ -118,7 +118,7 @@ FOR SELECT TO anon USING (true);
 Due to CLI authentication issues, the RLS policy migration needs to be applied manually:
 
 **Option 1: Supabase Dashboard**
-1. Go to [Supabase Dashboard](https://supabase.com/dashboard/project/utvircuwknqzpnmvxidp/sql)
+1. Go to [Supabase Dashboard](https://supabase.com/dashboard/project/hzcpxidgmvsfmmocnasj/sql)
 2. Navigate to SQL Editor
 3. Copy and paste the contents of `supabase/migrations/20251024170927_fix_overly_permissive_rls_policies.sql`
 4. Execute the SQL

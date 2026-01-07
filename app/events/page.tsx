@@ -1,12 +1,66 @@
-"use client";
+import EventsListClient from "@/components/events/events-list-client";
+import { EventsPageShell } from "@/components/events/events-page-shell";
+import type { EventListItem } from "@/components/events/types";
+import { createSupabaseServer } from "@/lib/supabase/supabase-server";
 
-import Link from "next/link";
 
-export default function EventsPage() {
-  return (
-    <div className="relative min-h-screen bg-brand-background text-brand-text-primary overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/12 via-brand-cyan/10 to-brand-green/10 opacity-90" />
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-10 py-16 space-y-8">
+// Select columns needed for filtering + display
+// Note: status and is_public are used for filtering but not passed to client
+const COLUMNS =
+  "id,slug,title,subtitle,venue_name,city,start_at,end_at,capacity,status,is_public";
+
+export default async function EventsPage() {
+  const supabase = await createSupabaseServer();
+
+  try {
+    // TODO: Timezone handling - This uses server runtime timezone for "upcoming" filter.
+    // For MVP this is acceptable, but consider:
+    // - Using Postgres `now()` in a view/RPC for more accurate timezone handling
+    // - Ensuring all event times are stored as UTC timestamptz consistently
+    // - Handling DST transitions if events span timezone boundaries
+    const nowIso = new Date().toISOString();
+
+    const { data, error } = await supabase
+      .from("events")
+      .select(COLUMNS)
+      .eq("is_public", true)
+      .eq("status", "published")
+      .gte("start_at", nowIso)
+      .order("start_at", { ascending: true });
+
+    if (error) {
+      return (
+        <EventsPageShell>
+          <div>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-magenta">
+              Events
+            </h1>
+            <p className="mt-4 text-lg sm:text-xl text-brand-text-secondary">
+              We couldn&apos;t load events right now. Please try again in a moment.
+            </p>
+          </div>
+        </EventsPageShell>
+      );
+    }
+
+    // Cast to EventListItem[] - only include fields that match the type
+    // (status and is_public are filtered but not passed to client)
+    const events = (data ?? []).map(
+      ({ id, slug, title, subtitle, venue_name, city, start_at, end_at, capacity }) => ({
+        id,
+        slug,
+        title,
+        subtitle,
+        venue_name,
+        city,
+        start_at,
+        end_at,
+        capacity,
+      })
+    ) as EventListItem[];
+
+    return (
+      <EventsPageShell>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-text-secondary">
             Digital Builders Events
@@ -14,36 +68,28 @@ export default function EventsPage() {
         </div>
         <div className="space-y-4">
           <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-magenta">
-            Events are coming online
+            Upcoming Events
           </h1>
           <p className="text-lg sm:text-xl text-brand-text-secondary max-w-3xl">
-            We&apos;re wiring up the full event list, detail pages, and RSVP flow. You&apos;ll be able to see upcoming events, claim tickets, and check in with your Builder Account.
+            RSVP to lock your seat at the next Digital Builders event.
           </p>
         </div>
-        <div className="grid gap-4 text-brand-text-secondary">
-          <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-4">
-            <p className="text-sm uppercase tracking-[0.15em] text-brand-magenta font-semibold">Next steps</p>
-            <ul className="mt-2 space-y-2 list-disc list-inside">
-              <li>List upcoming events with RSVP buttons</li>
-              <li>Event details with RSVP / Cancel RSVP states</li>
-              <li>Admin-only event creation + capacity</li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-          <Link href="/create-account" className="w-full sm:w-auto">
-            <button className="btn-brand-primary px-8 py-4 rounded-xl text-lg w-full sm:w-auto neon-shadow-magenta">
-              Create Builder Account
-            </button>
-          </Link>
-          <Link href="/builder-card" className="w-full sm:w-auto">
-            <button className="btn-brand-tertiary px-8 py-4 rounded-xl text-lg w-full sm:w-auto neon-shadow-cyan">
-              View Builder Card
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
 
+        <EventsListClient events={events} />
+      </EventsPageShell>
+    );
+  } catch {
+    return (
+      <EventsPageShell>
+        <div>
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-magenta">
+            Events
+          </h1>
+          <p className="mt-4 text-lg sm:text-xl text-brand-text-secondary">
+            Something went wrong loading events.
+          </p>
+        </div>
+      </EventsPageShell>
+    );
+  }
+}

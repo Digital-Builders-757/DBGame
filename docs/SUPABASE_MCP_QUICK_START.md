@@ -45,7 +45,7 @@ If you prefer to update manually:
     "-y",
     "@supabase/mcp-server-supabase@latest",
     "--read-only",
-    "--project-ref=utvircuwknqzpnmvxidp"
+    "--project-ref=hzcpxidgmvsfmmocnasj"
   ],
   "env": {
     "SUPABASE_ACCESS_TOKEN": "sbp_YOUR_TOKEN_HERE"

@@ -3,12 +3,13 @@
 import fs from "fs";
 import path from "path";
 
-const targetPath = process.argv[2] ?? "types/database.ts";
+const targetPath = process.argv[2] ?? "types/supabase.ts";
 const resolvedPath = path.resolve(process.cwd(), targetPath);
 const banner = `/**
  * AUTO-GENERATED FILE – DO NOT EDIT.
  * Source of truth: Supabase schema.
  */
+
 
 `;
 

@@ -29,18 +29,18 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 # Get from: https://supabase.com/dashboard → Your Project → Settings → API
 
 # Public (browser-safe)
-NEXT_PUBLIC_SUPABASE_URL=https://utvircuwknqzpnmvxidp.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://hzcpxidgmvsfmmocnasj.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY_HERE
 
 # Server-side (preferred)
-SUPABASE_URL=https://utvircuwknqzpnmvxidp.supabase.co
+SUPABASE_URL=https://hzcpxidgmvsfmmocnasj.supabase.co
 SUPABASE_ANON_KEY=YOUR_ANON_KEY_HERE
 
 # ⚠️ Admin only (NEVER expose to browser!)
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_ROLE_KEY_HERE
 
 # Project configuration
-SUPABASE_PROJECT_ID=utvircuwknqzpnmvxidp
+SUPABASE_PROJECT_ID=hzcpxidgmvsfmmocnasj
 SUPABASE_ACCESS_TOKEN=YOUR_ACCESS_TOKEN_HERE
 
 # ======================================
@@ -80,7 +80,7 @@ VERCEL_ENV=development
 
 | Variable | Location | Notes |
 |----------|----------|-------|
-| `NEXT_PUBLIC_SUPABASE_URL` | Project URL | Looks like: `https://utvircuwknqzpnmvxidp.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_URL` | Project URL | Looks like: `https://hzcpxidgmvsfmmocnasj.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | anon public | Starts with `eyJhbGci...` (safe for browser) |
 | `SUPABASE_SERVICE_ROLE_KEY` | service_role | ⚠️ **NEVER expose to browser!** |
 
@@ -141,12 +141,12 @@ npm run env:check
 
 ```bash
 # Supabase (REQUIRED)
-NEXT_PUBLIC_SUPABASE_URL=https://utvircuwknqzpnmvxidp.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://hzcpxidgmvsfmmocnasj.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_ANON_KEY
-SUPABASE_URL=https://utvircuwknqzpnmvxidp.supabase.co
+SUPABASE_URL=https://hzcpxidgmvsfmmocnasj.supabase.co
 SUPABASE_ANON_KEY=YOUR_ANON_KEY
 SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVICE_KEY
-SUPABASE_PROJECT_ID=utvircuwknqzpnmvxidp
+SUPABASE_PROJECT_ID=hzcpxidgmvsfmmocnasj
 
 # Resend (REQUIRED for emails)
 RESEND_API_KEY=re_YOUR_KEY
@@ -180,8 +180,8 @@ NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
 Based on your project configuration, I can see:
 
-✅ **Supabase Project ID:** `utvircuwknqzpnmvxidp`  
-✅ **Supabase URL:** `https://utvircuwknqzpnmvxidp.supabase.co`
+✅ **Supabase Project ID:** `hzcpxidgmvsfmmocnasj`  
+✅ **Supabase URL:** `https://hzcpxidgmvsfmmocnasj.supabase.co`
 
 **You need to get from Supabase Dashboard:**
 - Anon public key

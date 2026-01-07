@@ -419,7 +419,7 @@ ERROR: types/database.ts is out of sync with remote schema
 npm run types:regen
 
 # Or manually:
-npx supabase@v2.34.3 gen types typescript --project-id utvircuwknqzpnmvxidp --schema public > types/database.ts
+npx supabase@2.67.1 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public > types/supabase.ts
 ```
 
 **Prevention:**
@@ -600,7 +600,7 @@ Require stack:
 
 3. **Manual comparison:**
 ```bash
-npx supabase@v2.34.3 gen types typescript --project-id utvircuwknqzpnmvxidp --schema public > temp_types.ts
+npx supabase@2.67.1 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public > temp_types.ts
 diff temp_types.ts types/database.ts
 ```
 

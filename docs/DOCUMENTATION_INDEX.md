@@ -55,6 +55,7 @@ All other documentation has been organized into the `docs/` folder.
 - `SCHEMA_SYNC_FIX_GUIDE.md` - Fix schema drift and CI verification (Oct 2025)
 - `SCHEMA_SYNC_COMPLETE_OCT_23_2025.md` - **NEW** ✅ - Complete schema synchronization summary (Oct 23, 2025)
 - `SQL_RLS_POLICY_CREATION_GUIDE.md` - **🚨 CRITICAL** - PostgreSQL RLS policy creation guide (Nov 2025)
+- `TYPES_GENERATION_FIX.md` - **✅ NEW** - Types generation pipeline fix: UTF-8 encoding, canonical file migration (Dec 2025)
 
 ### **🎨 Features & Implementation**
 - `STATUS_BADGE_SYSTEM.md` - 🎨 **NEW** - Comprehensive status badge system with 25+ variants (Nov 2025)

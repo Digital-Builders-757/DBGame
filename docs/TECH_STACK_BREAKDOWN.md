@@ -52,9 +52,8 @@
 - **Generated Types:** Auto-generated from Supabase schema
 - **No `any` Policy:** Enforced via ESLint
 - **Key Files:**
-  - `types/database.ts` - Auto-generated Supabase types
-  - `types/supabase.ts` - Type helpers
-  - `types/database-helpers.ts` - Custom type utilities
+  - `types/supabase.ts` - Auto-generated Supabase types (source of truth)
+  - `types/database.ts` - Backwards compatibility re-export
 
 ### **Node.js**
 - **Runtime:** Node.js v22.18.0+
@@ -110,7 +109,7 @@
 - `lib/supabase/supabase-server.ts` - Alternative server client
 
 **Type Generation:**
-- Command: `npx supabase@v2.34.3 gen types typescript --project-id utvircuwknqzpnmvxidp --schema public`
+- Command: `npx supabase@2.67.1 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public`
 - Output: `types/database.ts`
 - Frequency: After every migration
 - Enforcement: Pre-commit hooks verify types are up-to-date

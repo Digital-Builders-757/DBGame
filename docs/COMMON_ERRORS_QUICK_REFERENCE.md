@@ -20,8 +20,21 @@ npm run build
 - `@/types/supabase` (CORRECT)
 
 ## **3. COMMON ERRORS TO AVOID**
-- **Schema Sync Errors:** `types/database.ts is out of sync with remote schema`
-  - **Fix:** Run `npm run types:regen` for correct environment
+- **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
+  - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
+  - **Note:** Types are now generated to `types/supabase.ts` (canonical file). `types/database.ts` is a backwards-compatibility re-export.
+- **Wrong Project Reference:** CI/workflows pointing to old project or "out of sync" errors persist
+  - **Fix:** Ensure all scripts and workflows use `SUPABASE_PROJECT_ID` from environment/secrets, not hardcoded values
+  - **Security:** Never commit database passwords or access tokens. Use `.env.local` for local dev and GitHub Secrets for CI
+  - **Prevention:** All workflows now use `${{ secrets.SUPABASE_PROJECT_ID }}` instead of hardcoded project refs
+- **CI Schema Check Always Fails:** Workflow compares against wrong file or uses wrong project ref
+  - **Root Cause:** Workflow was comparing against `types/database.ts` (re-export) instead of `types/supabase.ts` (canonical), or not using computed branch-aware ref
+  - **Fix:** Workflow now compares against `types/supabase.ts` and uses `${{ steps.ref.outputs.ref }}` for branch-aware project selection
+  - **Prevention:** Always compare against the canonical types file (`types/supabase.ts`), not re-export wrappers
+- **Types Check Always Shows Stale / Broken Type Generation:** `types/supabase.ts is stale` or parse errors like `';' expected. (6:107)`
+  - **Root Cause:** Previous scripts used `Out-File -NoNewline` which corrupted output, plus unnecessary Prettier/regex "fixes" that made things worse
+  - **Fix:** Use simplified `scripts/generate-types.mjs` which writes Supabase CLI output as-is. Run `npm run types:regen:dev`
+  - **Prevention:** Never use `-NoNewline` flag with `Out-File`. Don't try to "fix" Supabase CLI output with Prettier or regex - it's already properly formatted. The script now handles BOM removal and newline normalization only.
 - **Import Path Errors:** `Module not found: Can't resolve '@/lib/supabase/supabase-admin-client'`
   - **Fix:** Use correct path `@/lib/supabase-admin-client`
 - **Missing Import Errors:** `ReferenceError: createNameSlug is not defined`
@@ -54,7 +67,7 @@ npm run build
   - **Prevention:** Before adding packages, verify React 19 compatibility. For Vercel deployments, ensure all dependencies are compatible or use `--legacy-peer-deps` only if necessary
 - **Schema Truth Failure (merging to `main`):** `types/database.ts is out of sync with remote schema (Environment: production)`
   - **Root Cause:** `types/database.ts` was regenerated from the dev project while `main` CI compares against the production Supabase project.
-  - **Fix:** Before merging to `main`, set `SUPABASE_PROJECT_ID=<prod_project_ref>`, apply pending migrations to production (`npx supabase@2.34.3 db push --db-url ...`), then run `npm run types:regen:prod`. Commit the regenerated file only after prod schema matches.
+  - **Fix:** Before merging to `main`, set `SUPABASE_PROJECT_ID=<prod_project_ref>`, apply pending migrations to production (`npx supabase@2.67.1 db push --db-url ...`), then run `npm run types:regen:prod`. Commit the regenerated file only after prod schema matches.
   - **Prevention:** Never run `npm run types:regen` right before a production merge unless you are targeting the production project ref. Keep a checklist item for "regen types from prod + run schema truth" in every release PR.
 - **.env Encoding Errors:** `unexpected character '»' in variable name` when running Supabase CLI
   - **Root Cause:** `.env.local` saved as UTF-8 **with BOM**; the hidden BOM bytes (`ï»¿`) confuse the CLI dotenv parser.
@@ -115,7 +128,7 @@ set SUPABASE_PROJECT_ID=<prod_project_ref>   # PowerShell: $env:SUPABASE_PROJECT
 set SUPABASE_INTERNAL_NO_DOTENV=1            # prevent CLI from parsing .env.local
 
 # 2. Apply migrations to production (required before regen)
-npx -y supabase@2.34.3 db push --db-url "postgresql://postgres:<DB_PASSWORD>@db.<prod_project_ref>.supabase.co:5432/postgres"
+npx -y supabase@2.67.1 db push --db-url "postgresql://postgres:<DB_PASSWORD>@db.<prod_project_ref>.supabase.co:5432/postgres"
 
 # 3. Regenerate types from production
 npm run types:regen:prod

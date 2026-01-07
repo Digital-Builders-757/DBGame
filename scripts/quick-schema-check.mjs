@@ -11,9 +11,9 @@ console.log("🔐 Testing remote schema access...");
 const tmp = join(tmpdir(), `supabase_types_${Date.now()}.ts`);
 
 try {
-const DEFAULT_PROJECT_ID = "utvircuwknqzpnmvxidp";
+const DEFAULT_PROJECT_ID = "hzcpxidgmvsfmmocnasj";
 const projectId = process.env.SUPABASE_PROJECT_ID || DEFAULT_PROJECT_ID;
-const cmd = `npx -y supabase@2.34.3 gen types typescript --project-id ${projectId} --schema public`;
+const cmd = `npx -y supabase@2.67.1 gen types typescript --project-id ${projectId} --schema public`;
 
   // Capture stdout to avoid any shell redirection differences (Windows vs *nix)
   const out = execSync(cmd, { stdio: ["ignore", "pipe", "pipe"], shell: true }).toString("utf8");
@@ -26,10 +26,10 @@ const cmd = `npx -y supabase@2.34.3 gen types typescript --project-id ${projectI
   // Surface useful hint if CLI not logged in / project not linked
   const msg = String(e?.stderr || e?.message || e);
   if (msg.includes("not logged in") || msg.includes("401")) {
-    console.error("💡 Run: npx supabase@v2.34.3 login");
+    console.error("💡 Run: npx supabase@v2.67.1 login");
   }
   if (msg.includes("No linked project") || msg.includes("link this project")) {
-    console.error("💡 Run: npx supabase@v2.34.3 link --project-ref <YOUR_PROJECT_REF>");
+    console.error("💡 Run: npx supabase@v2.67.1 link --project-ref <YOUR_PROJECT_REF>");
   }
   process.exit(1);
 }

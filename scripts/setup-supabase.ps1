@@ -4,8 +4,16 @@
 Write-Host "🚀 Setting up Supabase CLI for Digital Builders..." -ForegroundColor Green
 
 # Set environment variables for non-interactive operation
-$env:SUPABASE_PROJECT_ID = "utvircuwknqzpnmvxidp"
-$env:SUPABASE_DB_PASSWORD = "IOCoziTrErLEtCzJ"
+# Note: SUPABASE_DB_PASSWORD should be set in .env.local (never commit passwords)
+if (-not $env:SUPABASE_PROJECT_ID) {
+    $env:SUPABASE_PROJECT_ID = "hzcpxidgmvsfmmocnasj"
+}
+
+if (-not $env:SUPABASE_DB_PASSWORD) {
+    Write-Host "❌ SUPABASE_DB_PASSWORD env var is required" -ForegroundColor Red
+    Write-Host "   Set it in .env.local (never commit passwords to git)" -ForegroundColor Yellow
+    exit 1
+}
 
 Write-Host "✅ Environment variables set:" -ForegroundColor Green
 Write-Host "   SUPABASE_PROJECT_ID: $env:SUPABASE_PROJECT_ID" -ForegroundColor Cyan

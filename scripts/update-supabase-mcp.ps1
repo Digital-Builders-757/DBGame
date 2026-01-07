@@ -18,7 +18,7 @@ Write-Host "📖 Reading current MCP configuration..." -ForegroundColor Yellow
 $currentConfig = Get-Content $mcpConfigPath -Raw | ConvertFrom-Json
 
 # Get project reference (from current config or prompt)
-$projectRef = "utvircuwknqzpnmvxidp"  # From your current config
+$projectRef = "hzcpxidgmvsfmmocnasj"  # From your current config
 
 # Prompt for access token
 Write-Host ""

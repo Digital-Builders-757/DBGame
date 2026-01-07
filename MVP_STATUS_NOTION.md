@@ -36,6 +36,10 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Implementation plan ready
 - ✅ Database schema migrated (initial_event_portal_schema)
 - ✅ Types regenerated (Supabase CLI)
+- ✅ Type generation scripts stabilized (simplified, removed formatting hacks)
+- ✅ Project references updated (migrated from old project to new Digital Builders project)
+- ✅ CI workflows updated to use secrets (no hardcoded credentials)
+- ✅ Schema truth check workflow fixed (now compares against types/supabase.ts, uses branch-aware ref)
 - ✅ Auth screens rebranded (login/create-account)
 - 🔄 Events/Check-in/Builder Card UI pending
 
@@ -97,7 +101,7 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 | **Schema Design**      | ✅ Complete   | 100%       |
 | **Database Schema**    | ✅ Done       | 100%       |
 | **Authentication**     | ✅ Branded    | 100%       |
-| **Events Portal**      | 🔄 Pending    | 0%         |
+| **Events Portal**      | ✅ In Progress| 25%        |
 | **Check-In System**    | 🔄 Pending    | 0%         |
 | **Builder Card**       | 🔄 Pending    | 0%         |
 | **Testing**            | 🔄 Pending    | 0%         |
@@ -107,9 +111,9 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 ## 🎯 **Immediate Next Steps**
 
 ### **Priority 1: Events Portal**
-1. Build `/events` list (server component) pulling `events` (RLS-safe).
-2. Build `/events/[id]` detail; include RSVP/Cancel actions (tickets insert/delete).
-3. Redirect after login → `/events`.
+1. ✅ Build `/events` list (server component) pulling `events` (RLS-safe).
+2. 🔄 Build `/events/[slug]` detail; include RSVP/Cancel actions (tickets insert/delete).
+3. 🔄 Redirect after login → `/events`.
 
 ### **Priority 2: Check-In System**
 1. `/admin/check-in`: search by email/name for a specific `event_id`.
@@ -249,8 +253,28 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Verified build passes without vaul dependency
 - ✅ Updated error reference documentation for peer dependency conflicts
 
+### **Events Portal Implementation (December 2025)**
+
+- ✅ Implemented `/events` list page with server component data fetching
+- ✅ Created reusable `EventsPageShell` component to eliminate duplication
+- ✅ Centralized `EventListItem` type in `components/events/types.ts` for type safety
+- ✅ Built `EventCard` component with RSVP button linking to detail page
+- ✅ Added loading state with skeleton UI
+- ✅ Implemented proper error handling and empty states
+- ✅ Fixed types generation pipeline: migrated to `types/supabase.ts` with UTF-8 encoding
+- ✅ Updated Supabase CLI from 2.34.3 to 2.67.1 across all scripts
+- ✅ Fixed types check stale issue with improved normalization logic
+
+### **Infrastructure Improvements**
+
+- ✅ Fixed types generation encoding corruption (Windows `cmd >` → PowerShell UTF-8)
+- ✅ Updated all scripts to use Supabase CLI 2.67.1
+- ✅ Improved types verification to handle formatting differences
+- ✅ Added `.env.local` auto-loading to `verify-types-fresh.mjs`
+
 ---
 
-_Last Updated: December 2025_  
-_Current Status: ✅ MVP DEFINED - Scripts Migrated & Deployment Fixed_  
-_Next Review: After database schema creation_
+_Last Updated: 1-6-2025 
+_Current Status: ✅ Events Portal List Page Complete - Ready for Detail Page & RSVP_  
+I've also updated types
+_Next Review: After `/events/[slug]` detail page implementation_

@@ -15,3 +15,6 @@ node_modules/
 
 # Generated files
 types/database.ts
+
+types/supabase.ts
+types/database.ts
