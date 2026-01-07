@@ -137,7 +137,7 @@ Never upgrade Supabase CLI without:
 
 Verify you're linked to the correct environment:
 ```powershell
-npx supabase@2.34.3 projects list
+npx supabase@2.67.1 projects list
 # Should show â— next to "total model agency mvp"
 ```
 
@@ -150,7 +150,7 @@ npm run types:regen
 
 **Manual (if needed):**
 ```powershell
-npx supabase@v2.34.3 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public > types/database.ts
+npx supabase@2.67.1 gen types typescript --project-id hzcpxidgmvsfmmocnasj --schema public > types/supabase.ts
 ```
 
 **CI (automatic):**
@@ -188,10 +188,10 @@ run: npx -y supabase@v2.34.3 ...  # Match devDependencies version
 **Solution:**
 ```powershell
 # Unlink
-npx supabase@2.34.3 link --unlink
+npx supabase@2.67.1 link --unlink
 
 # Relink to correct project
-npx supabase@2.34.3 link --project-ref hzcpxidgmvsfmmocnasj
+npx supabase@2.67.1 link --project-ref hzcpxidgmvsfmmocnasj
 ```
 
 ### Issue: Schema drift (DB changed without migration)
@@ -199,13 +199,13 @@ npx supabase@2.34.3 link --project-ref hzcpxidgmvsfmmocnasj
 **Solution:**
 ```powershell
 # Check for drift
-npx supabase@2.34.3 db diff --linked
+npx supabase@2.67.1 db diff --linked
 
 # If there are changes, create a migration
-npx supabase@2.34.3 db diff --linked --use-migra --schema public --file supabase/migrations/$(Get-Date -Format "yyyyMMddHHmmss")_sync.sql
+npx supabase@2.67.1 db diff --linked --use-migra --schema public --file supabase/migrations/$(Get-Date -Format "yyyyMMddHHmmss")_sync.sql
 
 # Push migration to remote
-npx supabase@2.34.3 db push
+npx supabase@2.67.1 db push
 
 # Regenerate types
 npm run types:regen

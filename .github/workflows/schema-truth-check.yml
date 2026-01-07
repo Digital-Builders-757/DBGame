@@ -74,6 +74,9 @@ jobs:
       - name: Login to Supabase (npx)
         run: npx -y supabase@2.67.1 login --token "$SUPABASE_ACCESS_TOKEN"
 
+      - name: Link Supabase project (branch-aware)
+        run: npx -y supabase@2.67.1 link --project-ref "${{ steps.ref.outputs.ref }}"
+
       - name: Generate types from remote schema (branch-aware)
         run: npx -y supabase@2.67.1 gen types typescript --project-id "${{ steps.ref.outputs.ref }}" --schema public > types/temp_schema_types.ts
 
