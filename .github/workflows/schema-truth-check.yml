@@ -4,13 +4,13 @@ on:
   pull_request:
     paths:
       - "supabase/migrations/**"
-      - "types/database.ts"
+      - "types/supabase.ts"
       - "database_schema_audit.md"
   push:
     branches: [ main, develop ]
     paths:
       - "supabase/migrations/**"
-      - "types/database.ts"
+      - "types/supabase.ts"
       - "database_schema_audit.md"
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
         run: |
           echo "Branch: ${GITHUB_REF##*/}"
           echo "Environment: ${{ steps.ref.outputs.env }}"
-          echo "Project Ref: ${{ steps.ref.outputs.ref }}"
+          echo "Project Ref prefix: $(echo '${{ steps.ref.outputs.ref }}' | cut -c1-4)…"
           node -e "console.log('SUPABASE_URL:', !!process.env.NEXT_PUBLIC_SUPABASE_URL, 'ANON_KEY:', !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)"
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -68,11 +68,14 @@ jobs:
           STRIPE_PRICE_TALENT_ANNUAL: ${{ secrets.STRIPE_PRICE_TALENT_ANNUAL }}
         run: npm run build
 
+      - name: Clear Supabase temp cache
+        run: rm -rf supabase/.temp || true
+
       - name: Login to Supabase (npx)
         run: npx -y supabase@2.67.1 login --token "$SUPABASE_ACCESS_TOKEN"
 
       - name: Generate types from remote schema (branch-aware)
-        run: npx -y supabase@2.67.1 gen types typescript --project-id "$SUPABASE_PROJECT_ID" --schema public > types/temp_schema_types.ts
+        run: npx -y supabase@2.67.1 gen types typescript --project-id "${{ steps.ref.outputs.ref }}" --schema public > types/temp_schema_types.ts
 
       - name: Add banner to generated types
         run: node scripts/prepend-autogen-banner.mjs types/temp_schema_types.ts
@@ -94,7 +97,7 @@ jobs:
             open(dst, "wb").write(b)
 
           normalize("types/temp_schema_types.ts", "types/_remote.normalized.ts")
-          normalize("types/database.ts",          "types/_local.normalized.ts")
+          normalize("types/supabase.ts",          "types/_local.normalized.ts")
           PY
 
       - name: Compare generated types with committed types (filtering noise)
@@ -113,20 +116,17 @@ jobs:
           
           if ! diff -u types/_remote.clean.ts types/_local.clean.ts; then
             echo ""
-            echo "❌ ERROR: types/database.ts is out of sync with remote schema"
+            echo "❌ ERROR: types/supabase.ts is out of sync with remote schema"
             echo ""
             echo "🔧 To fix locally:"
-            echo "   # For development (current branch):"
             echo "   npm run types:regen:dev"
-            echo "   # For production:"
-            echo "   npm run types:regen:prod"
             echo ""
             echo "📋 Changes detected (excluding __InternalSupabase noise):"
             echo "   - Lines starting with '-' are in your local file but not in remote"
             echo "   - Lines starting with '+' are in remote but missing from your local file"
             echo ""
             echo "🌍 Environment: ${{ steps.ref.outputs.env }}"
-            echo "🔗 Project Ref: ${{ steps.ref.outputs.ref }}"
+            echo "🔗 Project Ref prefix: $(echo '${{ steps.ref.outputs.ref }}' | cut -c1-4)…"
             echo ""
             exit 1
           else

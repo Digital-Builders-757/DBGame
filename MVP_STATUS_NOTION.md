@@ -39,6 +39,7 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Type generation scripts stabilized (simplified, removed formatting hacks)
 - ✅ Project references updated (migrated from old project to new Digital Builders project)
 - ✅ CI workflows updated to use secrets (no hardcoded credentials)
+- ✅ Schema truth check workflow fixed (now compares against types/supabase.ts, uses branch-aware ref)
 - ✅ Auth screens rebranded (login/create-account)
 - 🔄 Events/Check-in/Builder Card UI pending
 

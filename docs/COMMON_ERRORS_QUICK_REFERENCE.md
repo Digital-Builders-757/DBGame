@@ -27,6 +27,10 @@ npm run build
   - **Fix:** Ensure all scripts and workflows use `SUPABASE_PROJECT_ID` from environment/secrets, not hardcoded values
   - **Security:** Never commit database passwords or access tokens. Use `.env.local` for local dev and GitHub Secrets for CI
   - **Prevention:** All workflows now use `${{ secrets.SUPABASE_PROJECT_ID }}` instead of hardcoded project refs
+- **CI Schema Check Always Fails:** Workflow compares against wrong file or uses wrong project ref
+  - **Root Cause:** Workflow was comparing against `types/database.ts` (re-export) instead of `types/supabase.ts` (canonical), or not using computed branch-aware ref
+  - **Fix:** Workflow now compares against `types/supabase.ts` and uses `${{ steps.ref.outputs.ref }}` for branch-aware project selection
+  - **Prevention:** Always compare against the canonical types file (`types/supabase.ts`), not re-export wrappers
 - **Types Check Always Shows Stale / Broken Type Generation:** `types/supabase.ts is stale` or parse errors like `';' expected. (6:107)`
   - **Root Cause:** Previous scripts used `Out-File -NoNewline` which corrupted output, plus unnecessary Prettier/regex "fixes" that made things worse
   - **Fix:** Use simplified `scripts/generate-types.mjs` which writes Supabase CLI output as-is. Run `npm run types:regen:dev`
