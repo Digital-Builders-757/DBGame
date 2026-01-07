@@ -52,9 +52,8 @@
 - **Generated Types:** Auto-generated from Supabase schema
 - **No `any` Policy:** Enforced via ESLint
 - **Key Files:**
-  - `types/database.ts` - Auto-generated Supabase types
-  - `types/supabase.ts` - Type helpers
-  - `types/database-helpers.ts` - Custom type utilities
+  - `types/supabase.ts` - Auto-generated Supabase types (source of truth)
+  - `types/database.ts` - Backwards compatibility re-export
 
 ### **Node.js**
 - **Runtime:** Node.js v22.18.0+

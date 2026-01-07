@@ -22,7 +22,7 @@ function Test-Pattern {
         [string]$Description,
         [string]$Severity,
         [string[]]$Paths,
-        [string[]]$Exclude = @("node_modules", ".next", "dist", "docs", "types/database.ts", "types/database-helpers.ts")
+        [string[]]$Exclude = @("node_modules", ".next", "dist", "docs", "types/database.ts")
     )
     
     Write-Host "`n📋 Checking: $Description" -ForegroundColor Yellow
@@ -128,7 +128,6 @@ $componentFiles = Get-ChildItem -Path components,app -Recurse -Include *.ts,*.ts
         # Has database entity references but no Database import
         ($content -match "Event|Ticket|Profile|XpTransaction") -and
         ($content -notmatch "import.*Database.*from.*@/types/supabase") -and
-        ($content -notmatch "import.*from.*@/types/database-helpers")
     }
 
 if ($componentFiles) {

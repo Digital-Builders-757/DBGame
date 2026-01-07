@@ -35,7 +35,7 @@ try {
 }
 
 # 2. Check for wrong import paths
-$WrongImports = Get-ChildItem -Recurse -Include "*.ts","*.tsx" | Select-String "@/types/database" | Where-Object { $_.Path -notlike "*docs*" -and $_.Path -notlike "*node_modules*" -and $_.Line -notlike "*database-helpers*" }
+$WrongImports = Get-ChildItem -Recurse -Include "*.ts","*.tsx" | Select-String "@/types/database" | Where-Object { $_.Path -notlike "*docs*" -and $_.Path -notlike "*node_modules*" }
 
 if ($WrongImports) {
     Write-Host "❌ CRITICAL: Found files with wrong import paths:" -ForegroundColor Red
