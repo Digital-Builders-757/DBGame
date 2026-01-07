@@ -1,8 +1,8 @@
-import type { EventListItem } from "@/components/events/types";
-
-import { createSupabaseServer } from "@/lib/supabase/supabase-server";
 import EventsListClient from "@/components/events/events-list-client";
 import { EventsPageShell } from "@/components/events/events-page-shell";
+import type { EventListItem } from "@/components/events/types";
+import { createSupabaseServer } from "@/lib/supabase/supabase-server";
+
 
 // Select columns needed for filtering + display
 // Note: status and is_public are used for filtering but not passed to client

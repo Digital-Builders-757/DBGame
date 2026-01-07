@@ -10,6 +10,7 @@ const banner = `/**
  * Source of truth: Supabase schema.
  */
 
+
 `;
 
 try {

@@ -36,6 +36,7 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ Implementation plan ready
 - ✅ Database schema migrated (initial_event_portal_schema)
 - ✅ Types regenerated (Supabase CLI)
+- ✅ Type generation scripts stabilized (simplified, removed formatting hacks)
 - ✅ Auth screens rebranded (login/create-account)
 - 🔄 Events/Check-in/Builder Card UI pending
 
@@ -272,4 +273,5 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 
 _Last Updated: 1-6-2025 
 _Current Status: ✅ Events Portal List Page Complete - Ready for Detail Page & RSVP_  
+I've also updated types
 _Next Review: After `/events/[slug]` detail page implementation_

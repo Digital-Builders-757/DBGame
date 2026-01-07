@@ -23,10 +23,10 @@ npm run build
 - **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
   - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
   - **Note:** Types are now generated to `types/supabase.ts` (canonical file). `types/database.ts` is a backwards-compatibility re-export.
-- **Types Check Always Shows Stale:** `types/supabase.ts is stale` even after regeneration
-  - **Root Cause:** Formatting differences between PowerShell `Out-File` (minified) and Node.js `execSync` (formatted) output
-  - **Fix:** Normalization logic handles this automatically. If issue persists, ensure `scripts/load-env-and-regen-types.ps1` uses `[System.IO.File]::WriteAllText` with UTF-8 encoding
-  - **Prevention:** Always use UTF-8 safe generation methods. Never use `cmd >` redirection for type generation.
+- **Types Check Always Shows Stale / Broken Type Generation:** `types/supabase.ts is stale` or parse errors like `';' expected. (6:107)`
+  - **Root Cause:** Previous scripts used `Out-File -NoNewline` which corrupted output, plus unnecessary Prettier/regex "fixes" that made things worse
+  - **Fix:** Use simplified `scripts/generate-types.mjs` which writes Supabase CLI output as-is. Run `npm run types:regen:dev`
+  - **Prevention:** Never use `-NoNewline` flag with `Out-File`. Don't try to "fix" Supabase CLI output with Prettier or regex - it's already properly formatted. The script now handles BOM removal and newline normalization only.
 - **Import Path Errors:** `Module not found: Can't resolve '@/lib/supabase/supabase-admin-client'`
   - **Fix:** Use correct path `@/lib/supabase-admin-client`
 - **Missing Import Errors:** `ReferenceError: createNameSlug is not defined`
