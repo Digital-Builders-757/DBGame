@@ -7,31 +7,31 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 
 interface SignInGateProps {
-  variant: "gigs" | "talent";
+  variant: "events" | "builders";
   className?: string;
 }
 
 const variantConfig = {
-  gigs: {
+  events: {
     icon: Lock,
-    headline: "Unlock Amazing Gigs",
+    headline: "Unlock Amazing Events",
     subheadline: "Sign in to discover exclusive opportunities",
-    description: "Join our trusted community of talent and clients. Access premium gigs, connect with industry professionals, and take your career to the next level.",
-    primaryCta: "Sign in to view gigs",
+    description: "Join our trusted community of builders and mentors. Access premium events, connect with industry professionals, and take your career to the next level.",
+    primaryCta: "Sign in to view events",
     secondaryCta: "Create an account",
     primaryHref: "/login",
-    secondaryHref: "/choose-role",
+    secondaryHref: "/signup",
     learnMoreHref: "/about",
   },
-  talent: {
+  builders: {
     icon: Users,
-    headline: "Discover Top Talent",
+    headline: "Discover Top Builders",
     subheadline: "Sign in to explore our curated network",
-    description: "Access our exclusive network of professional models and actors. Find the perfect talent for your next project with our premium discovery tools.",
-    primaryCta: "Sign in to explore talent",
+    description: "Access our exclusive network of builders and mentors. Find the perfect talent for your next project with our premium discovery tools.",
+    primaryCta: "Sign in to explore builders",
     secondaryCta: "Create an account", 
     primaryHref: "/login",
-    secondaryHref: "/choose-role",
+    secondaryHref: "/signup",
     learnMoreHref: "/about",
   },
 } as const;
@@ -62,7 +62,7 @@ export function SignInGate({ variant, className = "" }: SignInGateProps) {
                 <IconComponent 
                   className="h-6 w-6 text-blue-400 motion-safe:drop-shadow-lg sm:h-8 sm:w-8" 
                   aria-hidden="true"
-                  data-testid={`${variant === 'gigs' ? 'lock' : 'users'}-icon`}
+                  data-testid={`${variant === 'events' ? 'lock' : 'users'}-icon`}
                 />
               </div>
             </div>
@@ -111,7 +111,7 @@ export function SignInGate({ variant, className = "" }: SignInGateProps) {
                   href={config.learnMoreHref}
                   className="text-xs text-gray-400 hover:text-gray-300 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 rounded-sm sm:text-sm"
                 >
-                  Learn more about TOTL
+                  Learn more about Digital Builders
                 </Link>
               </div>
             </div>

@@ -2,7 +2,7 @@
 
 **Date:** December 2025  
 **Status:** ✅ Core Extraction Complete  
-**Project:** Digital Builders (Text-Based MMO)
+**Project:** Digital Builders (Event Portal + Builder Card)
 
 ---
 

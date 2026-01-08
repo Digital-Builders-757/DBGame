@@ -165,10 +165,10 @@ export function BackgroundPaths({
 export function DemoBackgroundPaths() {
   return (
     <BackgroundPaths 
-      title="TOTL Agency" 
-      subtitle="Premium talent booking reimagined"
-      ctaText="Explore Talent"
-      ctaHref="/talent"
+      title="Digital Builders" 
+      subtitle="The best tech & creative events in the 757"
+      ctaText="Browse Events"
+      ctaHref="/events"
     />
   );
 }

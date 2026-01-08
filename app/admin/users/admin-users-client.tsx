@@ -31,7 +31,7 @@ import { getRoleDisplayName } from "@/lib/constants/user-roles";
 
 type UserProfile = {
   id: string;
-  role: "admin" | "user" | null;
+  role: "admin" | "builder" | "mentor" | null;
   display_name: string | null;
   avatar_url: string | null;
   avatar_path: string | null;
@@ -55,8 +55,10 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
     // Filter by role based on active tab
     if (activeTab === "admins") {
       filtered = filtered.filter((u) => u.role === "admin");
-    } else if (activeTab === "users") {
-      filtered = filtered.filter((u) => u.role !== "admin");
+    } else if (activeTab === "builders") {
+      filtered = filtered.filter((u) => u.role === "builder");
+    } else if (activeTab === "mentors") {
+      filtered = filtered.filter((u) => u.role === "mentor");
     }
     // "all" tab shows everyone
 
@@ -76,17 +78,18 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
 
   // Group by role for stats
   const adminUsers = initialUsers.filter((u) => u.role === "admin");
-  const regularUsers = initialUsers.filter((u) => u.role !== "admin");
+  const builderUsers = initialUsers.filter((u) => u.role === "builder");
+  const mentorUsers = initialUsers.filter((u) => u.role === "mentor");
 
   const getRoleIcon = (role: string | null) => {
     if (!role) return null;
     switch (role) {
       case "admin":
         return <Shield className="h-4 w-4 text-purple-400" />;
-      case "client":
-        return <Briefcase className="h-4 w-4 text-blue-400" />;
-      case "talent":
-        return <Users className="h-4 w-4 text-green-400" />;
+      case "mentor":
+        return <Users className="h-4 w-4 text-blue-400" />;
+      case "builder":
+        return <UserIcon className="h-4 w-4 text-green-400" />;
       default:
         return <UserIcon className="h-4 w-4 text-gray-400" />;
     }
@@ -101,16 +104,16 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
             Admin
           </Badge>
         );
-      case "client":
+      case "mentor":
         return (
           <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/50">
-            Career Builder
+            Mentor
           </Badge>
         );
-      case "talent":
+      case "builder":
         return (
           <Badge className="bg-green-500/20 text-green-400 border-green-500/50">
-            Talent
+            Builder
           </Badge>
         );
       default:
@@ -132,8 +135,11 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
             <p className="text-gray-400 text-lg">View and manage all users on the platform</p>
           </div>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-lg font-medium">
+              {builderUsers.length} Builders
+            </div>
             <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-medium">
-              {regularUsers.length} Users
+              {mentorUsers.length} Mentors
             </div>
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium">
               {adminUsers.length} Admins
@@ -185,10 +191,16 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
                   All ({initialUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
-                  value="users"
+                  value="builders"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
+                >
+                  Builders ({builderUsers.length})
+                </TabsTrigger>
+                <TabsTrigger
+                  value="mentors"
                   className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
                 >
-                  Users ({regularUsers.length})
+                  Mentors ({mentorUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
                   value="admins"
@@ -302,6 +314,104 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
                       ))}
                     </tbody>
                   </table>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="builders" className="p-0">
+              {filteredUsers.length === 0 ? (
+                <div className="text-center py-16">
+                  <div className="w-20 h-20 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
+                    <UserIcon className="h-10 w-10 text-green-400" />
+                  </div>
+                  <p className="text-gray-400 text-lg">No builders found</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-700">
+                  {filteredUsers.map((user) => (
+                    <div
+                      key={user.id}
+                      className="p-4 hover:bg-gray-700/30 transition-colors duration-150 flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-4 flex-1">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 flex items-center justify-center text-white font-semibold">
+                          {user.display_name?.[0]?.toUpperCase() || "?"}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <p className="text-white font-medium truncate">
+                              {user.display_name || "No name"}
+                            </p>
+                            {getRoleIcon(user.role)}
+                            {getRoleBadge(user.role)}
+                          </div>
+                          <p className="text-gray-400 text-sm truncate">{user.id}</p>
+                        </div>
+                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
+                          <DropdownMenuItem className="text-white hover:bg-gray-700">
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="mentors" className="p-0">
+              {filteredUsers.length === 0 ? (
+                <div className="text-center py-16">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
+                    <Users className="h-10 w-10 text-blue-400" />
+                  </div>
+                  <p className="text-gray-400 text-lg">No mentors found</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-700">
+                  {filteredUsers.map((user) => (
+                    <div
+                      key={user.id}
+                      className="p-4 hover:bg-gray-700/30 transition-colors duration-150 flex items-center justify-between"
+                    >
+                      <div className="flex items-center space-x-4 flex-1">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold">
+                          {user.display_name?.[0]?.toUpperCase() || "?"}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center space-x-2 mb-1">
+                            <p className="text-white font-medium truncate">
+                              {user.display_name || "No name"}
+                            </p>
+                            {getRoleIcon(user.role)}
+                            {getRoleBadge(user.role)}
+                          </div>
+                          <p className="text-gray-400 text-sm truncate">{user.id}</p>
+                        </div>
+                      </div>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="bg-gray-800 border-gray-700">
+                          <DropdownMenuItem className="text-white hover:bg-gray-700">
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Details
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  ))}
                 </div>
               )}
             </TabsContent>

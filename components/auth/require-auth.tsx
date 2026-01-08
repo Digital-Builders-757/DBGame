@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect, type ReactNode } from "react";
@@ -18,7 +18,7 @@ type RequireAuthProps = {
 export function RequireAuth({
   children,
   fallback,
-  redirectTo = "/choose-role",
+  redirectTo = "/signup",
   preserveReturnUrl = true,
 }: RequireAuthProps) {
   const { user, isLoading } = useAuth();

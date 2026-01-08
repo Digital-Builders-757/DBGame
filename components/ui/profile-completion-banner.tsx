@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { AlertCircle, X, User, Building2 } from "lucide-react";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 
 interface ProfileCompletionBannerProps {
-  userRole: "talent" | "client";
+  userRole: "builder" | "mentor";
   missingFields: string[];
   profileUrl: string;
 }
@@ -23,8 +23,8 @@ export function ProfileCompletionBanner({
     return null;
   }
 
-  const RoleIcon = userRole === "talent" ? User : Building2;
-  const roleName = userRole === "talent" ? "Talent" : "Client";
+  const RoleIcon = userRole === "builder" ? User : Building2;
+  const roleName = userRole === "builder" ? "Builder" : "Mentor";
   const missingFieldsText = missingFields.join(", ");
 
   return (

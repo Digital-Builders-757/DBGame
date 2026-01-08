@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -8,7 +8,7 @@ export default function ProjectOverview() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
           <div className="mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">TOTL Agency Project Overview</h1>
+            <h1 className="text-4xl font-bold mb-4">Digital Builders Project Overview</h1>
             <p className="text-gray-600 max-w-3xl mx-auto">
               Use this page to navigate between different parts of the application during your
               presentation.
@@ -18,64 +18,40 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             <Card>
               <CardHeader>
-                <CardTitle>Client Dashboard</CardTitle>
+                <CardTitle>Events Portal</CardTitle>
                 <CardDescription>
-                  View the client dashboard with gigs and applications
+                  Browse and RSVP to Digital Builders events
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/admin/dashboard">View Client Dashboard</Link>
+                  <Link href="/events">View Events</Link>
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Talent Dashboard</CardTitle>
+                <CardTitle>Builder Card</CardTitle>
                 <CardDescription>
-                  View the talent dashboard with portfolio and bookings
+                  View your builder card with XP and badges
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/talent/dashboard">View Talent Dashboard</Link>
+                  <Link href="/builder-card">View Builder Card</Link>
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Browse Talent</CardTitle>
-                <CardDescription>Browse available talent and view profiles</CardDescription>
+                <CardTitle>Admin Dashboard</CardTitle>
+                <CardDescription>Access admin panel and user management</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/talent">Browse Talent</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Browse Gigs</CardTitle>
-                <CardDescription>Browse available gigs and view details</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/gigs">Browse Gigs</Link>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Create Gig</CardTitle>
-                <CardDescription>Create a new gig as a client</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/admin/gigs/create">Create Gig</Link>
+                  <Link href="/admin/dashboard">Admin Dashboard</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -96,26 +72,14 @@ export default function ProjectOverview() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Talent Signup</CardTitle>
-                <CardDescription>Apply as talent</CardDescription>
+                <CardTitle>Sign Up</CardTitle>
+                <CardDescription>Create a builder account</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild variant="outline" className="w-full">
-                  <Link href="/choose-role">Create Account</Link>
+                  <Link href="/signup">Create Account</Link>
                 </Button>
               </CardContent>
-            </Card>
-
-            <Card>
-            <CardHeader>
-              <CardTitle>Client Application</CardTitle>
-              <CardDescription>Start the client onboarding flow</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button asChild variant="outline" className="w-full">
-                <Link href="/client/apply">Client Application</Link>
-              </Button>
-            </CardContent>
             </Card>
 
             <Card>
@@ -126,6 +90,18 @@ export default function ProjectOverview() {
               <CardContent>
                 <Button asChild variant="outline" className="w-full">
                   <Link href="/login">Login</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Settings</CardTitle>
+                <CardDescription>Manage your account settings</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild variant="outline" className="w-full">
+                  <Link href="/settings">Settings</Link>
                 </Button>
               </CardContent>
             </Card>
