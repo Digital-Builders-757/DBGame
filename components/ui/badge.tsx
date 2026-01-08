@@ -1,4 +1,4 @@
-﻿import { cva, type VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { cn } from "@/lib/utils/utils";
@@ -35,8 +35,8 @@ const badgeVariants = cva(
         cancelled: "border-transparent bg-gray-500/20 text-gray-300 border-gray-500/30",
         
         // User Role Variants
-        talent: "border-transparent bg-purple-500/20 text-purple-300 border-purple-500/30",
-        client: "border-transparent bg-blue-500/20 text-blue-300 border-blue-500/30",
+        builder: "border-transparent bg-green-500/20 text-green-300 border-green-500/30",
+        mentor: "border-transparent bg-blue-500/20 text-blue-300 border-blue-500/30",
         admin: "border-transparent bg-rose-500/20 text-rose-300 border-rose-500/30 shadow-rose-500/20 shadow-sm",
         
         // Client Application Status

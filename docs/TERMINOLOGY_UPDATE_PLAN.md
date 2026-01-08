@@ -1,16 +1,17 @@
-# Terminology Update: "Client" → "Career Builder"
+# Digital Builders - Role Terminology
 
-**Date:** November 18, 2025  
-**Purpose:** Rename "client" to "Career Builder" throughout the UI for clarity
+**Date:** January 2025  
+**Status:** ✅ Implemented  
+**Purpose:** Document Digital Builders user roles and terminology
 
 ---
 
-## 🎯 Goal
+## 🎯 User Roles
 
-Clarify the three user types:
-1. **Admin** = TOTL Agency internal staff (oversees everything)
-2. **Career Builder** = Companies who sign up for the platform (currently called "clients")
-3. **Talent** = Actors/models who apply to gigs
+Digital Builders uses three user roles:
+1. **Admin** = Digital Builders internal staff (oversees everything)
+2. **Mentor** = Experienced builders who guide others
+3. **Builder** = Regular users who attend events and build their reputation
 
 ---
 

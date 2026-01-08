@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,7 +59,7 @@ export function AuthAction({
   return (
     <RequireAuth
       fallback={
-        <Button onClick={() => router.push("/choose-role")} {...buttonProps}>
+        <Button onClick={() => router.push("/signup")} {...buttonProps}>
           {unauthenticatedText}
         </Button>
       }

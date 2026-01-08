@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { createSupabaseBrowser } from "@/lib/supabase/supabase-browser";
 
-type UserRole = "talent" | "client" | "admin" | null;
+type UserRole = "builder" | "mentor" | "admin" | null;
 
 export function DashboardClient({ userRole }: { userRole: UserRole }) {
   const router = useRouter();
@@ -57,20 +57,20 @@ export function DashboardClient({ userRole }: { userRole: UserRole }) {
           <Button onClick={refreshData} variant="outline">
             Refresh Data
           </Button>
-          {userRole === "talent" && (
-            <Button onClick={() => router.push("/talent/dashboard")} variant="outline">
-              Go to Talent Dashboard
+          {userRole === "builder" && (
+            <Button onClick={() => router.push("/builder-card")} variant="outline">
+              View Builder Card
             </Button>
           )}
-          {userRole === "client" && (
-            <>
-              <Button onClick={() => router.push("/client/dashboard")} variant="outline">
-                Go to Client Dashboard
-              </Button>
-              <Button onClick={() => router.push("/post-gig")} variant="outline">
-                Post New Gig
-              </Button>
-            </>
+          {userRole === "mentor" && (
+            <Button onClick={() => router.push("/builder-card")} variant="outline">
+              View Builder Card
+            </Button>
+          )}
+          {userRole === "admin" && (
+            <Button onClick={() => router.push("/admin/dashboard")} variant="outline">
+              Admin Dashboard
+            </Button>
           )}
         </div>
       </CardContent>

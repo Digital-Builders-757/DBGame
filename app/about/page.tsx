@@ -1,4 +1,4 @@
-﻿import { Instagram, Mail, MapPin, Phone, Users, Target, Award, Sparkles } from "lucide-react";
+import { Instagram, Mail, MapPin, Phone, Users, Target, Award, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -416,18 +416,18 @@ export default function AboutPage() {
               we&apos;re here to help you succeed.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
-              <Link href="/choose-role">
+              <Link href="/signup">
                 <Button size="lg" className="apple-button px-10 py-6 text-xl font-semibold">
                   Create Account
                 </Button>
               </Link>
-              <Link href="/client/apply">
+              <Link href="/events">
                 <Button
                   size="lg"
                   variant="outline"
                   className="border-2 border-white/20 text-white hover:bg-white/5 hover:border-white/30 apple-glass px-10 py-6 text-xl font-semibold"
                 >
-                  Become a Client
+                  Browse Events
                 </Button>
               </Link>
             </div>

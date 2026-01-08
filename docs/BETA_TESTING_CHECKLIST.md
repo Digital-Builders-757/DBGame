@@ -1,16 +1,16 @@
-# TOTL Agency - Beta Testing Checklist
+# Digital Builders - Testing Checklist
 
-**Date:** October 19, 2025  
-**Version:** MVP v0.97  
-**Tester:** Manual Beta Testing
+**Date:** January 2025  
+**Version:** MVP v1.0  
+**Tester:** Manual Testing
 
 ---
 
 ## 🎯 Testing Overview
 
-This checklist covers all major features and workflows in TOTL Agency. Test each item systematically and note any issues.
+This checklist covers all major features and workflows in Digital Builders. Test each item systematically and note any issues.
 
-**Base URL:** `http://localhost:3001` (or production: `https://www.thetotlagency.com`)
+**Base URL:** `http://localhost:3000` (or production: `https://digitalbuilders757.com`)
 
 ---
 
@@ -19,17 +19,16 @@ This checklist covers all major features and workflows in TOTL Agency. Test each
 ### **1. Homepage & Navigation** 🏠
 
 - [ ] **Homepage loads** (`/`)
-  - [ ] Video background plays
   - [ ] Hero section displays correctly
-  - [ ] "Find Gigs" and "Apply as Talent" buttons visible
-  - [ ] Stats section shows numbers
-  - [ ] How It Works section displays
+  - [ ] "See Upcoming Events" and "Join the Builders" buttons visible
+  - [ ] Mission section displays
+  - [ ] Feature cards show correctly
   - [ ] Footer displays with all links
 
 - [ ] **Navbar works**
   - [ ] Logo links to homepage
-  - [ ] Gigs link works (`/gigs`)
-  - [ ] Talent link works (`/talent`)
+  - [ ] Events link works (`/events`)
+  - [ ] Builder Card link works (`/builder-card`) when logged in
   - [ ] About link works (`/about`)
   - [ ] Sign In button visible when logged out
 
@@ -65,19 +64,18 @@ This checklist covers all major features and workflows in TOTL Agency. Test each
 ### **3. Authentication** 🔐
 
 - [ ] **Sign Up Flow**
-  - [ ] Navigate to `/login`
-  - [ ] Click "Sign Up" or "Create Account"
-  - [ ] Choose role (Talent or Client)
-  - [ ] Fill in registration form
-  - [ ] Submit and verify redirect to onboarding/dashboard
+  - [ ] Navigate to `/signup`
+  - [ ] Fill in registration form (email, password, optional display_name)
+  - [ ] Submit and verify "check your email" message appears
   - [ ] Check email for verification email (Supabase Auth)
+  - [ ] Click verification link and verify redirect to `/events`
 
 - [ ] **Login Flow**
   - [ ] Navigate to `/login`
   - [ ] Enter credentials
-  - [ ] Submit and verify redirect to correct dashboard
-  - [ ] Talent → `/talent/dashboard`
-  - [ ] Client → `/client/dashboard`
+  - [ ] Submit and verify redirect to `/events`
+  - [ ] Builder/Mentor → `/events`
+  - [ ] Admin → `/admin/dashboard`
 
 - [ ] **Sign Out**
   - [ ] Click user dropdown in navbar

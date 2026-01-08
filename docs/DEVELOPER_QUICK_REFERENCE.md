@@ -12,14 +12,14 @@ This reference outlines how to interact with the database in our Next.js codebas
 #### **Client-Side (Browser)**
 ```ts
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import type { Database } from "@/types/database";
+import type { Database } from "@/types/supabase";
 
 const supabase = createClientComponentClient<Database>();
 
 const { data: gigs, error } = await supabase
-  .from('gigs')
-  .select('id, title, description, location, compensation')
-  .eq('status', 'active');
+  .from('events')
+  .select('id, title, description, venue, event_date')
+  .eq('status', 'published');
 ```
 
 #### **Server Components (Read-Only)**
@@ -30,9 +30,9 @@ import { createSupabaseServerClient } from "@/lib/supabase-client";
 const supabase = await createSupabaseServerClient();
 
 const { data: gigs, error } = await supabase
-  .from('gigs')
-  .select('id, title, description, location, compensation')
-  .eq('status', 'active');
+  .from('events')
+  .select('id, title, description, venue, event_date')
+  .eq('status', 'published');
 ```
 
 #### **Server Actions & Route Handlers (Can Modify Cookies)**
@@ -68,14 +68,14 @@ In the above example, `gigs` will be strongly-typed (an array of Gig objects) be
 * **Import database types when needed:** Our types file `types/database.ts` exports a `Database` interface that has all schema types. You can use this to declare variables or annotate return types. For example:
 
   ```ts
-  import { Database } from '@/types/database';
-  type Gig = Database['public']['Tables']['gigs']['Row'];
+  import { Database } from '@/types/supabase';
+  type Event = Database['public']['Tables']['events']['Row'];
   ```
 
-  Now `Gig` is a TypeScript type representing a row from the `gigs` table. You can do this for any table: replace `'gigs'` with the table name you need (`profiles`, `applications`, etc.).
-* **No custom interfaces for DB data:** Do **not** redefine an interface for a database entity (like `interface Gig { ... }`). This will likely become outdated. Instead, always derive from the generated `Database` type as shown. If you need to extend or pick only certain fields, use TypeScript's utility types on the generated type (e.g., `Partial<Gig>` for a subset, or pick specific fields).
-* **Enum types:** Enums in the database become union types in TypeScript. For example, a column `status` that uses the `application_status` enum will be typed as `"pending" | "accepted" | "rejected" | "withdrawn"`. You can refer to these as needed (you might define `type ApplicationStatus = Database['public']['Enums']['application_status']` for convenience). Always use these unions instead of string literals, so if an enum value changes, TypeScript will alert us in all the places it's used.
-* **Benefits of strict typing:** When you use the generated types, your IDE and the compiler will catch mistakes, such as using a wrong field name or wrong type. For instance, if you try `supabase.from('gigs').insert({ titlle: "Test" })`, TypeScript will error because `titlle` is not a known field (it's `title`). Leverage these errors to quickly correct typos or misuse.
+  Now `Event` is a TypeScript type representing a row from the `events` table. You can do this for any table: replace `'events'` with the table name you need (`profiles`, `tickets`, etc.).
+* **No custom interfaces for DB data:** Do **not** redefine an interface for a database entity (like `interface Event { ... }`). This will likely become outdated. Instead, always derive from the generated `Database` type as shown. If you need to extend or pick only certain fields, use TypeScript's utility types on the generated type (e.g., `Partial<Event>` for a subset, or pick specific fields).
+* **Enum types:** Enums in the database become union types in TypeScript. For example, a column `status` that uses the `ticket_status` enum will be typed as `"reserved" | "checked_in" | "cancelled"`. You can refer to these as needed (you might define `type TicketStatus = Database['public']['Enums']['ticket_status']` for convenience). Always use these unions instead of string literals, so if an enum value changes, TypeScript will alert us in all the places it's used.
+* **Benefits of strict typing:** When you use the generated types, your IDE and the compiler will catch mistakes, such as using a wrong field name or wrong type. For instance, if you try `supabase.from('events').insert({ titlle: "Test" })`, TypeScript will error because `titlle` is not a known field (it's `title`). Leverage these errors to quickly correct typos or misuse.
 
 ## 🗄 Creating and Running Migrations
 
@@ -163,7 +163,7 @@ const { data, error } = await supabase.from('profiles').select('*');
 ```typescript
 // Fetch gig with client profile
 const { data: gigs } = await supabase
-  .from('gigs')
+  .from('events')
   .select('*, client_profiles(company_name, industry)')
   .eq('status', 'active');
 
@@ -182,7 +182,7 @@ const { data: applications } = await supabase
 ```typescript
 // Insert with proper typing
 const { data, error } = await supabase
-  .from('gigs')
+  .from('events')
   .insert({
     client_id: user.id,
     title: 'Photography Gig',
@@ -220,7 +220,7 @@ const { data, error } = await supabase
 
   ```ts
   const { data: gigs } = await supabase
-    .from('gigs')
+    .from('events')
     .select('*, client_profiles(company_name, industry)')
     .eq('status', 'active');
   ```
@@ -289,14 +289,14 @@ const { data: profile } = await supabase
 
 // Fetch multiple records with filtering
 const { data: gigs } = await supabase
-  .from('gigs')
+  .from('events')
   .select('*')
   .eq('status', 'active')
   .order('created_at', { ascending: false });
 
 // Insert with return
 const { data: newGig } = await supabase
-  .from('gigs')
+  .from('events')
   .insert(gigData)
   .select()
   .single();

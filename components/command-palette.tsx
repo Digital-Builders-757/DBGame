@@ -6,7 +6,6 @@ import {
   Search,
   Settings,
   User,
-  Briefcase,
   FileText,
   LogOut,
   LayoutDashboard,
@@ -50,68 +49,47 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         shortcut: "H",
       },
       {
-        icon: Search,
-        label: "Browse Gigs",
-        description: "View all available gigs",
-        action: () => router.push("/gigs"),
-        shortcut: "G",
+        icon: Calendar,
+        label: "Browse Events",
+        description: "View all upcoming events",
+        action: () => router.push("/events"),
+        shortcut: "E",
       },
     ];
 
     if (user && userRole) {
-      if (userRole === "talent") {
+      if (userRole === "builder") {
         commands.push(
           {
-            icon: LayoutDashboard,
-            label: "Talent Dashboard",
-            description: "View your talent dashboard",
-            action: () => router.push("/talent/dashboard"),
-            shortcut: "D",
+            icon: User,
+            label: "Builder Card",
+            description: "View your builder card",
+            action: () => router.push("/builder-card"),
+            shortcut: "B",
           },
           {
             icon: User,
-            label: "Complete Profile",
-            description: "Update your talent profile",
-            action: () => router.push("/talent/profile"),
+            label: "Profile",
+            description: "Update your profile",
+            action: () => router.push("/profile"),
             shortcut: "P",
-          },
-          {
-            icon: FileText,
-            label: "My Applications",
-            description: "View your gig applications",
-            action: () => router.push("/talent/dashboard"),
-            shortcut: "A",
           }
         );
-      } else if (userRole === "client") {
+      } else if (userRole === "mentor") {
         commands.push(
           {
-            icon: LayoutDashboard,
-            label: "Client Dashboard",
-            description: "View your client dashboard",
-            action: () => router.push("/client/dashboard"),
-            shortcut: "D",
-          },
-          {
-            icon: Briefcase,
-            label: "My Gigs",
-            description: "Manage your posted gigs",
-            action: () => router.push("/client/gigs"),
-            shortcut: "M",
-          },
-          {
-            icon: Users,
-            label: "Applications",
-            description: "Review talent applications",
-            action: () => router.push("/client/applications"),
-            shortcut: "A",
-          },
-          {
-            icon: Calendar,
-            label: "Bookings",
-            description: "Manage your bookings",
-            action: () => router.push("/client/bookings"),
+            icon: User,
+            label: "Builder Card",
+            description: "View your builder card",
+            action: () => router.push("/builder-card"),
             shortcut: "B",
+          },
+          {
+            icon: User,
+            label: "Profile",
+            description: "Update your profile",
+            action: () => router.push("/profile"),
+            shortcut: "P",
           }
         );
       } else if (userRole === "admin") {
@@ -120,7 +98,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             icon: LayoutDashboard,
             label: "Admin Dashboard",
             description: "Access admin panel",
-            action: () => router.push("/admin"),
+            action: () => router.push("/admin/dashboard"),
             shortcut: "D",
           },
           {
@@ -129,13 +107,6 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             description: "View and manage users",
             action: () => router.push("/admin/users"),
             shortcut: "U",
-          },
-          {
-            icon: Briefcase,
-            label: "Create Gig",
-            description: "Post a new gig",
-            action: () => router.push("/admin/gigs/create"),
-            shortcut: "C",
           }
         );
       }

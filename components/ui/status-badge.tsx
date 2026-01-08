@@ -230,17 +230,17 @@ export function StatusBadge({
 }
 
 // ============================================================================
-// CLIENT APPLICATION STATUS BADGE (for /client/apply flow)
+// MENTOR APPLICATION STATUS BADGE (for mentor applications)
 // ============================================================================
 
-type ClientApplicationStatus = "pending" | "approved" | "rejected";
+type MentorApplicationStatus = "pending" | "approved" | "rejected";
 
-interface ClientApplicationStatusBadgeProps extends Omit<BadgeProps, "variant"> {
-  status: ClientApplicationStatus;
+interface MentorApplicationStatusBadgeProps extends Omit<BadgeProps, "variant"> {
+  status: MentorApplicationStatus;
   showIcon?: boolean;
 }
 
-export function ClientApplicationStatusBadge({
+export function MentorApplicationStatusBadge({
   status,
   showIcon = true,
   ...props
