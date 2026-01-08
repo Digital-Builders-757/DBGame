@@ -41,6 +41,7 @@ That one rule makes this MVP powerful even before you add any fancy game systems
 - ✅ CI workflows updated to use secrets (no hardcoded credentials)
 - ✅ Schema truth check workflow fixed (now compares against types/supabase.ts, uses branch-aware ref)
 - ✅ Auth screens rebranded (login/create-account)
+- ✅ Signup page toast provider error fixed (standardized on shadcn/ui global state pattern)
 - 🔄 Events/Check-in/Builder Card UI pending
 
 ---

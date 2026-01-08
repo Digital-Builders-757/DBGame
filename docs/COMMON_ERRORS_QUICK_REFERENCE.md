@@ -81,6 +81,10 @@ npm run build
   - **Root Cause:** `.env.local` saved as UTF-8 **with BOM**; the hidden BOM bytes (`ï»¿`) confuse the CLI dotenv parser.
   - **Fix:** In VS Code choose “File → Save with Encoding → UTF-8” (no BOM) for `.env.local`. Before running CLI commands also set `SUPABASE_INTERNAL_NO_DOTENV=1` or temporarily rename `.env.local` to keep smart quotes/BOM characters from breaking the parser.
   - **Prevention:** Keep `.env.local` plain UTF-8, avoid smart quotes, and always pass through the `cmd /d /c "set SUPABASE_INTERNAL_NO_DOTENV=1 && …"` wrapper already baked into the npm scripts.
+- **Toast Provider Error:** `Error: useToast must be used within a ToastProvider` on `/signup` page (500 error, black screen)
+  - **Root Cause:** Two different toast implementations exist - `hooks/use-toast.ts` (context-based, requires provider) and `components/ui/use-toast.ts` (global state, no provider). Signup form uses context version but Toaster uses global state version.
+  - **Fix:** Change import in `components/auth/builder-signup-form.tsx` from `@/hooks/use-toast` to `@/components/ui/use-toast` to match the shadcn/ui pattern used by the Toaster component.
+  - **Prevention:** Always use `@/components/ui/use-toast` for toast notifications. The `hooks/use-toast.ts` file should be deprecated or removed to prevent future confusion.
 
 ## **4. BRANCH-SPECIFIC REQUIREMENTS**
 - **DEVELOP Branch:** Use `npm run types:regen:dev` if needed
