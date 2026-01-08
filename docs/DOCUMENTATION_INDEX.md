@@ -107,6 +107,7 @@ All other documentation has been organized into the `docs/` folder.
 
 ### **🐛 Troubleshooting**
 - `TROUBLESHOOTING_GUIDE.md` - Common issues and solutions (9 error patterns including signup fix)
+- `TOAST_PROVIDER_FIX_PLAN.md` - **NEW** ✅ - Toast provider error fix plan and implementation (Jan 2025)
 - `SIGNUP_DATABASE_ERROR_FIX_OCT_23_2025.md` - 🔴 **CRITICAL** - Database trigger signup error (Oct 23, 2025)
 - `SENTRY_ERROR_FIXES_SUMMARY.md` - Complete Sentry error fix summary
 - `SENTRY_ERROR_FIX_EVENT_HANDLERS.md` - Event handler cache error fix (Oct 21, 2025)
