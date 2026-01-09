@@ -61,22 +61,23 @@ const config: Config = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Digital Builders Brand Colors
+        // ViBE Brand Colors
         brand: {
-          magenta: "#ff00ff",       // Primary - Magenta (CTA)
-          green: "#00ff55",         // Secondary - Neon Green
-          cyan: "#00c3ff",          // Tertiary - Cyan Blue
-          primary: "#ff00ff",       // Alias for magenta
-          secondary: "#00ff55",     // Alias for green
-          tertiary: "#00c3ff",      // Alias for cyan
-          background: "#070707",    // Dark background
+          blue: "#007BFF",          // Primary - ViBE Blue (trust, stability, innovation)
+          white: "#FFFFFF",         // ViBE White (cleanliness and clarity)
+          gray: "#6C757D",          // Secondary - ViBE Gray (neutrality and balance)
+          "light-blue": "#ADD8E6",  // Secondary - ViBE Light Blue (peace and serenity)
+          primary: "#007BFF",       // Alias for blue
+          secondary: "#6C757D",     // Alias for gray
+          accent: "#ADD8E6",        // Alias for light blue
+          background: "#070707",    // Dark background (maintained)
           "background-dark": "#070707",
-          card: "#111111",          // Card background
-          border: "#262626",        // Border color
+          card: "#111111",          // Card background (maintained)
+          border: "#262626",        // Border color (maintained)
           text: {
-            primary: "#fafafa",     // Primary text
-            secondary: "#a3a3a3",   // Secondary text
-            muted: "#a3a3a3",       // Muted text
+            primary: "#FFFFFF",     // Primary text (ViBE White)
+            secondary: "#6C757D",   // Secondary text (ViBE Gray)
+            muted: "#a3a3a3",       // Muted text (maintained)
           },
         },
         // ✨ OKLCH Modern Colors - Premium Back-Lit UI
@@ -116,10 +117,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        heading: ["Space Mono", "monospace"],
+        sans: ["Open Sans", "system-ui", "sans-serif"],
+        heading: ["Montserrat", "system-ui", "sans-serif"],
         mono: ["Space Mono", "monospace"],
-        body: ["Inter", "system-ui", "sans-serif"],
+        body: ["Open Sans", "system-ui", "sans-serif"],
       },
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "0.75rem" }],

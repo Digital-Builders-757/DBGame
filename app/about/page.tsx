@@ -1,423 +1,203 @@
-import { Instagram, Mail, MapPin, Phone, Users, Target, Award, Sparkles } from "lucide-react";
+import { Calendar, MapPin, Users, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-black text-white pt-20">
-      {/* Hero Section - Matching Homepage Style */}
+    <main className="min-h-screen bg-brand-background text-brand-text-primary pt-20">
+      {/* Hero Section */}
       <section className="relative py-32 lg:py-40 overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/3 via-white/8 to-white/3"></div>
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-white/3 rounded-full blur-3xl animate-apple-float"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-90" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-brand-blue/10 rounded-full blur-3xl animate-pulse" />
         <div
-          className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/3 rounded-full blur-3xl animate-apple-float"
+          className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-light-blue/10 rounded-full blur-3xl animate-pulse"
           style={{ animationDelay: "1s" }}
-        ></div>
+        />
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-6">
-              <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm">
-                ✨ About TOTL Agency
+              <Badge className="bg-brand-blue/20 text-brand-blue border-brand-blue/30 px-4 py-2 text-sm">
+                ✨ About ViBE
               </Badge>
-              <h1 className="text-6xl lg:text-8xl font-bold text-white leading-tight font-display">
-                Rise Above
-                <span className="apple-text-gradient"> The Rest</span>
+              <h1 className="text-6xl lg:text-8xl font-heading font-bold leading-tight neon-glow-blue">
+                Virginia Isn&apos;t
+                <span className="text-brand-light-blue"> Boring</span>
               </h1>
-              <p className="text-2xl text-gray-300 leading-relaxed max-w-lg">
-                Representing exceptional modeling talent worldwide. We connect the right talent with
-                the right opportunities through innovation and integrity.
+              <p className="text-2xl text-brand-text-secondary leading-relaxed max-w-lg">
+                Discover what&apos;s happening in Virginia. RSVP to events, check in at the door, and track your attendance with your Event Pass.
               </p>
             </div>
             <div className="relative">
-              <div className="relative z-10 apple-card p-8">
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto object-contain rounded-lg"
-                >
-                  <source src="/videos/slowmo_woman.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              <div className="relative z-10 rounded-3xl border border-brand-border bg-brand-card/70 backdrop-blur p-8 shadow-2xl shadow-brand-blue/20">
+                <div className="aspect-video bg-gradient-to-br from-brand-blue/20 to-brand-light-blue/20 rounded-lg flex items-center justify-center">
+                  <Calendar className="w-24 h-24 text-brand-blue opacity-50" />
+                </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-white/5 rounded-3xl transform rotate-2"></div>
-              <div className="absolute -inset-4 bg-gradient-to-tr from-white/5 to-white/2 rounded-3xl transform -rotate-2"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Our Story Section */}
-      <section className="py-32 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-32 bg-gradient-to-b from-brand-background to-brand-card/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center space-y-12 animate-apple-fade-in">
-            <div className="apple-glass rounded-2xl px-6 py-3 w-fit mx-auto">
-              <span className="text-white font-medium text-sm flex items-center gap-2">
-                <Sparkles className="h-4 w-4" />
-                Our Story
-              </span>
+          <div className="max-w-4xl mx-auto text-center space-y-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-blue/10 border border-brand-blue/20">
+              <Sparkles className="h-4 w-4 text-brand-blue" />
+              <span className="text-brand-text-primary font-medium text-sm">Our Story</span>
             </div>
             
-            <h2 className="text-5xl lg:text-6xl font-bold text-white">
-              Building the Future of Talent
+            <h2 className="text-5xl lg:text-6xl font-heading font-bold neon-glow-blue">
+              Making Virginia Events Accessible
             </h2>
             
-            <div className="space-y-8 text-lg text-gray-300 leading-relaxed">
-              <div className="apple-glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300">
+            <div className="space-y-8 text-lg text-brand-text-secondary leading-relaxed text-left">
+              <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-8 hover:bg-brand-card/90 transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">2020</span>
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-brand-blue to-brand-light-blue rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">2026</span>
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-white mb-2">The Vision</h3>
+                  <div>
+                    <h3 className="text-xl font-heading font-bold text-brand-text-primary mb-2">The Vision</h3>
                     <p>
-                      Founded in 2020, TOTL Agency emerged from a vision to transform the modeling
-                      industry. We recognized a gap between exceptional talent and quality
-                      opportunities, and set out to bridge that divide with integrity and innovation.
+                      ViBE was created to solve a simple problem: finding great events in Virginia shouldn&apos;t be hard. 
+                      We&apos;re building the fastest, cleanest way to turn attention into attendance.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="apple-glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300">
+              <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-8 hover:bg-brand-card/90 transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">TOTL</span>
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-brand-light-blue to-brand-gray rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">Vi</span>
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-white mb-2">Our Commitment</h3>
+                  <div>
+                    <h3 className="text-xl font-heading font-bold text-brand-text-primary mb-2">Our Mission</h3>
                     <p>
-                      Our name, TOTL (Top Of The Line), represents our commitment to excellence in every
-                      aspect of our business. We believe in fostering genuine relationships with both
-                      our talent and clients, creating a supportive community rather than just a
-                      transactional agency.
+                      ViBE exists to connect people with events. No gamification, no complexity—just discover, RSVP, attend, 
+                      and track your Event Pass. If you want to attend events featured on ViBE, you need a ViBE account. That&apos;s it.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="apple-glass p-8 rounded-2xl hover:bg-white/5 transition-all duration-300">
+              <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-8 hover:bg-brand-card/90 transition-all">
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-600 rounded-full flex items-center justify-center">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-brand-gray to-brand-blue rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-lg">∞</span>
                   </div>
-                  <div className="text-left">
-                    <h3 className="text-xl font-bold text-white mb-2">Today & Beyond</h3>
+                  <div>
+                    <h3 className="text-xl font-heading font-bold text-brand-text-primary mb-2">Today & Beyond</h3>
                     <p>
-                      Today, we&apos;re proud to represent diverse talent across various modeling
-                      specialties, connecting them with brands that value authenticity and creativity as
-                      much as we do. Our journey continues as we shape the future of talent representation.
+                      Today, ViBE helps people discover tech, creative, and networking events across Virginia. 
+                      Our journey continues as we make event discovery simpler and attendance tracking effortless.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Visual Elements */}
-            <div className="flex justify-center items-center gap-8 pt-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <Users className="w-8 h-8 text-blue-400" />
-              </div>
-              <div className="w-1 h-16 bg-gradient-to-b from-blue-500/50 to-purple-500/50 rounded-full"></div>
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <Target className="w-8 h-8 text-purple-400" />
-              </div>
-              <div className="w-1 h-16 bg-gradient-to-b from-purple-500/50 to-pink-500/50 rounded-full"></div>
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <Award className="w-8 h-8 text-pink-400" />
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Our Mission Section */}
-      <section className="py-32 bg-gray-900">
+      {/* What We Offer Section */}
+      <section className="py-32 bg-brand-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-apple-fade-in">
-            <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm mb-6">
-              💎 Our Mission
-            </Badge>
-            <h2 className="text-5xl lg:text-6xl font-bold text-white">What Drives Us</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div
-              className="apple-glass p-8 rounded-2xl group hover:bg-white/10 transition-all duration-300 animate-apple-scale-in"
-              style={{ animationDelay: "0s" }}
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Empower Talent</h3>
-              <p className="text-gray-300 leading-relaxed">
-                We empower models to take control of their careers through education, mentorship,
-                and transparent business practices.
-              </p>
-            </div>
-            <div
-              className="apple-glass p-8 rounded-2xl group hover:bg-white/10 transition-all duration-300 animate-apple-scale-in"
-              style={{ animationDelay: "0.1s" }}
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Target className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Foster Diversity</h3>
-              <p className="text-gray-300 leading-relaxed">
-                We celebrate diversity in all forms, actively working to create inclusive
-                opportunities in the modeling industry.
-              </p>
-            </div>
-            <div
-              className="apple-glass p-8 rounded-2xl group hover:bg-white/10 transition-all duration-300 animate-apple-scale-in"
-              style={{ animationDelay: "0.2s" }}
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Elevate Standards</h3>
-              <p className="text-gray-300 leading-relaxed">
-                We&apos;re committed to raising industry standards through ethical practices, fair
-                compensation, and professional development.
-              </p>
-            </div>
-            <div
-              className="apple-glass p-8 rounded-2xl group hover:bg-white/10 transition-all duration-300 animate-apple-scale-in"
-              style={{ animationDelay: "0.3s" }}
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                <Sparkles className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-white">Curated Applicant Access</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Clients only see the talent who applied to their gigs—there is no public browseable
-                roster. This approach keeps talent protected and keeps every opportunity contextually
-                relevant.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Services Section */}
-      <section className="py-32 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-apple-fade-in">
-            <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm mb-6">
+          <div className="text-center mb-16">
+            <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 px-4 py-2 text-sm mb-6">
               🌟 What We Offer
             </Badge>
-            <h2 className="text-5xl lg:text-6xl font-bold text-white">Our Services</h2>
+            <h2 className="text-5xl lg:text-6xl font-heading font-bold neon-glow-blue">How ViBE Works</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="apple-glass p-10 rounded-2xl hover:bg-white/10 transition-all duration-300 group">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-10 hover:bg-brand-card/90 transition-all group">
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 bg-gradient-to-br from-brand-blue to-brand-light-blue rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Calendar className="w-8 h-8 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-heading font-bold mb-3 text-brand-text-primary">Event Discovery</h3>
+                  <p className="text-brand-text-secondary leading-relaxed">
+                    Browse upcoming events across Virginia. Find tech meetups, creative workshops, networking events, and more.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-10 hover:bg-brand-card/90 transition-all group">
+              <div className="flex gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-brand-light-blue to-brand-gray rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Users className="w-8 h-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-3 text-white">Talent Representation</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    We provide comprehensive representation for models, including portfolio
-                    development, career guidance, and booking management.
+                  <h3 className="text-2xl font-heading font-bold mb-3 text-brand-text-primary">Easy RSVP</h3>
+                  <p className="text-brand-text-secondary leading-relaxed">
+                    Reserve your spot with one click. Cancel anytime. No payment required—just show up and check in.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="apple-glass p-10 rounded-2xl hover:bg-white/10 transition-all duration-300 group">
+            <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-10 hover:bg-brand-card/90 transition-all group">
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Target className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-brand-gray to-brand-blue rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <MapPin className="w-8 h-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-3 text-white">Client Casting</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    We help brands find the perfect talent for their campaigns, events, and
-                    promotional activities.
+                  <h3 className="text-2xl font-heading font-bold mb-3 text-brand-text-primary">Check-In System</h3>
+                  <p className="text-brand-text-secondary leading-relaxed">
+                    Event organizers can check you in at the door. Your attendance is automatically tracked on your Event Pass.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="apple-glass p-10 rounded-2xl hover:bg-white/10 transition-all duration-300 group">
+            <div className="rounded-2xl border border-brand-border bg-brand-card/70 backdrop-blur p-10 hover:bg-brand-card/90 transition-all group">
               <div className="flex gap-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-orange-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Award className="w-8 h-8 text-white" />
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-3 text-white">Portfolio Development</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    We offer professional photoshoot coordination and portfolio curation to showcase
-                    our talent&apos;s unique qualities.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="apple-glass p-10 rounded-2xl hover:bg-white/10 transition-all duration-300 group">
-              <div className="flex gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-16 h-16 bg-gradient-to-br from-brand-blue to-brand-gray rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Sparkles className="w-8 h-8 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-3 text-white">Event Management</h3>
-                  <p className="text-gray-300 leading-relaxed">
-                    We coordinate fashion shows, promotional events, and brand activations with our
-                    roster of professional models.
+                  <h3 className="text-2xl font-heading font-bold mb-3 text-brand-text-primary">Event Pass</h3>
+                  <p className="text-brand-text-secondary leading-relaxed">
+                    Your Event Pass shows your attendance history, last event attended, and profile information. 
+                    Simple, clean, no gamification.
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-32 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 animate-apple-fade-in">
-            <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm mb-6">
-              📧 Contact Us
-            </Badge>
-            <h2 className="text-5xl lg:text-6xl font-bold text-white">Get In Touch</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <MapPin className="w-6 h-6 mr-4 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-bold">Address</h4>
-                    <p>
-                      123 Fashion Avenue, Suite 500
-                      <br />
-                      New York, NY 10001
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Phone className="w-6 h-6 mr-4 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-bold">Phone</h4>
-                    <p>(212) 555-7890</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Mail className="w-6 h-6 mr-4 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-bold">Email</h4>
-                    <p>info@totlagency.com</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <Instagram className="w-6 h-6 mr-4 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-bold">Instagram</h4>
-                    <a
-                      href="https://www.instagram.com/totlagency/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      @totlagency
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-8">
-                <h3 className="text-2xl font-bold mb-4">Office Hours</h3>
-                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p>Saturday: By appointment only</p>
-                <p>Sunday: Closed</p>
-              </div>
-            </div>
-            <div className="apple-glass p-8 rounded-2xl">
-              <h3 className="text-2xl font-bold mb-6 text-white">Send Us a Message</h3>
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block mb-2 text-gray-300 font-medium">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block mb-2 text-gray-300 font-medium">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all"
-                    placeholder="Your email"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block mb-2 text-gray-300 font-medium">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all"
-                    placeholder="Subject"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block mb-2 text-gray-300 font-medium">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-white/50 transition-all resize-none"
-                    placeholder="Your message"
-                  ></textarea>
-                </div>
-                <Button className="w-full apple-button py-6 text-lg font-semibold">
-                  Send Message
-                </Button>
-              </form>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-black relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/3 via-white/8 to-white/3"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+      <section className="py-32 bg-gradient-to-b from-brand-background to-brand-card/30 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/5 via-brand-light-blue/5 to-brand-gray/5" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-4xl mx-auto space-y-8 animate-apple-fade-in">
-            <Badge className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm">
-              🚀 Join Us
+          <div className="max-w-4xl mx-auto space-y-8">
+            <Badge className="bg-brand-blue/10 text-brand-blue border-brand-blue/20 px-4 py-2 text-sm">
+              🚀 Get Started
             </Badge>
-            <h2 className="text-5xl lg:text-6xl font-bold text-white">Ready to Work With Us?</h2>
-            <p className="text-2xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
-              Whether you&apos;re a model looking for representation or a brand seeking talent,
-              we&apos;re here to help you succeed.
+            <h2 className="text-5xl lg:text-6xl font-heading font-bold neon-glow-blue">Ready to Discover Events?</h2>
+            <p className="text-2xl text-brand-text-secondary leading-relaxed max-w-2xl mx-auto">
+              Create your ViBE account to start discovering and attending events across Virginia.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
               <Link href="/signup">
-                <Button size="lg" className="apple-button px-10 py-6 text-xl font-semibold">
+                <Button size="lg" className="btn-brand-primary px-10 py-6 text-xl font-semibold neon-shadow-blue">
                   Create Account
                 </Button>
               </Link>
@@ -425,7 +205,7 @@ export default function AboutPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white/20 text-white hover:bg-white/5 hover:border-white/30 apple-glass px-10 py-6 text-xl font-semibold"
+                  className="border-2 border-brand-border text-brand-text-primary hover:bg-brand-card/50 px-10 py-6 text-xl font-semibold"
                 >
                   Browse Events
                 </Button>

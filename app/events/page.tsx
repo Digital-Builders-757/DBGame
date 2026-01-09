@@ -32,7 +32,7 @@ export default async function EventsPage() {
       return (
         <EventsPageShell>
           <div>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-magenta">
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-blue">
               Events
             </h1>
             <p className="mt-4 text-lg sm:text-xl text-brand-text-secondary">
@@ -63,15 +63,15 @@ export default async function EventsPage() {
       <EventsPageShell>
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-text-secondary">
-            Digital Builders Events
+            ViBE Events
           </span>
         </div>
         <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-magenta">
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-tight neon-glow-blue">
             Upcoming Events
           </h1>
           <p className="text-lg sm:text-xl text-brand-text-secondary max-w-3xl">
-            RSVP to lock your seat at the next Digital Builders event.
+            RSVP to lock your seat at the next ViBE event.
           </p>
         </div>
 

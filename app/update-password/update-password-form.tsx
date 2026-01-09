@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -111,7 +111,7 @@ export function UpdatePasswordForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={8}
-            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta placeholder:text-brand-text-secondary pr-10"
+            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue placeholder:text-brand-text-secondary pr-10"
           />
           <button
             type="button"
@@ -134,7 +134,7 @@ export function UpdatePasswordForm() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta placeholder:text-brand-text-secondary pr-10"
+            className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue placeholder:text-brand-text-secondary pr-10"
           />
           <button
             type="button"
@@ -148,7 +148,7 @@ export function UpdatePasswordForm() {
 
       <Button
         type="submit"
-        className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 neon-shadow-magenta"
+        className="w-full bg-brand-blue text-white hover:bg-brand-blue/90 neon-shadow-blue"
         disabled={isSubmitting}
       >
         {isSubmitting ? "Updating..." : "Update Password"}

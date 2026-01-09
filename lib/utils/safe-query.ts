@@ -1,5 +1,5 @@
-﻿// Digital Builders - Types simplified until schema is created
-// Legacy TOTL-specific types removed - now using Digital Builders schema
+// ViBE - Types simplified until schema is finalized
+// Legacy TOTL-specific types removed - now using ViBE schema
 
 /**
  * Safe query wrapper for Supabase operations
@@ -63,7 +63,7 @@ export async function safeUpdate<T>(
 
 /**
  * A utility to create safe Supabase queries
- * Digital Builders specific queries will be added as schema is created
+ * ViBE specific queries will be added as needed
  */
 export const safeQuery = {
   /**
@@ -80,7 +80,7 @@ export const safeQuery = {
       .maybeSingle();
   },
 
-  // Digital Builders specific queries (to be added)
+  // ViBE specific queries (to be added)
   // Example:
   // getCharacterByUserId: async (supabase: any, userId: string) => {
   //   return await (supabase as any)

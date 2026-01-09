@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
@@ -51,7 +51,7 @@ export default function Navbar() {
     }
   };
 
-  // Digital Builders brand styling - dark background with neon accents
+  // ViBE brand styling - dark background with neon accents
   const navbarBg = isScrolled
     ? "bg-brand-background/95 backdrop-blur-md border-b border-brand-border shadow-lg shadow-brand-primary/10"
     : isHomepage
@@ -70,7 +70,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center group">
             <Image
               src="/images/solo_logo.png"
-              alt="Digital Builders"
+              alt="ViBE"
               width={180}
               height={70}
               className="h-16 w-auto group-hover:scale-110 transition-transform duration-300"

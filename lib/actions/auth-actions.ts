@@ -4,12 +4,12 @@ import { redirect } from "next/navigation";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
 
 function deriveDisplayName(email?: string | null) {
-  return email?.split("@")[0] || "Builder";
+  return email?.split("@")[0] || "User";
 }
 
 /**
  * Ensures a user profile exists and has a display_name.
- * Defaults role to 'builder' when creating a new profile.
+ * Defaults role to 'user' when creating a new profile.
  */
 export async function ensureProfileExists() {
   const supabase = await createSupabaseServer();
@@ -39,12 +39,12 @@ export async function ensureProfileExists() {
     deriveDisplayName(user.email);
 
   if (!profile) {
-    // Create profile with builder default
+    // Create profile with user default (migration complete, no 'builder' role)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: insertError } = await (supabase as any).from("profiles").insert({
       id: user.id,
       display_name: displayName,
-      role: "builder",
+      role: "user",
     });
 
     if (insertError) {
@@ -69,12 +69,12 @@ export async function ensureProfileExists() {
     }
   }
 
-  // If role is null/empty for some reason, set to builder (optional safety)
+  // If role is null/empty for some reason, set to user (optional safety)
   if (!profile.role) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (supabase as any)
       .from("profiles")
-      .update({ role: "builder" })
+      .update({ role: "user" })
       .eq("id", user.id);
   }
 

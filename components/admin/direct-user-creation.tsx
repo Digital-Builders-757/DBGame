@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 
 /**
  * Direct User Creation Component
- * Placeholder for Digital Builders diagnostic user creation
+ * ViBE diagnostic user creation
  */
 export default function DirectUserCreation() {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ export default function DirectUserCreation() {
     setIsLoading(true);
 
     try {
-      // TODO: Implement direct user creation logic for Digital Builders
+      // TODO: Implement direct user creation logic for ViBE
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setSuccess(true);
       setEmail("");

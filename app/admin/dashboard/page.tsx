@@ -1,8 +1,8 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { AdminDashboardClient } from "./admin-dashboard-client";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
 
-// Temporary type until Digital Builders schema is created
+// Temporary type until ViBE schema is finalized
 type ProfileRow = {
   role: string;
 };
@@ -35,7 +35,7 @@ export default async function AdminDashboard() {
     redirect("/login?returnUrl=/admin/dashboard");
   }
 
-  // Fetch dashboard data - Digital Builders simplified stats
+  // Fetch dashboard data - ViBE simplified stats
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { count: totalUsers } = await (supabase as any)
     .from("profiles")

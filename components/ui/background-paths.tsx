@@ -165,8 +165,8 @@ export function BackgroundPaths({
 export function DemoBackgroundPaths() {
   return (
     <BackgroundPaths 
-      title="Digital Builders" 
-      subtitle="The best tech & creative events in the 757"
+      title="ViBE" 
+      subtitle="The best tech & creative events in Virginia"
       ctaText="Browse Events"
       ctaHref="/events"
     />

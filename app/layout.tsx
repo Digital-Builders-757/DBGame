@@ -1,55 +1,55 @@
-﻿import "./globals.css";
+import "./globals.css";
 
 import type { Metadata } from "next";
-import { Inter, Space_Mono } from "next/font/google";
+import { Open_Sans, Montserrat } from "next/font/google";
 import type React from "react";
 import Providers from "./providers";
 import { Ga4Analytics } from "@/components/analytics/ga4-analytics";
 import { ThemeProvider } from "@/components/theme-provider";
 
-// Digital Builders Typography
-const inter = Inter({ 
+// ViBE Typography
+const openSans = Open_Sans({ 
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const spaceMono = Space_Mono({ 
+const montserrat = Montserrat({ 
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-heading",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
-  title: "Digital Builders World – Event Portal + Builder Card",
-  description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
+  title: "ViBE – Virginia Isn't Boring | Event Discovery + Event Pass",
+  description: "You must have a ViBE account to attend events. RSVP, check in, and see your Event Pass with attendance history.",
   openGraph: {
-    title: "Digital Builders World – Event Portal + Builder Card",
-    description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
+    title: "ViBE – Virginia Isn't Boring | Event Discovery + Event Pass",
+    description: "You must have a ViBE account to attend events. RSVP, check in, and see your Event Pass with attendance history.",
     url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-    siteName: "Digital Builders",
+    siteName: "ViBE",
     images: [
       {
-        url: "/images/digital-builders-logo.png",
+        url: "/images/vibe-logo.png",
         width: 1200,
         height: 630,
-        alt: "Digital Builders",
+        alt: "ViBE",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Digital Builders World – Event Portal + Builder Card",
-    description: "You must have a Builder account to attend events. RSVP, check in, and see your Builder Card with XP and badges.",
-    images: ["/images/digital-builders-logo.png"],
+    title: "ViBE – Virginia Isn't Boring | Event Discovery + Event Pass",
+    description: "You must have a ViBE account to attend events. RSVP, check in, and see your Event Pass with attendance history.",
+    images: ["/images/vibe-logo.png"],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${openSans.variable} ${montserrat.variable}`}>
       <body className="font-body" suppressHydrationWarning>
         <Ga4Analytics />
         <ThemeProvider

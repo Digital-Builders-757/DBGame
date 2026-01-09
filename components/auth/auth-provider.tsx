@@ -8,7 +8,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { createSupabaseBrowser } from "@/lib/supabase/supabase-browser";
 
-type UserRole = "builder" | "mentor" | "admin" | null;
+// After Phase 2 migration: roles are 'user' | 'client' | 'admin' only
+type UserRole = "user" | "client" | "admin" | null;
 
 type SignUpOptions = {
   data?: Record<string, unknown>;
@@ -246,7 +247,7 @@ function SupabaseAuthProvider({ children }: { children: React.ReactNode }) {
             const isOnAllowedPage = allowedPages.some((page) => pathname.startsWith(page));
 
             if (!isOnAllowedPage) {
-              // Redirect to /events for Digital Builders - only for actual sign-ins
+              // Redirect to /events for ViBE - only for actual sign-ins
               // Use router.refresh() to clear cache before redirect
               router.refresh();
               if (role === "admin") {

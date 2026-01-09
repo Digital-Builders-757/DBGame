@@ -124,61 +124,62 @@
 @layer base {
   :root {
     /* ============================================ */
-    /* 🎨 Digital Builders Brand Colors */
+    /* 🎨 ViBE Brand Colors */
     /* ============================================ */
     
-    /* Brand Colors - Neon Palette */
-    --brand-primary: #ff00ff;      /* Magenta (CTA) */
-    --brand-secondary: #00ff55;    /* Green */
-    --brand-tertiary: #00c3ff;     /* Cyan */
+    /* Brand Colors - ViBE Palette */
+    --brand-primary: #007BFF;      /* ViBE Blue (trust, stability, innovation) */
+    --brand-secondary: #6C757D;    /* ViBE Gray (neutrality and balance) */
+    --brand-accent: #ADD8E6;        /* ViBE Light Blue (peace and serenity) */
+    --brand-white: #FFFFFF;         /* ViBE White (cleanliness and clarity) */
     
     /* Background Colors */
-    --brand-background: #070707;   /* Dark background */
-    --brand-card: #111111;          /* Card background */
-    --brand-border: #262626;        /* Border color */
+    --brand-background: #070707;   /* Dark background (maintained) */
+    --brand-card: #111111;          /* Card background (maintained) */
+    --brand-border: #262626;        /* Border color (maintained) */
     
     /* Text Colors */
-    --brand-text-primary: #fafafa;   /* Primary text */
-    --brand-text-secondary: #a3a3a3; /* Secondary text */
+    --brand-text-primary: #FFFFFF;   /* Primary text (ViBE White) */
+    --brand-text-secondary: #6C757D; /* Secondary text (ViBE Gray) */
     
     /* ============================================ */
     /* 🎨 HSL TOKENS (for shadcn/ui compatibility) */
     /* ============================================ */
     
-    /* Digital Builders Dark Theme */
+    /* ViBE Dark Theme */
     --background: 0 0% 3%;          /* #070707 */
-    --foreground: 0 0% 98%;         /* #fafafa */
+    --foreground: 0 0% 100%;        /* #FFFFFF (ViBE White) */
 
     --card: 0 0% 7%;                /* #111111 */
-    --card-foreground: 0 0% 98%;
+    --card-foreground: 0 0% 100%;   /* #FFFFFF */
 
     --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 98%;
+    --popover-foreground: 0 0% 100%;
 
-    /* Primary - Magenta (CTA) */
-    --primary: 300 100% 50%;        /* #ff00ff */
-    --primary-foreground: 0 0% 0%;
+    /* Primary - ViBE Blue */
+    --primary: 217 100% 50%;        /* #007BFF */
+    --primary-foreground: 0 0% 100%; /* White text on blue */
 
-    /* Secondary - Green */
-    --secondary: 142 100% 50%;      /* #00ff55 */
-    --secondary-foreground: 0 0% 0%;
+    /* Secondary - ViBE Gray */
+    --secondary: 210 8% 46%;        /* #6C757D */
+    --secondary-foreground: 0 0% 100%; /* White text on gray */
 
     /* Muted Colors */
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 64%;   /* #a3a3a3 */
 
-    /* Accent - Cyan */
-    --accent: 195 100% 50%;         /* #00c3ff */
-    --accent-foreground: 0 0% 0%;
+    /* Accent - ViBE Light Blue */
+    --accent: 195 53% 79%;          /* #ADD8E6 */
+    --accent-foreground: 0 0% 0%;   /* Black text on light blue */
 
     /* Destructive Colors */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Border Colors */
     --border: 0 0% 15%;             /* #262626 */
     --input: 0 0% 15%;
-    --ring: 300 100% 50%;           /* Magenta focus ring */
+    --ring: 217 100% 50%;           /* ViBE Blue focus ring */
 
     /* Border Radius */
     --radius: 1rem;
@@ -202,34 +203,34 @@
   }
 
   .dark {
-    /* Digital Builders Dark Theme (same as root) */
+    /* ViBE Dark Theme (same as root) */
     --background: 0 0% 3%;
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 100%;
 
     --card: 0 0% 7%;
-    --card-foreground: 0 0% 98%;
+    --card-foreground: 0 0% 100%;
 
     --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 98%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 300 100% 50%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 217 100% 50%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 142 100% 50%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 210 8% 46%;
+    --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 64%;
 
-    --accent: 195 100% 50%;
+    --accent: 195 53% 79%;
     --accent-foreground: 0 0% 0%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 0 0% 15%;
     --input: 0 0% 15%;
-    --ring: 300 100% 50%;
+    --ring: 217 100% 50%;
   }
 }
 
@@ -246,13 +247,13 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body), system-ui, sans-serif;
-    background-color: #070707; /* Digital Builders brand background */
-    color: #fafafa; /* Digital Builders primary text */
+    background-color: #070707; /* ViBE brand background */
+    color: #FFFFFF; /* ViBE White */
   }
   
-  /* Digital Builders Typography */
+  /* ViBE Typography */
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading), monospace;
+    font-family: var(--font-heading), system-ui, sans-serif;
     font-weight: 700;
   }
   
@@ -276,7 +277,7 @@
   .card-text {
     font-size: 20px;
     line-height: 1.4;
-    font-family: var(--font-heading), monospace;
+    font-family: var(--font-heading), system-ui, sans-serif;
   }
   
   /* Body text */
@@ -299,9 +300,9 @@
     line-height: 1.5;
   }
   
-  /* Buttons use Space Mono */
+  /* Buttons use Montserrat */
   button {
-    font-family: var(--font-heading), monospace;
+    font-family: var(--font-heading), system-ui, sans-serif;
   }
 }
 
@@ -1016,7 +1017,7 @@ h1 {
 }
 
 /* ============================================ */
-/* ✨ Digital Builders Neon Effects */
+/* ✨ ViBE Neon Effects */
 /* ============================================ */
 
 /* Neon Glow Effect - Use sparingly (1-2 elements per layout) */
@@ -1028,103 +1029,103 @@ h1 {
 }
 
 .neon-glow-primary,
-.neon-glow-magenta {
-  color: #ff00ff;
+.neon-glow-blue {
+  color: #007BFF;
   text-shadow: 
-    0 0 5px rgba(255, 0, 255, 0.8),
-    0 0 10px rgba(255, 0, 255, 0.5),
-    0 0 15px rgba(255, 0, 255, 0.3);
+    0 0 5px rgba(0, 123, 255, 0.8),
+    0 0 10px rgba(0, 123, 255, 0.5),
+    0 0 15px rgba(0, 123, 255, 0.3);
 }
 
 .neon-glow-secondary,
-.neon-glow-green {
-  color: #00ff55;
+.neon-glow-gray {
+  color: #6C757D;
   text-shadow: 
-    0 0 5px rgba(0, 255, 85, 0.8),
-    0 0 10px rgba(0, 255, 85, 0.5),
-    0 0 15px rgba(0, 255, 85, 0.3);
+    0 0 5px rgba(108, 117, 125, 0.8),
+    0 0 10px rgba(108, 117, 125, 0.5),
+    0 0 15px rgba(108, 117, 125, 0.3);
 }
 
-.neon-glow-tertiary,
-.neon-glow-cyan {
-  color: #00c3ff;
+.neon-glow-accent,
+.neon-glow-light-blue {
+  color: #ADD8E6;
   text-shadow: 
-    0 0 5px rgba(0, 195, 255, 0.8),
-    0 0 10px rgba(0, 195, 255, 0.5),
-    0 0 15px rgba(0, 195, 255, 0.3);
+    0 0 5px rgba(173, 216, 230, 0.8),
+    0 0 10px rgba(173, 216, 230, 0.5),
+    0 0 15px rgba(173, 216, 230, 0.3);
 }
 
 /* Neon Box Shadow (for buttons, cards) */
 .neon-shadow-primary,
-.neon-shadow-magenta {
+.neon-shadow-blue {
   box-shadow: 
-    0 0 10px rgba(255, 0, 255, 0.5),
-    0 0 20px rgba(255, 0, 255, 0.3),
-    0 0 30px rgba(255, 0, 255, 0.2);
+    0 0 10px rgba(0, 123, 255, 0.5),
+    0 0 20px rgba(0, 123, 255, 0.3),
+    0 0 30px rgba(0, 123, 255, 0.2);
 }
 
 .neon-shadow-secondary,
-.neon-shadow-green {
+.neon-shadow-gray {
   box-shadow: 
-    0 0 10px rgba(0, 255, 85, 0.5),
-    0 0 20px rgba(0, 255, 85, 0.3),
-    0 0 30px rgba(0, 255, 85, 0.2);
+    0 0 10px rgba(108, 117, 125, 0.5),
+    0 0 20px rgba(108, 117, 125, 0.3),
+    0 0 30px rgba(108, 117, 125, 0.2);
 }
 
-.neon-shadow-tertiary,
-.neon-shadow-cyan {
+.neon-shadow-accent,
+.neon-shadow-light-blue {
   box-shadow: 
-    0 0 10px rgba(0, 195, 255, 0.5),
-    0 0 20px rgba(0, 195, 255, 0.3),
-    0 0 30px rgba(0, 195, 255, 0.2);
+    0 0 10px rgba(173, 216, 230, 0.5),
+    0 0 20px rgba(173, 216, 230, 0.3),
+    0 0 30px rgba(173, 216, 230, 0.2);
 }
 
 /* Brand Button Styles */
 .btn-brand-primary {
-  background-color: #ff00ff;
-  color: #000;
-  font-family: var(--font-heading), monospace;
+  background-color: #007BFF;
+  color: #FFFFFF;
+  font-family: var(--font-heading), system-ui, sans-serif;
   font-weight: 700;
   transition: all 0.2s ease;
 }
 
 .btn-brand-primary:hover {
-  background-color: #ff33ff;
+  background-color: #0056b3;
   box-shadow: 
-    0 0 10px rgba(255, 0, 255, 0.5),
-    0 0 20px rgba(255, 0, 255, 0.3);
+    0 0 10px rgba(0, 123, 255, 0.5),
+    0 0 20px rgba(0, 123, 255, 0.3);
   transform: translateY(-1px);
 }
 
 .btn-brand-secondary {
-  background-color: #00ff55;
-  color: #000;
-  font-family: var(--font-heading), monospace;
+  background-color: #6C757D;
+  color: #FFFFFF;
+  font-family: var(--font-heading), system-ui, sans-serif;
   font-weight: 700;
   transition: all 0.2s ease;
 }
 
 .btn-brand-secondary:hover {
-  background-color: #33ff77;
+  background-color: #5a6268;
   box-shadow: 
-    0 0 10px rgba(0, 255, 85, 0.5),
-    0 0 20px rgba(0, 255, 85, 0.3);
+    0 0 10px rgba(108, 117, 125, 0.5),
+    0 0 20px rgba(108, 117, 125, 0.3);
   transform: translateY(-1px);
 }
 
-.btn-brand-tertiary {
-  background-color: #00c3ff;
-  color: #000;
-  font-family: var(--font-heading), monospace;
+.btn-brand-accent {
+  background-color: #ADD8E6;
+  color: #000000;
+  font-family: var(--font-heading), system-ui, sans-serif;
   font-weight: 700;
   transition: all 0.2s ease;
 }
 
-.btn-brand-tertiary:hover {
-  background-color: #33d0ff;
+.btn-brand-accent:hover {
+  background-color: #8bc5d8;
   box-shadow: 
-    0 0 10px rgba(0, 195, 255, 0.5),
-    0 0 20px rgba(0, 195, 255, 0.3);
+    0 0 10px rgba(173, 216, 230, 0.5),
+    0 0 20px rgba(173, 216, 230, 0.3);
   transform: translateY(-1px);
 }
 

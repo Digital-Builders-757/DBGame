@@ -100,7 +100,7 @@ export default function BuilderSignupForm() {
   if (signupSuccess) {
     return (
       <div className="min-h-screen bg-brand-background pt-4 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-60" />
 
         <div className="container mx-auto px-4 py-4 sm:py-6 md:py-8 relative z-10">
           <Link
@@ -111,13 +111,13 @@ export default function BuilderSignupForm() {
             Back to home
           </Link>
 
-          <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-magenta/20 overflow-hidden backdrop-blur-sm">
-            <div className="h-1 bg-gradient-to-r from-brand-magenta via-brand-cyan to-brand-green" />
+          <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-blue/20 overflow-hidden backdrop-blur-sm">
+            <div className="h-1 bg-gradient-to-r from-brand-blue via-brand-light-blue to-brand-gray" />
             <div className="p-4 sm:p-6 md:p-8 space-y-6">
               <div className="text-center space-y-4">
                 <div className="flex justify-center">
-                  <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="h-8 w-8 text-brand-green" />
+                  <div className="w-16 h-16 bg-brand-blue/20 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="h-8 w-8 text-brand-blue" />
                   </div>
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-bold text-brand-text-primary">
@@ -127,7 +127,7 @@ export default function BuilderSignupForm() {
                   We&apos;ve sent a verification link to <strong>{email}</strong>
                 </p>
                 <p className="text-sm text-brand-text-secondary">
-                  Click the link in the email to verify your account and start building.
+                  Click the link in the email to verify your account and get started.
                 </p>
               </div>
 
@@ -146,7 +146,7 @@ export default function BuilderSignupForm() {
   return (
     <div className="min-h-screen bg-brand-background pt-4 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24 relative overflow-hidden">
       {/* Subtle gradient background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-60" />
 
       <div className="container mx-auto px-4 py-4 sm:py-6 md:py-8 relative z-10">
         <Link
@@ -157,21 +157,21 @@ export default function BuilderSignupForm() {
           Back to home
         </Link>
 
-        <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-magenta/20 overflow-hidden backdrop-blur-sm">
-          <div className="h-1 bg-gradient-to-r from-brand-magenta via-brand-cyan to-brand-green" />
+        <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-blue/20 overflow-hidden backdrop-blur-sm">
+          <div className="h-1 bg-gradient-to-r from-brand-blue via-brand-light-blue to-brand-gray" />
           <div className="p-4 sm:p-6 md:p-8 space-y-6">
             <div className="text-center space-y-3">
               <div className="font-mono text-3xl font-bold">
-                <span className="text-brand-green">{"{"}</span>
-                <span className="text-brand-cyan">bl</span>
-                <span className="text-brand-green">{"}"}</span>
-                <span className="text-brand-magenta">;</span>
+                <span className="text-brand-gray">{"{"}</span>
+                <span className="text-brand-light-blue">Vi</span>
+                <span className="text-brand-gray">{"}"}</span>
+                <span className="text-brand-blue">;</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-bold text-brand-text-primary">
-                Create Your Builder Account
+                Create Your ViBE Account
               </h1>
               <p className="text-sm sm:text-base text-brand-text-secondary">
-                Join Digital Builders to RSVP to events, check in, and build your reputation.
+                Join ViBE to RSVP to events, check in, and track your attendance.
               </p>
             </div>
 
@@ -243,7 +243,7 @@ export default function BuilderSignupForm() {
                     }}
                     required
                     minLength={6}
-                    className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary pr-10 ${formErrors.password ? "border-red-500" : ""}`}
+                    className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue text-base placeholder:text-brand-text-secondary pr-10 ${formErrors.password ? "border-red-500" : ""}`}
                   />
                   <button
                     type="button"
@@ -268,27 +268,27 @@ export default function BuilderSignupForm() {
                   placeholder="How should we call you?"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary"
+                  className="bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue text-base placeholder:text-brand-text-secondary"
                 />
                 <p className="text-xs text-brand-text-secondary">
-                  This will appear on your Builder Card. If left blank, we&apos;ll use your email username.
+                  This will appear on your Event Pass. If left blank, we&apos;ll use your email username.
                 </p>
               </div>
 
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-brand-primary neon-shadow-magenta"
+                className="w-full btn-brand-primary neon-shadow-blue"
                 loading={isLoading}
                 loadingText="Creating account..."
               >
-                {isLoading ? "Creating account..." : "Create Builder Account"}
+                {isLoading ? "Creating account..." : "Create ViBE Account"}
               </Button>
             </form>
 
             <div className="text-center text-sm text-brand-text-secondary">
               Already have an account?{" "}
-              <Link href="/login" className="text-brand-magenta hover:text-brand-cyan transition-colors">
+              <Link href="/login" className="text-brand-blue hover:text-brand-light-blue transition-colors">
                 Sign in
               </Link>
             </div>

@@ -58,13 +58,13 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     ];
 
     if (user && userRole) {
-      if (userRole === "builder") {
+      if (userRole === "user" || userRole === "client") {
         commands.push(
           {
             icon: User,
-            label: "Builder Card",
-            description: "View your builder card",
-            action: () => router.push("/builder-card"),
+            label: "Event Pass",
+            description: "View your event pass",
+            action: () => router.push("/event-pass"),
             shortcut: "B",
           },
           {
@@ -75,24 +75,9 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             shortcut: "P",
           }
         );
-      } else if (userRole === "mentor") {
-        commands.push(
-          {
-            icon: User,
-            label: "Builder Card",
-            description: "View your builder card",
-            action: () => router.push("/builder-card"),
-            shortcut: "B",
-          },
-          {
-            icon: User,
-            label: "Profile",
-            description: "Update your profile",
-            action: () => router.push("/profile"),
-            shortcut: "P",
-          }
-        );
-      } else if (userRole === "admin") {
+      }
+      
+      if (userRole === "admin") {
         commands.push(
           {
             icon: LayoutDashboard,

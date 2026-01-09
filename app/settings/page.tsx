@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { ProfileEditor } from "./profile-editor";
 import { PrefetchLink } from "@/components/ui/prefetch-link";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
@@ -35,7 +35,7 @@ export default async function SettingsPage() {
     redirect("/login");
   }
 
-  // Fetch profile data - Digital Builders uses simplified profile structure
+  // Fetch profile data - ViBE uses simplified profile structure
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { data: profile } = await (supabase as any)
     .from("profiles")
@@ -60,7 +60,7 @@ export default async function SettingsPage() {
     avatarSrc = signed?.signedUrl ?? null;
   }
 
-  // Digital Builders doesn't use portfolio items - simplified profile structure
+  // ViBE doesn't use portfolio items - simplified profile structure
 
   return (
     <div className="min-h-screen bg-black">

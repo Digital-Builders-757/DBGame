@@ -132,7 +132,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-brand-background pt-4 sm:pt-12 md:pt-16 lg:pt-20 xl:pt-24 relative overflow-hidden">
       {/* Subtle gradient background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-60" />
       
       <div className="container mx-auto px-4 py-4 sm:py-6 md:py-8 relative z-10">
         <Link href="/" className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-4 sm:mb-6 md:mb-6 transition-colors">
@@ -140,26 +140,26 @@ export default function Login() {
           Back to home
         </Link>
 
-        <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-magenta/20 overflow-hidden backdrop-blur-sm">
-          <div className="h-1 bg-gradient-to-r from-brand-magenta via-brand-cyan to-brand-green" />
+        <div className="max-w-md mx-auto bg-brand-card border border-brand-border rounded-2xl shadow-2xl shadow-brand-blue/20 overflow-hidden backdrop-blur-sm">
+          <div className="h-1 bg-gradient-to-r from-brand-blue via-brand-light-blue to-brand-gray" />
           <div className="p-4 sm:p-6 md:p-8 space-y-6">
             <div className="text-center space-y-3">
               <div className="font-mono text-3xl font-bold">
-                <span className="text-brand-green">{"{"}</span>
-                <span className="text-brand-cyan">bl</span>
-                <span className="text-brand-green">{"}"}</span>
-                <span className="text-brand-magenta">;</span>
+                <span className="text-brand-gray">{"{"}</span>
+                <span className="text-brand-light-blue">Vi</span>
+                <span className="text-brand-gray">{"}"}</span>
+                <span className="text-brand-blue">;</span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-brand-text-primary">Welcome Back, Builder</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-brand-text-primary">Welcome Back</h1>
               <p className="text-sm sm:text-base text-brand-text-secondary">
-                Sign in to your Digital Builders account. You need a Builder Account to attend events.
+                Sign in to your ViBE account. You need a ViBE account to attend events.
               </p>
             </div>
 
             {verified && (
-              <Alert className="bg-brand-green/10 border-brand-green/40 mb-6">
-                <CheckCircle2 className="h-4 w-4 text-brand-green" />
-                <AlertTitle className="text-brand-green">Email verified successfully!</AlertTitle>
+              <Alert className="bg-brand-blue/10 border-brand-blue/40 mb-6">
+                <CheckCircle2 className="h-4 w-4 text-brand-blue" />
+                <AlertTitle className="text-brand-blue">Email verified successfully!</AlertTitle>
                 <AlertDescription className="text-brand-text-primary">
                   You can now log in to your account.
                 </AlertDescription>
@@ -200,7 +200,7 @@ export default function Login() {
                     }
                   }}
                   required
-                  className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary ${formErrors.email ? "border-red-500" : ""}`}
+                  className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue text-base placeholder:text-brand-text-secondary ${formErrors.email ? "border-red-500" : ""}`}
                 />
                 {formErrors.email && (
                   <p className="text-sm text-red-400 mt-1">{formErrors.email}</p>
@@ -240,7 +240,7 @@ export default function Login() {
                       }
                     }}
                     required
-                    className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-magenta focus:ring-brand-magenta text-base placeholder:text-brand-text-secondary ${formErrors.password ? "border-red-500" : ""}`}
+                    className={`bg-brand-card text-brand-text-primary border-brand-border focus:border-brand-blue focus:ring-brand-blue text-base placeholder:text-brand-text-secondary ${formErrors.password ? "border-red-500" : ""}`}
                   />
                   <button
                     type="button"
@@ -257,7 +257,7 @@ export default function Login() {
 
               <Button
                 type="submit"
-                className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 font-semibold transition-all duration-200 border-0 shadow-lg hover:shadow-xl neon-shadow-magenta"
+                className="w-full bg-brand-blue text-white hover:bg-brand-blue/90 font-semibold transition-all duration-200 border-0 shadow-lg hover:shadow-xl neon-shadow-blue"
                 disabled={isLoading}
               >
                 {isLoading ? (
@@ -278,7 +278,7 @@ export default function Login() {
                   <div className="w-full border-t border-gray-800"></div>
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-brand-card px-2 text-brand-text-secondary">New to Digital Builders?</span>
+                  <span className="bg-brand-card px-2 text-brand-text-secondary">New to ViBE?</span>
                 </div>
               </div>
             </div>
@@ -289,7 +289,7 @@ export default function Login() {
                   Don&apos;t have an account?{" "}
                   <Link
                     href={returnUrl ? `/create-account?returnUrl=${returnUrl}` : "/create-account"}
-                    className="text-brand-magenta font-medium hover:text-brand-text-primary inline-block transition-colors"
+                    className="text-brand-blue font-medium hover:text-brand-text-primary inline-block transition-colors"
                   >
                     Create an account →
                   </Link>

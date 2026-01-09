@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ArrowLeft, Mail, CheckCircle2, AlertTriangle } from "lucide-react";
 import Link from "next/link";
@@ -94,18 +94,18 @@ export default function VerificationPendingPage() {
 
   return (
     <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-70" />
       <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
         <Link href="/" className="inline-flex items-center text-brand-text-secondary hover:text-brand-text-primary mb-8 transition-colors">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Home
         </Link>
 
-        <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+        <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-blue/20">
           <Card className="bg-transparent border-none shadow-none">
             <CardHeader className="space-y-3">
-              <div className="w-16 h-16 bg-brand-magenta/15 border border-brand-magenta/30 rounded-full mx-auto flex items-center justify-center">
-                <Mail className="h-8 w-8 text-brand-magenta" />
+              <div className="w-16 h-16 bg-brand-blue/15 border border-brand-blue/30 rounded-full mx-auto flex items-center justify-center">
+                <Mail className="h-8 w-8 text-brand-blue" />
               </div>
               <CardTitle className="text-center text-brand-text-primary">Verify your email</CardTitle>
               <CardDescription className="text-center text-brand-text-secondary">
@@ -118,8 +118,8 @@ export default function VerificationPendingPage() {
               </p>
 
               {emailStatus === "sent" && (
-                <Alert className="bg-brand-green/10 border-brand-green/40">
-                  <CheckCircle2 className="h-4 w-4 text-brand-green" />
+                <Alert className="bg-brand-blue/10 border-brand-blue/40">
+                  <CheckCircle2 className="h-4 w-4 text-brand-blue" />
                   <AlertDescription className="text-brand-text-primary">
                     {justSent
                       ? "Verification email has been resent successfully!"
@@ -129,8 +129,8 @@ export default function VerificationPendingPage() {
               )}
 
               {emailStatus === "error" && (
-                <Alert className="bg-brand-cyan/10 border-brand-cyan/40">
-                  <AlertTriangle className="h-4 w-4 text-brand-cyan" />
+                <Alert className="bg-brand-light-blue/10 border-brand-light-blue/40">
+                  <AlertTriangle className="h-4 w-4 text-brand-light-blue" />
                   <AlertDescription className="text-brand-text-primary">
                     There was an issue sending the verification email. Please try again or contact support.
                   </AlertDescription>
@@ -141,19 +141,19 @@ export default function VerificationPendingPage() {
                 <h4 className="font-medium mb-2 text-brand-text-primary">Didn&apos;t receive the email?</h4>
                 <ul className="text-sm text-brand-text-secondary space-y-2">
                   <li className="flex items-start">
-                    <span className="text-brand-green mr-2">•</span>
+                    <span className="text-brand-blue mr-2">•</span>
                     Check your spam or junk folder
                   </li>
                   <li className="flex items-start">
-                    <span className="text-brand-green mr-2">•</span>
+                    <span className="text-brand-blue mr-2">•</span>
                     Make sure you entered the correct email address
                   </li>
                   <li className="flex items-start">
-                    <span className="text-brand-green mr-2">•</span>
+                    <span className="text-brand-blue mr-2">•</span>
                     Wait a few minutes for the email to arrive
                   </li>
                   <li className="flex items-start">
-                    <span className="text-brand-green mr-2">•</span>
+                    <span className="text-brand-blue mr-2">•</span>
                     If you still don&apos;t see it, try clicking the resend button below
                   </li>
                 </ul>
@@ -172,7 +172,7 @@ export default function VerificationPendingPage() {
                 Already verified?{" "}
                 <Link
                   href="/login"
-                  className="text-brand-magenta font-semibold hover:text-brand-text-primary hover:underline transition-colors"
+                  className="text-brand-blue font-semibold hover:text-brand-text-primary hover:underline transition-colors"
                 >
                   Sign in
                 </Link>

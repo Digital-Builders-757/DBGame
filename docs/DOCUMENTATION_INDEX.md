@@ -1,8 +1,8 @@
-# TOTL Agency - Documentation Index
+# ViBE Platform - Documentation Index
 
-**Last Updated:** November 18, 2025
+**Last Updated:** January 2026
 
-This document provides a complete index of all documentation in the TOTL Agency project, organized by category for easy navigation.
+This document provides a complete index of all documentation in the ViBE platform project, organized by category for easy navigation.
 
 ---
 
@@ -56,6 +56,17 @@ All other documentation has been organized into the `docs/` folder.
 - `SCHEMA_SYNC_COMPLETE_OCT_23_2025.md` - **NEW** ✅ - Complete schema synchronization summary (Oct 23, 2025)
 - `SQL_RLS_POLICY_CREATION_GUIDE.md` - **🚨 CRITICAL** - PostgreSQL RLS policy creation guide (Nov 2025)
 - `TYPES_GENERATION_FIX.md` - **✅ NEW** - Types generation pipeline fix: UTF-8 encoding, canonical file migration (Dec 2025)
+
+### **🌊 ViBE Migration & Branding**
+- `VIBE_MIGRATION_PLAN.md` - 🌊 **NEW** - Complete migration plan from Digital Builders to ViBE (Jan 2026)
+- `VIBE_PHASES_5_9_EXECUTION_PLAN.md` - 📋 **NEW** - Execution plan for Phases 5-9 (MVP+ enhancements) (Jan 2026)
+- `VIBE_CURRENT_STATE.md` - 📊 **NEW** - Current state summary and launch readiness (Jan 2026)
+- `VIBE_PHASE5_EXECUTION_PLAN.md` - 🎯 **NEW** - Phase 5 execution plan (brand polish) (Jan 2026)
+- `VIBE_PHASE5_TACTICAL_RUNBOOK.md` - 📖 **NEW** - Phase 5 tactical runbook (Jan 2026)
+- `VIBE_PHASE5_COMPLETION_SUMMARY.md` - ✅ **NEW** - Phase 5 completion summary (Jan 2026)
+- `VIBE_REBRAND_AUDIT.md` - 🔍 **NEW** - Comprehensive rebrand audit and completion status (Jan 2026)
+- `VIBE_BRAND_UPDATE_TRACKER.md` - 📝 **NEW** - Brand update progress tracker (Jan 2026)
+- `SESSION_SUMMARY_PHASE5.md` - 📋 **NEW** - Phase 5 session summary (Jan 2026)
 
 ### **🎨 Features & Implementation**
 - `STATUS_BADGE_SYSTEM.md` - 🎨 **NEW** - Comprehensive status badge system with 25+ variants (Nov 2025)

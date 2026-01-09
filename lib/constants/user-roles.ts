@@ -1,9 +1,9 @@
 /**
  * User Role Constants and Utilities
- * Digital Builders user role definitions
+ * VIBE user role definitions
  */
 
-export type UserRole = "admin" | "user";
+export type UserRole = "admin" | "user" | "client";
 
 /**
  * Get display name for a user role
@@ -16,6 +16,8 @@ export function getRoleDisplayName(role: string | null | undefined): string {
       return "Admin";
     case "user":
       return "User";
+    case "client":
+      return "Client";
     default:
       return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
   }

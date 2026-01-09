@@ -1,14 +1,14 @@
-﻿"use client";
+"use client";
 
 import { User } from "@supabase/supabase-js";
 import { useState } from "react";
 import { AvatarUpload } from "./avatar-upload";
 import { AccountSettingsSection } from "./sections/account-settings";
 import { BasicInfoSection } from "./sections/basic-info";
-// Digital Builders uses simplified profile structure (no talent/client split)
+// ViBE uses simplified profile structure (no talent/client split)
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-// Temporary type until Digital Builders schema is created
+// Temporary type until ViBE schema is finalized
 type Profile = {
   id: string;
   role: string;
