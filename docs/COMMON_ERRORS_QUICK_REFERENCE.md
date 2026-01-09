@@ -20,6 +20,17 @@ npm run build
 - `@/types/supabase` (CORRECT)
 
 ## **3. COMMON ERRORS TO AVOID**
+
+- **Supabase CLI Unauthorized in GitHub Actions:** `Unexpected error retrieving remote project status: {"message":"Unauthorized"}`
+  - **Root Cause:** Missing or invalid `SUPABASE_ACCESS_TOKEN` secret, or PR from fork (secrets not available)
+  - **Fix:** 
+    1. Ensure `SUPABASE_ACCESS_TOKEN` is set in GitHub Secrets (Settings → Secrets → Actions)
+    2. Token must be from account with access to the project (get from https://supabase.com/dashboard/account/tokens)
+    3. Ensure `SUPABASE_PROJECT_ID` is also set in GitHub Secrets
+    4. Workflow now skips for fork PRs automatically (expected behavior)
+    5. Token must be explicitly passed as env var: `env: SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}`
+  - **Prevention:** Workflow includes fork check, credential verification step, and explicit env var passing to all Supabase CLI commands
+  - **Note:** Fork PRs will skip Supabase steps gracefully - this is expected and not an error
 - **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
   - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
   - **Note:** Types are now generated to `types/supabase.ts` (canonical file). `types/database.ts` is a backwards-compatibility re-export.
