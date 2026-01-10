@@ -31,7 +31,7 @@ import { getRoleDisplayName } from "@/lib/constants/user-roles";
 
 type UserProfile = {
   id: string;
-  role: "admin" | "builder" | "mentor" | null;
+  role: "admin" | "user" | "client" | null;
   display_name: string | null;
   avatar_url: string | null;
   avatar_path: string | null;
@@ -55,10 +55,10 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
     // Filter by role based on active tab
     if (activeTab === "admins") {
       filtered = filtered.filter((u) => u.role === "admin");
-    } else if (activeTab === "builders") {
-      filtered = filtered.filter((u) => u.role === "builder");
-    } else if (activeTab === "mentors") {
-      filtered = filtered.filter((u) => u.role === "mentor");
+    } else if (activeTab === "users") {
+      filtered = filtered.filter((u) => u.role === "user");
+    } else if (activeTab === "clients") {
+      filtered = filtered.filter((u) => u.role === "client");
     }
     // "all" tab shows everyone
 
@@ -78,17 +78,17 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
 
   // Group by role for stats
   const adminUsers = initialUsers.filter((u) => u.role === "admin");
-  const builderUsers = initialUsers.filter((u) => u.role === "builder");
-  const mentorUsers = initialUsers.filter((u) => u.role === "mentor");
+  const userUsers = initialUsers.filter((u) => u.role === "user");
+  const clientUsers = initialUsers.filter((u) => u.role === "client");
 
   const getRoleIcon = (role: string | null) => {
     if (!role) return null;
     switch (role) {
       case "admin":
         return <Shield className="h-4 w-4 text-purple-400" />;
-      case "mentor":
-        return <Users className="h-4 w-4 text-blue-400" />;
-      case "builder":
+      case "client":
+        return <Briefcase className="h-4 w-4 text-blue-400" />;
+      case "user":
         return <UserIcon className="h-4 w-4 text-green-400" />;
       default:
         return <UserIcon className="h-4 w-4 text-gray-400" />;
@@ -104,16 +104,16 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
             Admin
           </Badge>
         );
-      case "mentor":
+      case "client":
         return (
           <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/50">
-            Mentor
+            Client
           </Badge>
         );
-      case "builder":
+      case "user":
         return (
           <Badge className="bg-green-500/20 text-green-400 border-green-500/50">
-            Builder
+            User
           </Badge>
         );
       default:
@@ -136,10 +136,10 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
           </div>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-lg font-medium">
-              {builderUsers.length} Builders
+              {userUsers.length} Users
             </div>
             <div className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-4 py-2 rounded-lg font-medium">
-              {mentorUsers.length} Mentors
+              {clientUsers.length} Clients
             </div>
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium">
               {adminUsers.length} Admins
@@ -191,16 +191,16 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
                   All ({initialUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
-                  value="builders"
+                  value="users"
                   className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
                 >
-                  Builders ({builderUsers.length})
+                  Users ({userUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
-                  value="mentors"
+                  value="clients"
                   className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white text-gray-300 hover:text-white transition-all duration-200"
                 >
-                  Mentors ({mentorUsers.length})
+                  Clients ({clientUsers.length})
                 </TabsTrigger>
                 <TabsTrigger
                   value="admins"
@@ -318,13 +318,13 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
               )}
             </TabsContent>
 
-            <TabsContent value="builders" className="p-0">
+            <TabsContent value="users" className="p-0">
               {filteredUsers.length === 0 ? (
                 <div className="text-center py-16">
                   <div className="w-20 h-20 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
                     <UserIcon className="h-10 w-10 text-green-400" />
                   </div>
-                  <p className="text-gray-400 text-lg">No builders found</p>
+                  <p className="text-gray-400 text-lg">No users found</p>
                 </div>
               ) : (
                 <div className="divide-y divide-gray-700">
@@ -367,13 +367,13 @@ export function AdminUsersClient({ users: initialUsers }: AdminUsersClientProps)
               )}
             </TabsContent>
 
-            <TabsContent value="mentors" className="p-0">
+            <TabsContent value="clients" className="p-0">
               {filteredUsers.length === 0 ? (
                 <div className="text-center py-16">
                   <div className="w-20 h-20 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full mx-auto flex items-center justify-center mb-6">
                     <Users className="h-10 w-10 text-blue-400" />
                   </div>
-                  <p className="text-gray-400 text-lg">No mentors found</p>
+                  <p className="text-gray-400 text-lg">No clients found</p>
                 </div>
               ) : (
                 <div className="divide-y divide-gray-700">

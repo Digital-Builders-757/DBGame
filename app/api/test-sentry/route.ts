@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     switch (testType) {
       case "error": {
         // Throw an unhandled error (will be caught by Sentry's error handler)
-        const testError = new Error("🧪 Server-side test error from Digital Builders API - This should appear in Sentry!");
+        const testError = new Error("🧪 Server-side test error from ViBE API - This should appear in Sentry!");
         // Explicitly capture it to ensure it's sent
         const eventId = Sentry.captureException(testError, {
           tags: {

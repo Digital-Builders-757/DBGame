@@ -1,4 +1,4 @@
-// Fallback DSN - should be replaced with actual Digital Builders Sentry project DSN
+// Fallback DSN - should be replaced with actual ViBE Sentry project DSN
 // Set SENTRY_DSN_DEV or SENTRY_DSN_PROD in .env.local to configure Sentry
 const FALLBACK_DSN = process.env.SENTRY_DSN_DEV || process.env.SENTRY_DSN_PROD || null;
 

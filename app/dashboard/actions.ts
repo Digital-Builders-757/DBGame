@@ -1,4 +1,4 @@
-﻿"use server";
+"use server";
 
 import { revalidatePath } from "next/cache";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
@@ -35,4 +35,4 @@ export async function updateProfile(formData: FormData) {
   return { success: true };
 }
 
-// Digital Builders - No talent profiles needed, all data in profiles table
+// ViBE - No talent profiles needed, all data in profiles table

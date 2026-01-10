@@ -43,7 +43,7 @@ export default function EventCard({ event }: { event: EventListItem }) {
         {event.slug ? (
           <Link
             href={`/events/${event.slug}`}
-            className="btn-brand-primary px-6 py-2 rounded-xl text-sm font-medium neon-shadow-magenta whitespace-nowrap"
+            className="btn-brand-primary px-6 py-2 rounded-xl text-sm font-medium neon-shadow-blue whitespace-nowrap"
           >
             RSVP
           </Link>

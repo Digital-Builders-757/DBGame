@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, type BadgeProps } from "@/components/ui/badge";
 
-// Temporary types until Digital Builders schema is created
+// Temporary types until ViBE schema is finalized
 type GigStatus = string;
 type ApplicationStatus = string;
 type BookingStatus = string;
@@ -244,7 +244,7 @@ export function MentorApplicationStatusBadge({
   status,
   showIcon = true,
   ...props
-}: ClientApplicationStatusBadgeProps) {
+}: MentorApplicationStatusBadgeProps) {
   const normalizedStatus = status.toLowerCase().replace(/\s+/g, "_");
   const variant = normalizedStatus as BadgeProps["variant"];
   const icon = showIcon ? Icons[normalizedStatus as keyof typeof Icons] : null;

@@ -8,10 +8,9 @@ export default function ProjectOverview() {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
           <div className="mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">Digital Builders Project Overview</h1>
+            <h1 className="text-4xl font-bold mb-4">ViBE Platform Overview</h1>
             <p className="text-gray-600 max-w-3xl mx-auto">
-              Use this page to navigate between different parts of the application during your
-              presentation.
+              Navigate between different parts of the ViBE platform.
             </p>
           </div>
 
@@ -20,7 +19,7 @@ export default function ProjectOverview() {
               <CardHeader>
                 <CardTitle>Events Portal</CardTitle>
                 <CardDescription>
-                  Browse and RSVP to Digital Builders events
+                  Browse and RSVP to ViBE events
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -32,14 +31,14 @@ export default function ProjectOverview() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Builder Card</CardTitle>
+                <CardTitle>Event Pass</CardTitle>
                 <CardDescription>
-                  View your builder card with XP and badges
+                  View your Event Pass with attendance history
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild className="w-full bg-black text-white hover:bg-black/90">
-                  <Link href="/builder-card">View Builder Card</Link>
+                  <Link href="/event-pass">View Event Pass</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -73,7 +72,7 @@ export default function ProjectOverview() {
             <Card>
               <CardHeader>
                 <CardTitle>Sign Up</CardTitle>
-                <CardDescription>Create a builder account</CardDescription>
+                <CardDescription>Create a ViBE account</CardDescription>
               </CardHeader>
               <CardContent>
                 <Button asChild variant="outline" className="w-full">

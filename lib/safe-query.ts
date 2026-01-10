@@ -1,10 +1,10 @@
-﻿// Digital Builders - Types simplified until schema is created
+// ViBE - Safe query wrapper
 
 /**
  * Safe query wrapper for Supabase operations
  * Provides consistent error handling and logging
  *
- * This file will be updated as Digital Builders schema is created.
+ * ViBE platform query helpers
  */
 
 export async function safe<T>(promise: Promise<{ data: T; error: unknown }>): Promise<T> {
@@ -64,7 +64,7 @@ export async function safeUpdate<T>(
 
 /**
  * A utility to create safe Supabase queries
- * Add Digital Builders specific queries here as schema is created
+ * Add ViBE specific queries here as needed
  */
 export const safeQuery = {
   /**
@@ -80,7 +80,7 @@ export const safeQuery = {
       .maybeSingle();
   },
 
-  // Digital Builders specific queries (to be added)
+  // ViBE specific queries (to be added)
   // Example:
   // getCharacterByUserId: async (supabase: SupabaseClient<Database>, userId: string) => {
   //   return await supabase

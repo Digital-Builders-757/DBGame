@@ -1,9 +1,8 @@
-﻿/**
+/**
  * Canonical column selection helpers for Supabase queries
  * Use these to ensure consistent column selection across the app
  *
- * This file will be updated as Digital Builders schema is created.
- * Currently empty - add your game-specific selects here.
+ * ViBE platform column selections
  */
 
 // Core table selections
@@ -17,7 +16,7 @@ export const selectProfile = [
   "updated_at",
 ].join(",");
 
-// Digital Builders specific selects (to be added)
+// ViBE specific selects
 // Example:
 // export const selectCharacter = [
 //   "id",

@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { AdminUsersClient } from "./admin-users-client";
 import { createSupabaseServer } from "@/lib/supabase/supabase-server";
 
-// Temporary type until Digital Builders schema is created
+// Temporary type until ViBE schema is finalized
 type ProfileRow = {
   role: string;
 };

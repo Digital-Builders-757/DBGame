@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 type ProfileRow = {
-  role: "builder" | "mentor" | "admin" | null;
+  role: "user" | "client" | "admin" | null;
   is_suspended?: boolean | null;
 };
 
@@ -42,6 +42,11 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
 
   if (isAssetOrApi(path)) return res;
+
+  // Redirect old route to new route (temporary, 1-2 releases)
+  if (path === "/builder-card") {
+    return NextResponse.redirect(new URL("/event-pass", req.url));
+  }
 
   const returnUrl = safeReturnUrl(req.nextUrl.searchParams.get("returnUrl"));
 
@@ -98,7 +103,12 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/suspended", req.url));
   }
 
-  const isAdmin = profile?.role === "admin";
+  // After Phase 2 migration: all 'builder' roles converted to 'user', all 'mentor' to 'client'
+  // Code assumes 'user' | 'client' | 'admin' only (no transitional support needed)
+  const userRole = profile?.role;
+  const isAdmin = userRole === "admin";
+  const isClient = userRole === "client";
+  const isUser = userRole === "user";
 
   // Admin routes require admin
   if (needsAdminAccess(path) && !isAdmin) {

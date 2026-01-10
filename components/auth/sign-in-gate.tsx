@@ -111,7 +111,7 @@ export function SignInGate({ variant, className = "" }: SignInGateProps) {
                   href={config.learnMoreHref}
                   className="text-xs text-gray-400 hover:text-gray-300 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 rounded-sm sm:text-sm"
                 >
-                  Learn more about Digital Builders
+                  Learn more about ViBE
                 </Link>
               </div>
             </div>

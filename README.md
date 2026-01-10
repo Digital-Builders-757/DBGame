@@ -1,6 +1,6 @@
-# Digital Builders World
+# ViBE – Virginia Isn't Boring Experiences
 
-**v1: Event Portal + Builder Card**
+**v1: Event Discovery + Event Pass**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -10,23 +10,24 @@
 
 ## 🌟 Overview
 
-**Digital Builders World – v1: Event Portal + Builder Card**
+**ViBE – v1: Event Discovery + Event Pass**
 
 v1 lets people:
-- create an account,
-- RSVP to Digital Builders events,
+- create a ViBE account,
+- discover and RSVP to local events,
 - get checked in at the door,
-- and see a simple Builder Card with XP/badges.
+- and view a simple Event Pass tied to their activity.
 
 **If it's not in that sentence, it's not in v1.**
 
 ### ✨ Key Features
 
-- 🔐 **Account Creation** - Supabase Auth for Builder accounts
-- 📅 **Event Portal** - Browse and RSVP to Digital Builders events
-- ✅ **Check-In System** - Admin check-in at events
-- 🎴 **Builder Card** - Display name, XP total, basic badges
-- 📊 **XP Tracking** - Log XP from event attendance and activities
+- 🔐 **Account Creation** - Supabase Auth for ViBE accounts
+- 📅 **Event Portal** - Browse and RSVP to ViBE events
+- ✅ **Check-In System** - Admin/Client check-in at events
+- 🎴 **Event Pass** - Display name, attendance history, last event attended
+- 📊 **Attendance Tracking** - Track events attended and check-ins
+- 🎯 **Organizer Tools** - Clients can create and manage events
 
 ---
 
@@ -56,7 +57,7 @@ v1 lets people:
 ```bash
 # 1. Clone the repository
 git clone <repository-url>
-cd digital-builders-game
+cd vibe-platform
 
 # 2. Install dependencies
 npm install
@@ -117,11 +118,10 @@ npm run verify-all       # Run all verification checks
 
 The Event Portal uses a PostgreSQL database with the following core tables:
 
-- `profiles` - Builder profiles (one per auth user)
-- `events` - Events people can attend
+- `profiles` - VIBE user profiles (one per auth user)
+- `events` - Featured events
 - `tickets` - RSVP/attendance records
-- `xp_transactions` - XP earning log
-- `builder_cards` - View for Builder Card display
+- `event_pass_view` - View for Event Pass display
 
 ### 🔐 Authentication Flow
 
@@ -134,21 +134,21 @@ The Event Portal uses a PostgreSQL database with the following core tables:
 ## 📁 Project Structure
 
 ```
-digital-builders-game/
+vibe-platform/
 ├── app/                    # Next.js App Router pages
 │   ├── auth/              # Authentication pages
 │   ├── events/            # Events portal
-│   │   ├── [id]/         # Event detail page
+│   │   ├── [slug]/       # Event detail page
 │   │   └── page.tsx      # Events list
 │   ├── admin/             # Admin pages
 │   │   └── check-in/     # Check-in system
-│   ├── builder-card/      # Builder Card page
+│   ├── event-pass/        # Event Pass page
 │   └── api/               # API routes
 ├── components/            # React components
 │   ├── ui/                # shadcn/ui components
 │   ├── auth/              # Authentication components
 │   ├── events/            # Event-related components
-│   └── builder-card/      # Builder Card components
+│   └── event-pass/       # Event Pass components
 ├── lib/                   # Utility functions
 │   ├── supabase/          # Supabase client helpers
 │   └── utils/             # General utilities
@@ -162,24 +162,28 @@ digital-builders-game/
 ## 🎮 MVP Features
 
 ### Event Portal
-- Browse upcoming Digital Builders events
+- Browse upcoming ViBE events
 - RSVP to events (free or paid-later manually)
 - Cancel RSVP
 - View event details
 
 ### Check-In System
-- Admin check-in page
+- Admin/Client check-in page
 - Search by email/name
 - Check-in at door (update ticket status)
 - View attendance list
 
-### Builder Card
+### Organizer (Client) Features
+- Create and manage events
+- View tickets for own events
+- Check-in attendees at own events
+
+### Event Pass
 - Display name/handle
-- XP total (from xp_transactions)
-- Builder level (simple formula)
+- Events attended count
 - Region
-- Last event attended
-- Basic badges (fake/manual at first)
+- Last event attended (checked_in status)
+- User identity information
 
 ---
 
@@ -188,9 +192,10 @@ digital-builders-game/
 ### 🛡️ Row-Level Security (RLS)
 
 All database tables implement comprehensive RLS policies:
-- Users can only access their own character data
-- Players can view online players in their district
-- All game logic runs server-side
+- **Users** (`user` role): Can read their own profiles and tickets, RSVP to events
+- **Clients** (`client` role): Can create/manage their own events, view/check-in tickets for own events
+- **Admins** (`admin` role): Full system access, can manage all events and users
+- **Public**: Published events are visible to all
 
 ### 🔑 Authentication Security
 
@@ -232,19 +237,23 @@ vercel --prod
 
 ## 🎯 MVP Status
 
-**v1 MVP: Event Portal + Builder Card**
+**v1 MVP: Event Discovery + Event Pass** ✅ **COMPLETE**
 - ✅ Email/password authentication (Supabase)
+- ✅ Role system (`user`, `client`, `admin`)
 - ✅ Event Portal (RSVP, check-in)
-- ✅ Builder Card (XP, badges)
+- ✅ Event Pass (attendance history via `event_pass_view`)
+- ✅ Client role features (event creation, ticket scanning)
 - ✅ No wallet connection required
-- ✅ No Solana dependencies
-- ✅ No PVP, no crypto yet
+- ✅ No gamification (XP, levels, badges removed)
+- ✅ Simple event discovery and attendance tracking
+- ✅ ViBE brand identity (colors, typography, naming)
 
-**v2+ Future Integration:**
-- ⏳ Game systems (jobs, actions, PVP-lite)
-- ⏳ Solana wallet connection (optional)
-- ⏳ On-chain tokens (DB Cred → SPL token)
-- ⏳ NFT achievements
+**Next Phases (v1.1+):**
+- ⏳ Phase 5: Product polish & identity cleanup
+- ⏳ Phase 6: Enhanced event discovery
+- ⏳ Phase 7: Organizer experience improvements
+- ⏳ Phase 8: Trust & safety basics
+- ⏳ Phase 9: Metrics & readiness
 
 ---
 
@@ -287,14 +296,14 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 <div align="center">
 
-## 🌟 **Built for the Creative Tech Community**
+## 🌟 **Built for Virginia's Creative Tech Community**
 
-**Digital Builders** - Where creativity meets career progression
+**ViBE** - Virginia Isn't Boring Experiences
 
 [🚀 **Get Started**](#-quick-start) • [📖 **Learn More**](#-documentation) • [🤝 **Contribute**](#-contributing)
 
 ---
 
-*Last updated: December 2025 | Version: 0.1.0 | Status: In Development*
+*Last updated: January 2026 | Version: 0.1.0 | Status: MVP Complete, Phases 5-9 In Planning*
 
 </div>

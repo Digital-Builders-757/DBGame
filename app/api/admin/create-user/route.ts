@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { createSupabaseAdminClient } from "@/lib/supabase-admin-client";
 
 export async function POST(request: Request) {
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
       // Continue anyway since the auth user was created
     }
 
-    // Step 3: Digital Builders - No role-specific profiles needed
+    // Step 3: ViBE - No role-specific profiles needed
     // All user data is stored in the profiles table
 
     return NextResponse.json({ success: true, user: authData.user }, { status: 200 });

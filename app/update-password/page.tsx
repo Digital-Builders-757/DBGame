@@ -1,4 +1,4 @@
-﻿import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UpdatePasswordForm } from "./update-password-form";
@@ -30,7 +30,7 @@ export default async function UpdatePasswordPage({
       if (error) {
         return (
           <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-70" />
             <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
               <Link
                 href="/login"
@@ -40,20 +40,20 @@ export default async function UpdatePasswordPage({
                 Back to login
               </Link>
 
-              <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+              <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-blue/20">
                 <div className="text-center space-y-3 mb-6">
                   <div className="font-mono text-3xl font-bold">
-                    <span className="text-brand-green">{"{"}</span>
-                    <span className="text-brand-cyan">bl</span>
-                    <span className="text-brand-green">{"}"}</span>
-                    <span className="text-brand-magenta">;</span>
+                    <span className="text-brand-gray">{"{"}</span>
+                    <span className="text-brand-light-blue">Vi</span>
+                    <span className="text-brand-gray">{"}"}</span>
+                    <span className="text-brand-blue">;</span>
                   </div>
                   <h1 className="text-2xl font-bold text-brand-text-primary">Invalid Reset Link</h1>
                   <p className="text-brand-text-secondary">
                     This reset link is expired or invalid. Please request a new link.
                   </p>
                 </div>
-                <Button asChild className="w-full bg-brand-magenta text-black hover:bg-brand-magenta/90 neon-shadow-magenta">
+                <Button asChild className="w-full bg-brand-blue text-white hover:bg-brand-blue/90 neon-shadow-blue">
                   <Link href="/login">Return to Login</Link>
                 </Button>
               </div>
@@ -65,7 +65,7 @@ export default async function UpdatePasswordPage({
       // Token is valid - show password reset form
       return (
         <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-70" />
           <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
             <Link
               href="/login"
@@ -75,13 +75,13 @@ export default async function UpdatePasswordPage({
               Back to login
             </Link>
 
-            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-blue/20">
               <div className="text-center space-y-3 mb-6">
                 <div className="font-mono text-3xl font-bold">
-                  <span className="text-brand-green">{"{"}</span>
-                  <span className="text-brand-cyan">bl</span>
-                  <span className="text-brand-green">{"}"}</span>
-                  <span className="text-brand-magenta">;</span>
+                  <span className="text-brand-gray">{"{"}</span>
+                  <span className="text-brand-light-blue">Vi</span>
+                  <span className="text-brand-gray">{"}"}</span>
+                  <span className="text-brand-blue">;</span>
                 </div>
                 <h1 className="text-2xl font-bold text-brand-text-primary">Set New Password</h1>
                 <p className="text-brand-text-secondary">Create a new password for your account.</p>
@@ -113,7 +113,7 @@ export default async function UpdatePasswordPage({
       // User is authenticated - show password reset form
       return (
         <div className="relative min-h-screen bg-brand-background pt-16 sm:pt-20 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-magenta/10 via-brand-cyan/10 to-brand-green/10 opacity-70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/10 via-brand-light-blue/10 to-brand-gray/10 opacity-70" />
           <div className="mx-auto max-w-screen-sm px-4 py-10 sm:py-14 relative z-10">
             <Link
               href="/login"
@@ -123,13 +123,13 @@ export default async function UpdatePasswordPage({
               Back to login
             </Link>
 
-            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-magenta/20">
+            <div className="rounded-2xl border border-brand-border bg-brand-card/80 backdrop-blur p-8 shadow-2xl shadow-brand-blue/20">
               <div className="text-center space-y-3 mb-6">
                 <div className="font-mono text-3xl font-bold">
-                  <span className="text-brand-green">{"{"}</span>
-                  <span className="text-brand-cyan">bl</span>
-                  <span className="text-brand-green">{"}"}</span>
-                  <span className="text-brand-magenta">;</span>
+                  <span className="text-brand-gray">{"{"}</span>
+                  <span className="text-brand-light-blue">Vi</span>
+                  <span className="text-brand-gray">{"}"}</span>
+                  <span className="text-brand-blue">;</span>
                 </div>
                 <h1 className="text-2xl font-bold text-brand-text-primary">Update Password</h1>
                 <p className="text-brand-text-secondary">Create a new password for your account.</p>

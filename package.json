@@ -1,7 +1,7 @@
 {
-  "name": "digital-builders-game",
+  "name": "vibe-platform",
   "version": "0.1.0",
-  "description": "Text-based MMO for the creative tech community",
+  "description": "ViBE – Virginia Isn't Boring Experiences. Event discovery and attendance platform.",
   "private": true,
   "scripts": {
     "dev": "next dev",

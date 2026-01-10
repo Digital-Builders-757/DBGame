@@ -85,7 +85,7 @@ export type Database = {
             foreignKeyName: "events_created_by_fkey"
             columns: ["created_by"]
             isOneToOne: false
-            referencedRelation: "builder_cards"
+            referencedRelation: "event_pass_view"
             referencedColumns: ["profile_id"]
           },
           {
@@ -104,12 +104,10 @@ export type Database = {
           created_at: string
           display_name: string | null
           id: string
-          level: number
           region: string | null
           role: string
           updated_at: string
           username: string | null
-          xp_total: number
         }
         Insert: {
           avatar_url?: string | null
@@ -117,12 +115,10 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id: string
-          level?: number
           region?: string | null
           role?: string
           updated_at?: string
           username?: string | null
-          xp_total?: number
         }
         Update: {
           avatar_url?: string | null
@@ -130,12 +126,10 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           id?: string
-          level?: number
           region?: string | null
           role?: string
           updated_at?: string
           username?: string | null
-          xp_total?: number
         }
         Relationships: []
       }
@@ -183,66 +177,17 @@ export type Database = {
           },
         ]
       }
-      xp_transactions: {
-        Row: {
-          amount: number
-          created_at: string
-          created_by: string | null
-          description: string | null
-          id: string
-          source_id: string | null
-          source_type: string
-          user_id: string
-        }
-        Insert: {
-          amount: number
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          id?: string
-          source_id?: string | null
-          source_type: string
-          user_id: string
-        }
-        Update: {
-          amount?: number
-          created_at?: string
-          created_by?: string | null
-          description?: string | null
-          id?: string
-          source_id?: string | null
-          source_type?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "xp_transactions_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "builder_cards"
-            referencedColumns: ["profile_id"]
-          },
-          {
-            foreignKeyName: "xp_transactions_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
     }
     Views: {
-      builder_cards: {
+      event_pass_view: {
         Row: {
           avatar_url: string | null
           display_name: string | null
+          events_attended_count: number | null
           last_event_at: string | null
-          level: number | null
           profile_id: string | null
           region: string | null
           username: string | null
-          xp_total: number | null
         }
         Relationships: []
       }

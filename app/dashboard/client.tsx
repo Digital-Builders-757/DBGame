@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { createSupabaseBrowser } from "@/lib/supabase/supabase-browser";
 
-type UserRole = "builder" | "mentor" | "admin" | null;
+type UserRole = "user" | "client" | "admin" | null;
 
 export function DashboardClient({ userRole }: { userRole: UserRole }) {
   const router = useRouter();
@@ -57,14 +57,9 @@ export function DashboardClient({ userRole }: { userRole: UserRole }) {
           <Button onClick={refreshData} variant="outline">
             Refresh Data
           </Button>
-          {userRole === "builder" && (
-            <Button onClick={() => router.push("/builder-card")} variant="outline">
-              View Builder Card
-            </Button>
-          )}
-          {userRole === "mentor" && (
-            <Button onClick={() => router.push("/builder-card")} variant="outline">
-              View Builder Card
+          {(userRole === "user" || userRole === "client") && (
+            <Button onClick={() => router.push("/event-pass")} variant="outline">
+              View Event Pass
             </Button>
           )}
           {userRole === "admin" && (

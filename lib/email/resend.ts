@@ -10,7 +10,7 @@ if (!resendApiKey) {
 
 export const resend = new Resend(resendApiKey);
 
-const FROM = process.env.EMAIL_FROM ?? "admin@digitalbuilders757.com";
+const FROM = process.env.EMAIL_FROM ?? "noreply@vibe.virginia";
 const REPLY_TO = process.env.EMAIL_REPLY_TO ?? FROM;
 
 type SendEmailOptions = {
@@ -43,7 +43,7 @@ export async function sendEmail(opts: SendEmailOptions) {
   const { to, subject, html, text, react } = opts;
 
   const base: BasePayload = {
-    from: `Digital Builders 757 <${FROM}>`,
+    from: `ViBE <${FROM}>`,
     to,
     subject,
     replyTo: REPLY_TO,

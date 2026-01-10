@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 /**
  * Admin Header Component
- * Placeholder for Digital Builders admin interface
+ * ViBE admin interface
  */
 export function AdminHeader() {
   const pathname = usePathname();
@@ -15,7 +15,7 @@ export function AdminHeader() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold font-mono text-brand-text-light neon-glow-primary">Digital Builders Admin</h1>
+            <h1 className="text-2xl font-bold font-mono text-brand-text-light neon-glow-primary">ViBE Admin</h1>
             <p className="text-sm text-brand-text-dark">Administration Dashboard</p>
           </div>
           <nav className="flex gap-4">

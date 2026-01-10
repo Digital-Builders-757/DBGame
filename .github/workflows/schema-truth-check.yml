@@ -31,15 +31,29 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Check if PR is from fork
+        id: fork_check
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+            echo "is_fork=true" >> $GITHUB_OUTPUT
+            echo "⚠️ PR is from fork - Supabase steps will be skipped"
+          else
+            echo "is_fork=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Choose project ref by branch
         id: ref
         run: |
+          if [ -z "${SUPABASE_PROJECT_ID:-}" ]; then
+            echo "❌ SUPABASE_PROJECT_ID secret is not set"
+            exit 1
+          fi
           if [ "${GITHUB_REF##*/}" = "main" ]; then
             echo "ref=${SUPABASE_PROJECT_ID}" >> $GITHUB_OUTPUT
             echo "env=production" >> $GITHUB_OUTPUT
@@ -47,6 +61,7 @@ jobs:
             echo "ref=${SUPABASE_PROJECT_ID}" >> $GITHUB_OUTPUT
             echo "env=development" >> $GITHUB_OUTPUT
           fi
+          echo "✅ Using project ref: $(echo ${SUPABASE_PROJECT_ID} | cut -c1-4)…"
 
       - name: Verify environment variables
         run: |
@@ -71,19 +86,82 @@ jobs:
       - name: Clear Supabase temp cache
         run: rm -rf supabase/.temp || true
 
-      - name: Login to Supabase (npx)
-        run: npx -y supabase@2.67.1 login --token "$SUPABASE_ACCESS_TOKEN"
+      - name: Verify Supabase secrets are available
+        if: steps.fork_check.outputs.is_fork != 'true'
+        run: |
+          if [ -z "${SUPABASE_ACCESS_TOKEN:-}" ]; then
+            echo "❌ SUPABASE_ACCESS_TOKEN secret is not set"
+            echo "💡 Make sure SUPABASE_ACCESS_TOKEN is set in GitHub Secrets"
+            exit 1
+          fi
+          if [ -z "${{ steps.ref.outputs.ref }}" ]; then
+            echo "❌ SUPABASE_PROJECT_ID secret is not set"
+            echo "💡 Make sure SUPABASE_PROJECT_ID is set in GitHub Secrets"
+            exit 1
+          fi
+          echo "✅ Supabase secrets are available"
+          echo "Project Ref prefix: $(echo '${{ steps.ref.outputs.ref }}' | cut -c1-4)…"
+
+      - name: Debug token format (safe)
+        if: steps.fork_check.outputs.is_fork != 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          node -e "const t=process.env.SUPABASE_ACCESS_TOKEN||''; console.log('Token length:', t.length); console.log('Starts with:', t.slice(0,4)); console.log('Has spaces:', /\s/.test(t)); console.log('Has quotes:', /[\"']/.test(t));"
+          if [ -z "${SUPABASE_ACCESS_TOKEN}" ]; then
+            echo "❌ Token is empty!"
+            exit 1
+          fi
+          if [ "${SUPABASE_ACCESS_TOKEN#sbp_}" = "${SUPABASE_ACCESS_TOKEN}" ]; then
+            echo "❌ Token does not start with 'sbp_'"
+            exit 1
+          fi
+          echo "✅ Token format looks valid"
+
+      - name: Setup Supabase CLI
+        if: steps.fork_check.outputs.is_fork != 'true'
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
 
       - name: Link Supabase project (branch-aware)
-        run: npx -y supabase@2.67.1 link --project-ref "${{ steps.ref.outputs.ref }}"
+        if: steps.fork_check.outputs.is_fork != 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ steps.ref.outputs.ref }}
+        run: |
+          echo "🔗 Linking to Supabase project: $(echo '${{ steps.ref.outputs.ref }}' | cut -c1-4)…"
+          supabase link --project-ref "$SUPABASE_PROJECT_REF"
+          echo "✅ Link successful"
+
+      - name: Verify Supabase connection
+        if: steps.fork_check.outputs.is_fork != 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "🔍 Verifying Supabase connection..."
+          supabase projects list > /dev/null 2>&1 || {
+            echo "❌ Failed to verify Supabase connection"
+            echo "💡 Check that SUPABASE_ACCESS_TOKEN is valid and has access to the project"
+            exit 1
+          }
+          echo "✅ Connection verified"
 
       - name: Generate types from remote schema (branch-aware)
-        run: npx -y supabase@2.67.1 gen types typescript --project-id "${{ steps.ref.outputs.ref }}" --schema public > types/temp_schema_types.ts
+        if: steps.fork_check.outputs.is_fork != 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "📝 Generating types from remote schema..."
+          supabase gen types --linked --lang=typescript --schema public > types/temp_schema_types.ts
+          echo "✅ Types generated"
 
       - name: Add banner to generated types
+        if: steps.fork_check.outputs.is_fork != 'true'
         run: node scripts/prepend-autogen-banner.mjs types/temp_schema_types.ts
 
       - name: Normalize both files (strip BOM & normalize line endings)
+        if: steps.fork_check.outputs.is_fork != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -104,6 +182,7 @@ jobs:
           PY
 
       - name: Compare generated types with committed types (filtering noise)
+        if: steps.fork_check.outputs.is_fork != 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -140,8 +219,16 @@ jobs:
           fi
 
       - name: Verify schema & type hygiene (fast)
+        if: steps.fork_check.outputs.is_fork != 'true'
         shell: pwsh
         run: ./scripts/verify-schema-sync.ps1 -SkipDbGeneration -EnforceBanner:$false -SoftFail
+
+      - name: Skip message for fork PRs
+        if: steps.fork_check.outputs.is_fork == 'true'
+        run: |
+          echo "⚠️ Skipping Supabase schema verification for fork PR"
+          echo "💡 Fork PRs don't have access to repository secrets"
+          echo "✅ This is expected behavior - types will be verified when PR is merged"
 
       - name: Cleanup temp files
         if: always()

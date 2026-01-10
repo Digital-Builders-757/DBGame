@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 
 /**
  * Admin User Creation Component
- * Placeholder for Digital Builders admin user creation
+ * ViBE admin user creation
  */
 export default function AdminUserCreation() {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ export default function AdminUserCreation() {
     setIsLoading(true);
 
     try {
-      // TODO: Implement user creation logic for Digital Builders
+      // TODO: Implement user creation logic for ViBE
       await new Promise((resolve) => setTimeout(resolve, 1000));
       setSuccess(true);
       setEmail("");
@@ -42,7 +42,7 @@ export default function AdminUserCreation() {
       <CardHeader>
         <CardTitle>Create New User</CardTitle>
         <CardDescription>
-          Create a new user account for Digital Builders
+          Create a new user account for ViBE
         </CardDescription>
       </CardHeader>
       <CardContent>
