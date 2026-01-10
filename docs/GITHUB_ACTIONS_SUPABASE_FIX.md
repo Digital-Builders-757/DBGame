@@ -27,6 +27,8 @@ cannot save provided token: Invalid access token format
 3. **Token Not Passed:** Token not explicitly passed to CLI commands
 4. **Using `supabase login` in CI:** The `supabase login --token` command tries to "save" the token and can fail with "Invalid access token format" if the token has quotes, spaces, or other formatting issues
 5. **Token Format Issues:** Token may have quotes, spaces, newlines, or comments accidentally included
+6. **Quotes in Secret Value:** Most common cause - if you paste `'sbp_...'` or `"sbp_..."` into GitHub Secrets, GitHub stores the quotes literally, and Supabase CLI rejects it
+7. **Environment Secret Not Loaded:** If using environment secrets but workflow job doesn't have `environment:` declaration, secrets won't load
 
 ---
 
@@ -77,12 +79,46 @@ Make sure these are set in **Settings → Secrets and variables → Actions**:
 3. Copy the token (should start with `sbp_`)
 4. Add to GitHub Secrets as `SUPABASE_ACCESS_TOKEN`
 
-**Critical:** 
-- Token must be from an account that has access to the project
-- **No quotes** - paste exactly: `sbp_7705c225dbb10be18934de2739bcf55f7c47ab63`
-- **No spaces** - ensure no leading/trailing whitespace
-- **No comments** - don't add `# comment` after the token
-- Use **Repository secret**, not Environment secret (unless your job specifies `environment:`)
+**🚨 CRITICAL - Token Format Rules:**
+
+### **ABSOLUTE RULE: NO QUOTES EVER**
+
+When entering the secret value in GitHub:
+
+**❌ WRONG:**
+```
+'sbp_7705c225dbb10be18934de2739bcf55f7c47ab63'
+```
+```
+"sbp_7705c225dbb10be18934de2739bcf55f7c47ab63"
+```
+
+**✅ CORRECT:**
+```
+sbp_7705c225dbb10be18934de2739bcf55f7c47ab63
+```
+
+**GitHub Secrets store the value LITERALLY as typed.**
+- If you type quotes → GitHub stores quotes → Supabase CLI rejects it
+- No single quotes (`'`)
+- No double quotes (`"`)
+- No spaces before/after
+- No newlines
+- No comments (`# comment`)
+
+### **Repository Secrets vs Environment Secrets**
+
+**Option A: Repository Secrets (Recommended - Simplest)**
+- Go to: **Settings → Secrets and variables → Actions → Repository secrets**
+- Works for all jobs automatically
+- No environment scoping needed
+
+**Option B: Environment Secrets (If you need env-specific values)**
+- Go to: **Settings → Secrets and variables → Actions → Environments → develop**
+- **MUST** have `environment: develop` in your workflow job (we have this ✅)
+- Environment name must match exactly: `develop` = `develop` (case-sensitive)
+
+**Current Setup:** Our workflow uses `environment: develop` on line 19, so environment secrets will work, but repository secrets are simpler and recommended.
 
 ---
 
@@ -111,6 +147,50 @@ After updating the workflow:
    - "✅ Link successful"
    - "✅ Connection verified"
    - "✅ Types generated"
+
+## Troubleshooting "Invalid access token format"
+
+If you see `cannot save provided token: Invalid access token format`:
+
+### Step 1: Check Debug Output
+
+Look for the "Debug token format" step in your workflow logs. It will show:
+- Token length (should be ~40-80 characters)
+- Starts with: `sbp_` (should be exactly this)
+- Has spaces: `false` (should be false)
+- Has quotes: `false` (should be false)
+
+If `Has quotes: true` → **Your secret value contains quotes!**
+
+### Step 2: Fix the Secret
+
+1. Go to **Settings → Secrets and variables → Actions**
+2. Click on `SUPABASE_ACCESS_TOKEN`
+3. Click **Update**
+4. **Delete everything** in the Value field
+5. Paste your token **without any quotes**: `sbp_7705c225dbb10be18934de2739bcf55f7c47ab63`
+6. Click **Update secret**
+
+### Step 3: Verify Environment Declaration
+
+If using Environment secrets, verify your workflow has:
+
+```yaml
+jobs:
+  verify-schema:
+    environment: develop  # ← This line must exist and match your environment name
+```
+
+Our workflow has this ✅ on line 19.
+
+### Step 4: Use Repository Secrets (Simpler)
+
+If you want to avoid environment scoping entirely:
+1. Go to **Settings → Secrets and variables → Actions → Repository secrets**
+2. Add `SUPABASE_ACCESS_TOKEN` there instead
+3. Remove `environment: develop` from workflow (or keep it for other secrets)
+
+Repository secrets work for all jobs automatically.
 
 ## Workflow Pattern (Correct CI Usage)
 
