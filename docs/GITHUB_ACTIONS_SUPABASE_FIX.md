@@ -32,6 +32,8 @@ during: npx supabase@2.67.1 link --project-ref *****
 ### 2. Enhanced Token Handling
 - Explicitly pass `SUPABASE_ACCESS_TOKEN` as env var to each step
 - Add verification step to check secrets are available
+- Added connection verification step after linking to catch auth issues early
+- Fixed `gen types` command to use `--project-ref` instead of `--project-id`
 - Better error messages with troubleshooting hints
 
 ### 3. Improved Error Messages
@@ -87,6 +89,8 @@ After updating the workflow:
    - "🔐 Authenticating with Supabase..."
    - "✅ Login successful"
    - "✅ Link successful"
+   - "✅ Connection verified"
+   - "✅ Types generated"
 
 ---
 

@@ -198,8 +198,9 @@ ViBE exists to convert:
 ### **Immediate Actions (This Week):**
 
 1. ✅ **Phase 5 Complete** - Brand polish and identity cleanup
-2. 🔄 **Phase 6 Planning** - Event Discovery MVP design
-3. 🔄 **Phase 6 Execution** - Homepage discovery, filtering, search
+2. ✅ **GitHub Actions Supabase Auth Fix** - Fixed workflow authentication issues
+3. 🔄 **Phase 6 Planning** - Event Discovery MVP design
+4. 🔄 **Phase 6 Execution** - Homepage discovery, filtering, search
 
 ### **Short-term (Weeks 2-3):**
 
@@ -210,6 +211,14 @@ ViBE exists to convert:
 ---
 
 ## 🎉 **Recent Accomplishments (January 2026)**
+
+### **GitHub Actions Supabase Authentication Fix** ✅
+
+- ✅ Fixed `gen types` command to use `--project-ref` instead of `--project-id`
+- ✅ Added connection verification step after linking to catch auth issues early
+- ✅ Enhanced error messages with troubleshooting hints
+- ✅ Updated workflow documentation (`docs/GITHUB_ACTIONS_SUPABASE_FIX.md`)
+- ✅ All Supabase CLI commands now properly pass `SUPABASE_ACCESS_TOKEN` via env vars
 
 ### **Phase 5: Product Polish & Identity** ✅
 

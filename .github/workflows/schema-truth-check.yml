@@ -120,13 +120,26 @@ jobs:
           npx -y supabase@2.67.1 link --project-ref "${{ steps.ref.outputs.ref }}"
           echo "✅ Link successful"
 
+      - name: Verify Supabase connection
+        if: steps.fork_check.outputs.is_fork != 'true'
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          echo "🔍 Verifying Supabase connection..."
+          npx -y supabase@2.67.1 projects list > /dev/null 2>&1 || {
+            echo "❌ Failed to verify Supabase connection"
+            echo "💡 Check that SUPABASE_ACCESS_TOKEN is valid and has access to the project"
+            exit 1
+          }
+          echo "✅ Connection verified"
+
       - name: Generate types from remote schema (branch-aware)
         if: steps.fork_check.outputs.is_fork != 'true'
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
         run: |
           echo "📝 Generating types from remote schema..."
-          npx -y supabase@2.67.1 gen types typescript --project-id "${{ steps.ref.outputs.ref }}" --schema public > types/temp_schema_types.ts
+          npx -y supabase@2.67.1 gen types typescript --project-ref "${{ steps.ref.outputs.ref }}" --schema public > types/temp_schema_types.ts
           echo "✅ Types generated"
 
       - name: Add banner to generated types
