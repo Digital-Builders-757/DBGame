@@ -21,15 +21,17 @@ npm run build
 
 ## **3. COMMON ERRORS TO AVOID**
 
-- **Supabase CLI Unauthorized in GitHub Actions:** `Unexpected error retrieving remote project status: {"message":"Unauthorized"}`
-  - **Root Cause:** Missing or invalid `SUPABASE_ACCESS_TOKEN` secret, or PR from fork (secrets not available)
+- **Supabase CLI Unauthorized in GitHub Actions:** `Unexpected error retrieving remote project status: {"message":"Unauthorized"}` or `cannot save provided token: Invalid access token format`
+  - **Root Cause:** Missing/invalid `SUPABASE_ACCESS_TOKEN` secret, token has quotes/spaces, using `supabase login` in CI, or wrong flag for `gen types`
   - **Fix:** 
     1. Ensure `SUPABASE_ACCESS_TOKEN` is set in GitHub Secrets (Settings → Secrets → Actions)
     2. Token must be from account with access to the project (get from https://supabase.com/dashboard/account/tokens)
-    3. Ensure `SUPABASE_PROJECT_ID` is also set in GitHub Secrets
-    4. Workflow now skips for fork PRs automatically (expected behavior)
-    5. Token must be explicitly passed as env var: `env: SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}`
-  - **Prevention:** Workflow includes fork check, credential verification step, and explicit env var passing to all Supabase CLI commands
+    3. **NO QUOTES** - paste exactly: `sbp_7705c225dbb10be18934de2739bcf55f7c47ab63` (no `'` or `"`)
+    4. **NO SPACES** - ensure no leading/trailing whitespace
+    5. Use `supabase/setup-cli@v1` action (do NOT use `supabase login` in CI)
+    6. Use `supabase gen types --linked` (not `--project-ref` - that flag doesn't exist for gen types)
+    7. Token must be explicitly passed as env var: `env: SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}`
+  - **Prevention:** Workflow includes fork check, token format debug step, and explicit env var passing to all Supabase CLI commands
   - **Note:** Fork PRs will skip Supabase steps gracefully - this is expected and not an error
 - **Schema Sync Errors:** `types/supabase.ts is out of sync with remote schema` or `types/supabase.ts is stale`
   - **Fix:** Run `npm run types:regen` (automatically loads `SUPABASE_PROJECT_ID` from `.env.local`)
@@ -88,6 +90,10 @@ npm run build
   - **Root Cause:** `types/database.ts` was regenerated from the dev project while `main` CI compares against the production Supabase project.
   - **Fix:** Before merging to `main`, set `SUPABASE_PROJECT_ID=<prod_project_ref>`, apply pending migrations to production (`npx supabase@2.67.1 db push --db-url ...`), then run `npm run types:regen:prod`. Commit the regenerated file only after prod schema matches.
   - **Prevention:** Never run `npm run types:regen` right before a production merge unless you are targeting the production project ref. Keep a checklist item for "regen types from prod + run schema truth" in every release PR.
+- **Migration Policy Already Exists Error:** `ERROR: policy "Admins can view all events" already exists`
+  - **Root Cause:** Migration file tries to CREATE a policy that was already created in a previous migration
+  - **Fix:** Add `DROP POLICY IF EXISTS "Policy Name" ON table_name;` before the `CREATE POLICY` statement in the migration file
+  - **Prevention:** Always check if policies exist in previous migrations before creating them. Use `DROP POLICY IF EXISTS` to be safe
 - **.env Encoding Errors:** `unexpected character '»' in variable name` when running Supabase CLI
   - **Root Cause:** `.env.local` saved as UTF-8 **with BOM**; the hidden BOM bytes (`ï»¿`) confuse the CLI dotenv parser.
   - **Fix:** In VS Code choose “File → Save with Encoding → UTF-8” (no BOM) for `.env.local`. Before running CLI commands also set `SUPABASE_INTERNAL_NO_DOTENV=1` or temporarily rename `.env.local` to keep smart quotes/BOM characters from breaking the parser.

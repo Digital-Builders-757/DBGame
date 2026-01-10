@@ -86,6 +86,11 @@ CREATE POLICY "Clients and admins can insert events"
 -- Clients can see their own events (including drafts)
 -- Admins can see all events
 -- Public events remain visible to all
+-- NOTE: These policies already exist from migrate_role_system.sql, so we drop and recreate them
+
+-- Drop existing policies if they exist (from previous migration)
+DROP POLICY IF EXISTS "Clients can view own events" ON public.events;
+DROP POLICY IF EXISTS "Admins can view all events" ON public.events;
 
 -- Clients can view their own events (including drafts)
 CREATE POLICY "Clients can view own events"

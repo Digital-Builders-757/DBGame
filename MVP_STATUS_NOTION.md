@@ -214,8 +214,12 @@ ViBE exists to convert:
 
 ### **GitHub Actions Supabase Authentication Fix** ✅
 
-- ✅ Fixed `gen types` command to use `--project-ref` instead of `--project-id`
-- ✅ Added connection verification step after linking to catch auth issues early
+- ✅ Fixed `gen types` command to use `--linked` instead of `--project-ref` (correct flag)
+- ✅ Removed problematic `supabase login` step that caused "Invalid access token format" errors
+- ✅ Added `supabase/setup-cli@v1` action for proper CLI installation
+- ✅ Added token format debug step to catch issues early
+- ✅ Updated Node version from 18 to 20
+- ✅ Fixed migration policy conflict (added DROP POLICY IF EXISTS for duplicate policies)
 - ✅ Enhanced error messages with troubleshooting hints
 - ✅ Updated workflow documentation (`docs/GITHUB_ACTIONS_SUPABASE_FIX.md`)
 - ✅ All Supabase CLI commands now properly pass `SUPABASE_ACCESS_TOKEN` via env vars
